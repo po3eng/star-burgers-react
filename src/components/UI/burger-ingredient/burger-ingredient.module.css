@@ -1,0 +1,28 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    width: 240px;
+    height: 120px;
+}
+
+.wrap {
+    width: 272px;
+    cursor: pointer;
+}
+
+.counterWraper {
+    position: relative;
+}
+
+.name {
+    height: 48px;
+}
+
+.caption {
+    text-align: center;
+}

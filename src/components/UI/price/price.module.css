@@ -1,0 +1,21 @@
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.medium>svg {
+    width: 32px;
+    height: 32px;
+}
+
+.default>svg {
+    width: 24px;
+    height: 24px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

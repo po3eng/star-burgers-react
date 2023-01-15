@@ -1,0 +1,10 @@
+.totalBurger {
+    display: flex;
+    flex-direction: column;
+}
+
+.wraper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
