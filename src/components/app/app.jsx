@@ -12,7 +12,12 @@ function App() {
 
   useEffect(() => {
     fetch(`${HOST}/api/ingredients`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      })
       .then((json) => setIngredients(json.data))
       .catch(() => console.log("Ошибка запроса данных"));
   }, []);

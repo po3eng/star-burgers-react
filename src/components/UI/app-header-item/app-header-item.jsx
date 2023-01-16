@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 
 const AppHeaderItem = ({ text, children }) => {
   return (
-    <Button htmlType="button" type="secondary" size="medium">
-      <div className={classes.appHeaderItemButton}>
-        {children}
-        {text}
-      </div>
-    </Button>
+    <a href="/">
+      <Button htmlType="button" type="secondary" size="medium">
+        <div className={classes.appHeaderItemButton}>
+          {children}
+          {text}
+        </div>
+      </Button>
+    </a>
   );
 };
 

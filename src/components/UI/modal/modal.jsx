@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 
-const ModalPortal = ({ children, header, handleCloseModal }) => {
+const Modal = ({ children, header, handleCloseModal }) => {
   useEffect(() => {
     const closeModalOnEscape = (e) =>
       e.key === "Escape" ? handleCloseModal() : null;
@@ -31,9 +31,9 @@ const ModalPortal = ({ children, header, handleCloseModal }) => {
   );
 };
 
-ModalPortal.propTypes = {
+Modal.propTypes = {
   children: PropTypes.element,
   handleCloseModal: PropTypes.func,
   header: PropTypes.string,
 };
-export default ModalPortal;
+export default Modal;

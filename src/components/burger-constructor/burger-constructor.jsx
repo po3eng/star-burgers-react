@@ -5,7 +5,7 @@ import {
   ConstructorElement,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import Modal from "../UI/modal/modal";
 import Price from "../UI/price/price";
 import OrderDetails from "../UI/order-details/order-details";
 import ListConstructorIngredients from "../UI/list-constructor-ingredients/list-constructor-ingredients";
@@ -24,7 +24,11 @@ const BurgerConstructor = ({ ingredients, bun }) => {
 
   return (
     <>
-      {modal && <OrderDetails handleCloseModal={() => setModal(false)} />}
+      {modal && (
+        <Modal handleCloseModal={() => setModal(false)}>
+          <OrderDetails />
+        </Modal>
+      )}
       <div className="pl-4 pr-4">
         <div className={classes.totalBurger}>
           <ConstructorElement

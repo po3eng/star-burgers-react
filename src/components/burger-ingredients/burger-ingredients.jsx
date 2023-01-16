@@ -4,13 +4,12 @@ import IngredientsTab from "../UI/tab/tab";
 import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ingredients";
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import PropsTypes from "prop-types";
-
+import Modal from "../UI/modal/modal";
 const BurgerIngredients = ({ ingredients }) => {
   const [modal, setModal] = useState(false);
   const [ingredient, setIngredient] = useState({});
   const [current, setCurrent] = useState("Булки");
 
-  // FIXME: useCallback
   const getIngredients = useCallback(
     (type) => {
       return ingredients.filter((c) => c.type === type);
@@ -35,11 +34,14 @@ const BurgerIngredients = ({ ingredients }) => {
   return (
     <>
       {modal && (
-        <IngredientDetails
-          ingredient={ingredient}
+        <Modal
+          header="Детали ингредиента"
           handleCloseModal={() => setModal(false)}
-        />
+        >
+          <IngredientDetails ingredient={ingredient} />
+        </Modal>
       )}
+      
       <section>
         <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
       </section>

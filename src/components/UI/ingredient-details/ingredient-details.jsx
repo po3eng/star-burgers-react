@@ -3,22 +3,17 @@ import ListNutrients from "../list-nutrients/list-nutrients";
 import PropTypes from "prop-types";
 import ModalPortal from "../modal/modal";
 
-const IngredientDetails = ({ ingredient, handleCloseModal }) => {
+const IngredientDetails = ({ ingredient }) => {
   return (
-    <ModalPortal
-      header="Детали ингредиента"
-      handleCloseModal={handleCloseModal}
-    >
-      <div className={classes.content}>
-        <img
-          className={classes.image}
-          src={ingredient.image}
-          alt={ingredient.name}
-        />
-        <p className="text text_type_main-medium pt-4">{ingredient.name}</p>
-        <ListNutrients ingredient={ingredient}></ListNutrients>
-      </div>
-    </ModalPortal>
+    <div className={classes.content}>
+      <img
+        className={classes.image}
+        src={ingredient.image}
+        alt={ingredient.name}
+      />
+      <p className="text text_type_main-medium pt-4">{ingredient.name}</p>
+      <ListNutrients ingredient={ingredient}></ListNutrients>
+    </div>
   );
 };
 

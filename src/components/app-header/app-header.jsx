@@ -26,7 +26,9 @@ const AppHeader = () => {
         </div>
       </nav>
       <div className={classes.logo}>
-        <Logo />
+        <a href="/">
+          <Logo />
+        </a>
       </div>
     </header>
   );
