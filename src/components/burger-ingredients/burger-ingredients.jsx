@@ -5,6 +5,7 @@ import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ing
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import PropsTypes from "prop-types";
 import Modal from "../UI/modal/modal";
+import { TYPES } from "../../utils/constants";
 const BurgerIngredients = ({ ingredients }) => {
   const [modal, setModal] = useState(false);
   const [ingredient, setIngredient] = useState({});
@@ -25,12 +26,6 @@ const BurgerIngredients = ({ ingredients }) => {
     [setModal, setIngredient],
   );
 
-  const TYPES = [
-    { id: "bun", name: "Булки" },
-    { id: "sauce", name: "Соусы" },
-    { id: "main", name: "Начинки" },
-  ];
-
   return (
     <>
       {modal && (
@@ -41,7 +36,7 @@ const BurgerIngredients = ({ ingredients }) => {
           <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
-      
+
       <section>
         <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
       </section>

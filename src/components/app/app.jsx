@@ -1,42 +1,24 @@
+import { useState, useEffect } from "react";
+
 import classes from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import totalIngredients from "../../utils/totalIngredients";
-import { useState, useEffect } from "react";
+import { OrederContex } from "../services/BurgersContext";
+import api from "../../utils/api";
+import { ORDER_INGREDIENTS } from "../../utils/constants";
 
 function App() {
-  const HOST = "https://norma.nomoreparties.space";
-
   const [ingredients, setIngredients] = useState([]);
+  const orderState = useState(ORDER_INGREDIENTS);
 
   useEffect(() => {
-    fetch(`${HOST}/api/ingredients`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then((json) => setIngredients(json.data))
-      .catch(() => console.log("Ошибка запроса данных"));
+    const res = api.getIngredients();
+    res.then((json) => {
+      setIngredients(json);
+    });
   }, []);
-
-  const bun = {
-    _id: "60666c42cc7b410027a1a9b1",
-    name: "Краторная булка N-200i",
-    type: "bun",
-    proteins: 80,
-    fat: 24,
-    carbohydrates: 53,
-    calories: 420,
-    price: 1255,
-    image: "https://code.s3.yandex.net/react/code/bun-02.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-    image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-    __v: 0,
-  };
-
+  
   return (
     <div className={classes.app}>
       <AppHeader />
@@ -45,7 +27,9 @@ function App() {
           <BurgerIngredients ingredients={ingredients} />
         </div>
         <div className={`${classes.col2} pt-25`}>
-          <BurgerConstructor ingredients={totalIngredients} bun={bun} />
+          <OrederContex.Provider value={orderState}>
+            <BurgerConstructor />
+          </OrederContex.Provider>
         </div>
       </main>
     </div>
