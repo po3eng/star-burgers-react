@@ -6,21 +6,36 @@ import Modal from "../UI/modal/modal";
 import Price from "../UI/price/price";
 import OrderDetails from "../UI/order-details/order-details";
 import Burger from "../UI/burger/burger";
+import api from "../../utils/api";
 
 const BurgerConstructor = () => {
+
   const [modal, setModal] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(0);
   const [ingredients] = useContext(OrederContex);
+
   const totalPrice = useMemo(() => {
     return ingredients.reduce(
       (accumulator, item) => accumulator + item.price,
       0,
     );
   });
+  
+  const sendOrder = () => {
+    const resonse = api.setOrder(ingredients.map((item) => item._id));
+    resonse.then((json) => {
+      if (json.success) {
+        setOrderNumber(json.order.number);
+        setModal(true);
+      }
+    });
+  };
+
   return (
     <>
       {modal && (
         <Modal handleCloseModal={() => setModal(false)}>
-          <OrderDetails />
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
       <div className="pl-4 pr-4">
@@ -31,7 +46,7 @@ const BurgerConstructor = () => {
             htmlType="button"
             type="primary"
             size="medium"
-            onClick={() => setModal(true)}
+            onClick={() => sendOrder()}
           >
             Оформить заказ
           </Button>

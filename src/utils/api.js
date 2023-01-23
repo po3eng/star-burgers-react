@@ -34,7 +34,7 @@ class API {
         }
         return Promise.reject(`Ошибка ${res.status}`);
       })
-      .then((json) => json.data)
+      .then((json) => json)
       .catch((e) => {
         console.log("Ошибка отправки данных");
         return [];
@@ -46,7 +46,7 @@ class API {
   }
 
   setOrder(ingredients) {
-    return this.post("/api/orders", ingredients);
+    return this.post("/api/orders", {ingredients});
   }
   
 }

@@ -3,7 +3,7 @@ const HOST = "https://norma.nomoreparties.space";
 
 const ORDER_INGREDIENTS = [
   {
-    _id: "60666c42cc7b410027a1a9b1",
+    _id: "60d3b41abdacab0026a733c6",
     name: "Краторная булка N-200i",
     type: "bun",
     proteins: 80,
@@ -17,7 +17,7 @@ const ORDER_INGREDIENTS = [
     __v: 0,
   },
   {
-    _id: "60666c42cc7b410027a1a9b1",
+    _id: "60d3b41abdacab0026a733c6",
     name: "Краторная булка N-200i",
     type: "bun",
     proteins: 80,
@@ -32,7 +32,7 @@ const ORDER_INGREDIENTS = [
   },
 
   {
-    _id: "60666c42cc7b410027a1a9b9",
+    _id: "60d3b41abdacab0026a733ce",
     name: "Соус традиционный галактический",
     type: "sauce",
     proteins: 42,
@@ -46,7 +46,7 @@ const ORDER_INGREDIENTS = [
     __v: 0,
   },
   {
-    _id: "60666c42cc7b410027a1a9b4",
+    _id: "60d3b41abdacab0026a733c9",
     name: "Мясо бессмертных моллюсков Protostomia",
     type: "main",
     proteins: 433,
@@ -60,7 +60,7 @@ const ORDER_INGREDIENTS = [
     __v: 0,
   },
   {
-    _id: "60666c42cc7b410027a1a9bc",
+    _id: "60d3b41abdacab0026a733d1",
     name: "Плоды Фалленианского дерева",
     type: "main",
     proteins: 20,
@@ -74,7 +74,7 @@ const ORDER_INGREDIENTS = [
     __v: 0,
   },
   {
-    _id: "60666c42cc7b410027a1a9bb",
+    _id: "60d3b41abdacab0026a733d0",
     name: "Хрустящие минеральные кольца",
     type: "main",
     proteins: 808,
@@ -90,7 +90,7 @@ const ORDER_INGREDIENTS = [
     __v: 0,
   },
   {
-    _id: "60666c42cc7b410027a1a9be",
+    _id: "60d3b41abdacab0026a733d3",
     name: "Мини-салат Экзо-Плантаго",
     type: "main",
     proteins: 1,
@@ -104,7 +104,7 @@ const ORDER_INGREDIENTS = [
     __v: 0,
   },
   {
-    _id: "60666c42cc7b410027a1a9bd",
+    _id: "60d3b41abdacab0026a733d2",
     name: "Кристаллы марсианских альфа-сахаридов",
     type: "main",
     proteins: 234,
@@ -119,9 +119,10 @@ const ORDER_INGREDIENTS = [
   },
 ];
 
-const TYPES = [
+const TYPES_OF_INGREDIENTS = [
   { id: "bun", name: "Булки" },
   { id: "sauce", name: "Соусы" },
   { id: "main", name: "Начинки" },
 ];
-export { HOST, ORDER_INGREDIENTS, TYPES };
+
+export { HOST, ORDER_INGREDIENTS, TYPES_OF_INGREDIENTS };

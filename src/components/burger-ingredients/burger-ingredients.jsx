@@ -5,8 +5,10 @@ import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ing
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import PropsTypes from "prop-types";
 import Modal from "../UI/modal/modal";
-import { TYPES } from "../../utils/constants";
+import { TYPES_OF_INGREDIENTS } from "../../utils/constants";
+
 const BurgerIngredients = ({ ingredients }) => {
+
   const [modal, setModal] = useState(false);
   const [ingredient, setIngredient] = useState({});
   const [current, setCurrent] = useState("Булки");
@@ -41,10 +43,10 @@ const BurgerIngredients = ({ ingredients }) => {
         <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
       </section>
       <section>
-        <IngredientsTab types={TYPES} current={current} change={setCurrent} />
+        <IngredientsTab types={TYPES_OF_INGREDIENTS} current={current} change={setCurrent} />
       </section>
       <section className={`${classes.scrollSection} custom-scroll`}>
-        {TYPES.map((type) => (
+        {TYPES_OF_INGREDIENTS.map((type) => (
           <section className="mt-10" key={type.id}>
             <ListBurgerIngredients
               type={type}
