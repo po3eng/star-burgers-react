@@ -6,20 +6,27 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { BurgerContext } from "../services/burgers-context";
 import { PreloaderContext } from "../services/preloader-context";
-import {
-  PreloaderProvider,
-  usePreloader,
-  usePreloaderState,
-  usePreloaderDispatch,
-} from "../services/preloader-provider";
 import api from "../../utils/api";
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
 
-  const dispatch = usePreloaderDispatch();
-  const preloader = usePreloaderState();
-  console.log(preloader);
+  const  preloaderReducer = (state, action)=> {
+    switch (action.type) {
+      case "show": {
+        return { isShow: true };
+      }
+      case "hide": {
+        return { isShow: false };
+      }
+      default: {
+        throw new Error(`Unhandled action type: ${action.type}`);
+      }
+    }
+  }
+
+  const [preloader, dispatch] = useReducer(preloaderReducer, { isShow: false });
+
   useEffect(() => {
     dispatch({ type: "show" });
     const resonse = api.getIngredients();
@@ -37,8 +44,8 @@ function App() {
 
   return (
     <BurgerContext.Provider value={ingredients}>
-      {preloader.isShow && <Preloader></Preloader>}
-      <PreloaderProvider>
+      <PreloaderContext.Provider value={dispatch}>
+        {preloader.isShow && <Preloader></Preloader>}
         <div className={classes.app}>
           <AppHeader />
           <main className={classes.content}>
@@ -50,7 +57,7 @@ function App() {
             </div>
           </main>
         </div>
-      </PreloaderProvider>
+      </PreloaderContext.Provider>
     </BurgerContext.Provider>
   );
 }

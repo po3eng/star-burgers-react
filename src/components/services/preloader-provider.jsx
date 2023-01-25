@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
-const PreloaderStateContext = createContext({ type: "hide" });
-const PreloaderDispatchContext = createContext(() => {});
+const PreloaderStateContext = createContext();
+const PreloaderDispatchContext = createContext();
 
 const preloaderReducer = (state, action) => {
   switch (action.type) {
