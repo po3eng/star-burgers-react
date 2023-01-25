@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import classes from "./burger-ingredients.module.css";
 import IngredientsTab from "../UI/tab/tab";
 import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ingredients";
@@ -6,9 +6,10 @@ import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import PropsTypes from "prop-types";
 import Modal from "../UI/modal/modal";
 import { TYPES_OF_INGREDIENTS } from "../../utils/constants";
+import { BurgerContext } from "../services/burgers-context";
 
-const BurgerIngredients = ({ ingredients }) => {
-
+const BurgerIngredients = () => {
+  const ingredients = useContext(BurgerContext);
   const [modal, setModal] = useState(false);
   const [ingredient, setIngredient] = useState({});
   const [current, setCurrent] = useState("Булки");
@@ -43,7 +44,11 @@ const BurgerIngredients = ({ ingredients }) => {
         <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
       </section>
       <section>
-        <IngredientsTab types={TYPES_OF_INGREDIENTS} current={current} change={setCurrent} />
+        <IngredientsTab
+          types={TYPES_OF_INGREDIENTS}
+          current={current}
+          change={setCurrent}
+        />
       </section>
       <section className={`${classes.scrollSection} custom-scroll`}>
         {TYPES_OF_INGREDIENTS.map((type) => (
@@ -62,7 +67,4 @@ const BurgerIngredients = ({ ingredients }) => {
   );
 };
 
-BurgerIngredients.propsTypes = {
-  ingredients: PropsTypes.array.isRequired,
-};
 export default BurgerIngredients;

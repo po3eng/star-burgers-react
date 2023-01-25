@@ -1,18 +1,16 @@
-import { useContext, useCallback, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import Bun from "../bun/bun";
 import ListConstructorIngredients from "../list-constructor-ingredients/list-constructor-ingredients";
-import { OrederContex } from "../../services/BurgersContext";
+import { BurgerContext } from "../../services/burgers-context";
 const Burger = () => {
-  const [ingredients] = useContext(OrederContex);
 
+  const ingredients = useContext(BurgerContext);
 
   const bun = useMemo(() => ingredients.find((i) => i.type === "bun"));
 
   const orederIngredients = useMemo(() =>
     ingredients.filter((i) => i.type !== "bun"),
   );
-
-
 
   return (
     <>

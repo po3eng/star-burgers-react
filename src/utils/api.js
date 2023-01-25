@@ -1,54 +1,23 @@
 import { HOST } from "./constants.js";
-
+import { request } from "./request.js";
 class API {
-  async get(url = "") {
-    return fetch(`${HOST}${url}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then((json) => json.data)
-      .catch((e) => {
-        console.log("Ошибка запроса данных");
-        return [];
-      });
+  
+  getIngredients() {
+    return request(`${HOST}/api/ingredients`);
   }
 
-  async post(url = "", data = {}) {
+  setOrder(ingredients) {
     const payload = {
       method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ingredients }),
     };
-
-    return fetch(`${HOST}${url}`, payload)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then((json) => json)
-      .catch((e) => {
-        console.log("Ошибка отправки данных");
-        return [];
-      });
+    return request(`${HOST}/api/orders`, payload);
   }
-
-  getIngredients() {
-    return this.get("/api/ingredients");
-  }
-
-  setOrder(ingredients) {
-    return this.post("/api/orders", {ingredients});
-  }
-  
 }
+
 const api = new API();
 export default api;

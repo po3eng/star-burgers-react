@@ -1,38 +1,64 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useReducer } from "react";
+import Preloader from "../UI/preloader/preloader";
 import classes from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { OrederContex } from "../services/BurgersContext";
+import { BurgerContext } from "../services/burgers-context";
+import { PreloaderContext } from "../services/preloader-context";
 import api from "../../utils/api";
-import { ORDER_INGREDIENTS } from "../../utils/constants";
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
-  const orderState = useState(ORDER_INGREDIENTS);
+
+  // TODO: PreoloaderDispatchProvider
+  function preloaderReducer(state, action) {
+    switch (action.type) {
+      case "show": {
+        return { isShow: true };
+      }
+      case "hide": {
+        return { isShow: false };
+      }
+      default: {
+        throw new Error(`Unhandled action type: ${action.type}`);
+      }
+    }
+  }
+  const [preloader, dispatch] = useReducer(preloaderReducer, { isShow: false });
 
   useEffect(() => {
-    const res = api.getIngredients();
-    res.then((json) => {
-      setIngredients(json);
-    });
+    dispatch({ type: "show" });
+    const resonse = api.getIngredients();
+    resonse
+      .then((json) => {
+        json.success && setIngredients(json.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+      .finally(() => {
+        dispatch({ type: "hide" });
+      });
   }, []);
-  
+
   return (
-    <div className={classes.app}>
-      <AppHeader />
-      <main className={classes.content}>
-        <div className={classes.col2}>
-          <BurgerIngredients ingredients={ingredients} />
+    <BurgerContext.Provider value={ingredients}>
+      <PreloaderContext.Provider value={dispatch}>
+        {preloader.isShow && <Preloader></Preloader>}
+        <div className={classes.app}>
+          <AppHeader />
+          <main className={classes.content}>
+            <div className={classes.col2}>
+              <BurgerIngredients />
+            </div>
+            <div className={`${classes.col2} pt-25`}>
+              <BurgerConstructor />
+            </div>
+          </main>
         </div>
-        <div className={`${classes.col2} pt-25`}>
-          <OrederContex.Provider value={orderState}>
-            <BurgerConstructor />
-          </OrederContex.Provider>
-        </div>
-      </main>
-    </div>
+      </PreloaderContext.Provider>
+    </BurgerContext.Provider>
   );
 }
 
