@@ -8,7 +8,7 @@ const IngredientsTab = ({ types, current, change }) => {
       {types.map((type) => (
         <Tab
           key={type.id}
-          value={type.name}
+          value={type.id}
           active={current === type.name}
           onClick={change}
         >

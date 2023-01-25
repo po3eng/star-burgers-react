@@ -120,9 +120,9 @@ const ORDER_INGREDIENTS = [
 ];
 
 const TYPES_OF_INGREDIENTS = [
-  { id: "bun", name: "Булки" },
-  { id: "sauce", name: "Соусы" },
-  { id: "main", name: "Начинки" },
+  { id: "bun", name: "Булки", ref: null },
+  { id: "sauce", name: "Соусы", ref: null },
+  { id: "main", name: "Начинки", ref: null },
 ];
 
 export { HOST, ORDER_INGREDIENTS, TYPES_OF_INGREDIENTS };

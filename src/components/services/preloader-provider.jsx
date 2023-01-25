@@ -51,4 +51,4 @@ const PreloaderProvider = ({ children }) => {
   );
 };
 
-export { PreloaderProvider, usePreloader,usePreloaderState, usePreloaderDispatch };
+export { PreloaderProvider, usePreloader };

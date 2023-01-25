@@ -11,7 +11,7 @@ import api from "../../utils/api";
 function App() {
   const [ingredients, setIngredients] = useState([]);
 
-  const  preloaderReducer = (state, action)=> {
+  const preloaderReducer = (state, action) => {
     switch (action.type) {
       case "show": {
         return { isShow: true };
@@ -23,7 +23,7 @@ function App() {
         throw new Error(`Unhandled action type: ${action.type}`);
       }
     }
-  }
+  };
 
   const [preloader, dispatch] = useReducer(preloaderReducer, { isShow: false });
 
@@ -34,9 +34,7 @@ function App() {
       .then((json) => {
         json.success && setIngredients(json.data);
       })
-      .catch((e) => {
-        console.error(e);
-      })
+      .catch(console.error)
       .finally(() => {
         dispatch({ type: "hide" });
       });

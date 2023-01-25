@@ -34,7 +34,9 @@ const BurgerConstructor = () => {
         }
       })
       .catch(console.error)
-      .finally(dispatch({ type: "hide" }));
+      .finally(()=>{
+        dispatch({ type: "hide" })
+      });
   };
 
   return (
