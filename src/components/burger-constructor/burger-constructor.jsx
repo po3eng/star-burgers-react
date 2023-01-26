@@ -1,61 +1,60 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useContext, useMemo } from "react";
+import { BurgerContext } from "../services/burgers-context";
+import { PreloaderContext } from "../services/preloader-context";
 import classes from "./burger.constructor.module.css";
-import PropTypes from "prop-types";
-import {
-  ConstructorElement,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../UI/modal/modal";
 import Price from "../UI/price/price";
 import OrderDetails from "../UI/order-details/order-details";
-import ListConstructorIngredients from "../UI/list-constructor-ingredients/list-constructor-ingredients";
+import Burger from "../UI/burger/burger";
+import api from "../../utils/api";
 
-const BurgerConstructor = ({ ingredients, bun }) => {
+const BurgerConstructor = () => {
   const [modal, setModal] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(0);
 
-  const getPrice = useCallback((ingredients) => {
+  const ingredients = useContext(BurgerContext);
+  const dispatch = useContext(PreloaderContext);
+
+  const totalPrice = useMemo(() => {
     return ingredients.reduce(
       (accumulator, item) => accumulator + item.price,
       0,
     );
   });
 
-  const totalPrice = useMemo(() => getPrice([...ingredients, bun, bun]));
+  const sendOrder = () => {
+    dispatch({ type: "show" });
+    const resonse = api.setOrder(ingredients.map((item) => item._id));
+    resonse
+      .then((json) => {
+        if (json.success) {
+          setOrderNumber(json.order.number);
+          setModal(true);
+        }
+      })
+      .catch(console.error)
+      .finally(()=>{
+        dispatch({ type: "hide" })
+      });
+  };
 
   return (
     <>
       {modal && (
         <Modal handleCloseModal={() => setModal(false)}>
-          <OrderDetails />
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
       <div className="pl-4 pr-4">
-        <div className={classes.totalBurger}>
-          <ConstructorElement
-            type="top"
-            extraClass="mb-2 ml-6"
-            isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-          <ListConstructorIngredients ingredients={ingredients} />
-          <ConstructorElement
-            type="bottom"
-            extraClass="mt-2 ml-6"
-            isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </div>
+        <Burger />
         <div className={`${classes.wraper} pt-10`}>
           <Price size="medium" price={totalPrice} />
           <Button
             htmlType="button"
             type="primary"
             size="medium"
-            onClick={() => setModal(true)}
+            onClick={() => sendOrder()}
           >
             Оформить заказ
           </Button>
@@ -65,8 +64,4 @@ const BurgerConstructor = ({ ingredients, bun }) => {
   );
 };
 
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.array.isRequired,
-  bun: PropTypes.object.isRequired,
-};
 export default BurgerConstructor;

@@ -1,13 +1,12 @@
 import classes from "./order-details.module.css";
 import doneImg from "../../../images/done.svg";
 import PropTypes from "prop-types";
-import ModalPortal from "../modal/modal";
 
-const OrderDetails = () => {
+const OrderDetails = ({ orderNumber }) => {
   return (
     <div className={classes.content}>
       <p className={classes.order_number + " text text_type_digits-large"}>
-        034536
+        {orderNumber}
       </p>
       <p className="text text_type_main-medium pt-8 pb-15">
         Идентификатор заказа
@@ -22,5 +21,10 @@ const OrderDetails = () => {
     </div>
   );
 };
-
+OrderDetails.defaultProps = {
+  orderNumber: 0,
+};
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.number,
+};
 export default OrderDetails;

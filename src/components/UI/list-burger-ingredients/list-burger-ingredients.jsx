@@ -4,8 +4,10 @@ import PropTypes from "prop-types";
 
 const ListBurgerIngredients = ({ type, ingredients, onClick }) => {
   return (
-    <div>
-      <p className="text text_type_main-medium">{type.name}</p>
+    <>
+      <p id={type.id} className="text text_type_main-medium">
+        {type.name}
+      </p>
       <div className={` ${classes.wraper} pt-6 ml-4`}>
         {ingredients.map((item, idx) => (
           <BurgerIngredient
@@ -17,7 +19,7 @@ const ListBurgerIngredients = ({ type, ingredients, onClick }) => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
@@ -26,7 +28,5 @@ ListBurgerIngredients.propTypes = {
   ingredients: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
 };
-
-
 
 export default ListBurgerIngredients;
