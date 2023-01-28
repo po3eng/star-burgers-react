@@ -1,7 +1,13 @@
 import {
+  CLEAR_CURRENT_INGREDIENT,
+  CLEAR_ORDER,
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+  SET_CURRENT_INGREDIENT,
 } from "../actions/ingredients";
 
 const initialState = {
@@ -10,7 +16,7 @@ const initialState = {
   ingredientsFailed: false,
   burgerIngredients: [],
   currentIngredient: {},
-  order: {},
+  order: { number: "00000" },
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -18,20 +24,50 @@ export const ingredientsReducer = (state = initialState, action) => {
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
-        itemsRequest: true,
+        ingredientsRequest: true,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        itemsFailed: false,
-        items: action.items,
-        itemsRequest: false,
+        ingredientsFailed: false,
+        ingredients: action.ingredients,
+        ingredientsRequest: false,
       };
     }
     case GET_INGREDIENTS_FAILED: {
-      return { ...state, itemsFailed: true, itemsRequest: false };
+      return { ...state, ingredientsFailed: true, ingredientsRequest: false };
     }
+    case SET_CURRENT_INGREDIENT: {
+      return { ...state, currentIngredient: action.ingredient };
+    }
+    case CLEAR_CURRENT_INGREDIENT: {
+      return { ...state, currentIngredient: {} };
+    }
+
+    case GET_ORDER_REQUEST: {
+        return {
+          ...state,
+          orderRequest: true,
+        };
+      }
+
+      case GET_ORDER_SUCCESS: {
+        return {
+          ...state,
+          orderFailed: false,
+          order: action.order,
+          orderRequest: false,
+        };
+      }
+
+      case GET_ORDER_FAILED: {
+        return { ...state, orderFailed: true, orderRequest: false };
+      }
+      case CLEAR_ORDER: {
+        return { ...state, order:{}};
+      }
+
     default: {
       return state;
     }

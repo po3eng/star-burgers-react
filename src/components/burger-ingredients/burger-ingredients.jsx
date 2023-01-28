@@ -1,19 +1,36 @@
-import { useState, useCallback, useContext, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import classes from "./burger-ingredients.module.css";
 import IngredientsTab from "../UI/tab/tab";
 import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ingredients";
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
-import PropsTypes from "prop-types";
 import Modal from "../UI/modal/modal";
 import { TYPES_OF_INGREDIENTS } from "../../utils/constants";
-import { BurgerContext } from "../services/burgers-context";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  CLEAR_CURRENT_INGREDIENT,
+  SET_CURRENT_INGREDIENT,
+} from "../../services/actions/ingredients";
 
 const BurgerIngredients = () => {
+  const { ingredients } = useSelector((store) => store.ingredients);
+  const dispatch = useDispatch();
+
   const sectionRef = useRef({});
-  const ingredients = useContext(BurgerContext);
   const [modal, setModal] = useState(false);
-  const [ingredient, setIngredient] = useState({});
   const [current, setCurrent] = useState("bun");
+
+  const hideInfoIngredient = useCallback(() => {
+    setModal(false);
+    dispatch({ type: CLEAR_CURRENT_INGREDIENT });
+  }, [setModal, dispatch]);
+
+  const showInfoIngredient = useCallback(
+    (ingredient) => {
+      dispatch({ type: SET_CURRENT_INGREDIENT, ingredient });
+      setModal(true);
+    },
+    [setModal, dispatch],
+  );
 
   const getIngredients = useCallback(
     (type) => {
@@ -29,22 +46,14 @@ const BurgerIngredients = () => {
     });
   }, [current]);
 
-  const showInfoIngredient = useCallback(
-    (ingredient) => {
-      setIngredient(ingredient);
-      setModal(true);
-    },
-    [setModal, setIngredient],
-  );
-
   return (
     <>
       {modal && (
         <Modal
           header="Детали ингредиента"
-          handleCloseModal={() => setModal(false)}
+          handleCloseModal={() => hideInfoIngredient()}
         >
-          <IngredientDetails ingredient={ingredient} />
+          <IngredientDetails />
         </Modal>
       )}
 

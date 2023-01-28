@@ -9,7 +9,7 @@ const IngredientsTab = ({ types, current, change }) => {
         <Tab
           key={type.id}
           value={type.id}
-          active={current === type.name}
+          active={current === type.id}
           onClick={change}
         >
           {type.name}

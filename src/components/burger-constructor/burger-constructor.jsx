@@ -1,23 +1,22 @@
-import { useState, useContext, useMemo } from "react";
-import { BurgerContext } from "../services/burgers-context";
+import { useState, useMemo } from "react";
 import classes from "./burger.constructor.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../UI/modal/modal";
 import Price from "../UI/price/price";
 import OrderDetails from "../UI/order-details/order-details";
 import Burger from "../UI/burger/burger";
-import api from "../../utils/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   HIDE_PRELOADER,
   SHOW_PRELOADER,
 } from "../../services/actions/preloader";
+import { CLEAR_ORDER, setOrder } from "../../services/actions/ingredients";
 
 const BurgerConstructor = () => {
   const [modal, setModal] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0);
 
-  const ingredients = useContext(BurgerContext);
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
   const dispatch = useDispatch();
 
   const totalPrice = useMemo(() => {
@@ -29,24 +28,20 @@ const BurgerConstructor = () => {
 
   const sendOrder = () => {
     dispatch({ type: SHOW_PRELOADER });
-    const resonse = api.setOrder(ingredients.map((item) => item._id));
-    resonse
-      .then((json) => {
-        if (json.success) {
-          setOrderNumber(json.order.number);
-          setModal(true);
-        }
-      })
-      .catch(console.error)
-      .finally(() => {
-        dispatch({ type: HIDE_PRELOADER });
-      });
+    dispatch(setOrder(ingredients.map((item) => item._id)));
+    setModal(true);
+    dispatch({ type: HIDE_PRELOADER });
+  };
+
+  const hideOrderInfo = () => {
+    dispatch({ type: CLEAR_ORDER });
+    setModal(false);
   };
 
   return (
     <>
       {modal && (
-        <Modal handleCloseModal={() => setModal(false)}>
+        <Modal handleCloseModal={() => hideOrderInfo()}>
           <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
