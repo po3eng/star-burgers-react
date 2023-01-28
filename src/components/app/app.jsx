@@ -7,28 +7,20 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { BurgerContext } from "../services/burgers-context";
 import { PreloaderContext } from "../services/preloader-context";
 import api from "../../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  HIDE_PRELOADER,
+  SHOW_PRELOADER,
+} from "../../services/actions/preloader";
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
 
-  const preloaderReducer = (state, action) => {
-    switch (action.type) {
-      case "show": {
-        return { isShow: true };
-      }
-      case "hide": {
-        return { isShow: false };
-      }
-      default: {
-        throw new Error(`Unhandled action type: ${action.type}`);
-      }
-    }
-  };
-
-  const [preloader, dispatch] = useReducer(preloaderReducer, { isShow: false });
+  const preloaderShow = useSelector((store) => store.preloader.preloaderShow);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: "show" });
+    dispatch({ type: SHOW_PRELOADER });
     const resonse = api.getIngredients();
     resonse
       .then((json) => {
@@ -36,14 +28,15 @@ function App() {
       })
       .catch(console.error)
       .finally(() => {
-        dispatch({ type: "hide" });
+        dispatch({ type: HIDE_PRELOADER });
       });
   }, []);
 
   return (
     <BurgerContext.Provider value={ingredients}>
       <PreloaderContext.Provider value={dispatch}>
-        {preloader.isShow && <Preloader></Preloader>}
+        {preloaderShow}
+        {preloaderShow && <Preloader></Preloader>}
         <div className={classes.app}>
           <AppHeader />
           <main className={classes.content}>

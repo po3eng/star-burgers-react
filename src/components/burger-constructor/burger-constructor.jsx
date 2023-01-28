@@ -1,6 +1,5 @@
 import { useState, useContext, useMemo } from "react";
 import { BurgerContext } from "../services/burgers-context";
-import { PreloaderContext } from "../services/preloader-context";
 import classes from "./burger.constructor.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../UI/modal/modal";
@@ -8,13 +7,18 @@ import Price from "../UI/price/price";
 import OrderDetails from "../UI/order-details/order-details";
 import Burger from "../UI/burger/burger";
 import api from "../../utils/api";
+import { useDispatch } from "react-redux";
+import {
+  HIDE_PRELOADER,
+  SHOW_PRELOADER,
+} from "../../services/actions/preloader";
 
 const BurgerConstructor = () => {
   const [modal, setModal] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0);
 
   const ingredients = useContext(BurgerContext);
-  const dispatch = useContext(PreloaderContext);
+  const dispatch = useDispatch();
 
   const totalPrice = useMemo(() => {
     return ingredients.reduce(
@@ -24,7 +28,7 @@ const BurgerConstructor = () => {
   });
 
   const sendOrder = () => {
-    dispatch({ type: "show" });
+    dispatch({ type: SHOW_PRELOADER });
     const resonse = api.setOrder(ingredients.map((item) => item._id));
     resonse
       .then((json) => {
@@ -34,8 +38,8 @@ const BurgerConstructor = () => {
         }
       })
       .catch(console.error)
-      .finally(()=>{
-        dispatch({ type: "hide" })
+      .finally(() => {
+        dispatch({ type: HIDE_PRELOADER });
       });
   };
 
