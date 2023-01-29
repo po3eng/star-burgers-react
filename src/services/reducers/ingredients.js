@@ -12,6 +12,9 @@ import {
   INCREASE_INGREDIENT_COUNT,
   DECREASE_INGREDIENT_COUNT,
   DELETE_ORDER_INGREDIENT,
+  ADD_ORDER_BUN,
+  DECREASE_BUN_COUNT,
+  INCREASE_BUN_COUNT,
 } from "../actions/ingredients";
 
 const initialState = {
@@ -22,6 +25,7 @@ const initialState = {
   currentIngredient: {},
   order: { number: "00000" },
   orderIngredients: [],
+  bun: {},
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -120,11 +124,49 @@ export const ingredientsReducer = (state = initialState, action) => {
             .map((ingredient) => ({
               ...ingredient,
               id: Math.floor(Math.random() * 100000) + 1,
-              board: action.board,
+              board: "ingredients",
             })),
         ],
       };
     }
+    case ADD_ORDER_BUN: {
+      return {
+        ...state,
+        bun: {
+          ...state.ingredients.find((value) => value._id === action._id),
+          board: "bun",
+        },
+      };
+    }
+
+    case INCREASE_BUN_COUNT: {
+      return {
+        ...state,
+        ingredients: state.ingredients.map((ingredient) =>
+          ingredient._id === action._id
+            ? {
+                ...ingredient,
+                count: 2,
+              }
+            : ingredient,
+        ),
+      };
+    }
+
+    case DECREASE_BUN_COUNT: {
+      return {
+        ...state,
+        ingredients: state.ingredients.map((ingredient) =>
+          ingredient._id !== action._id && ingredient.type === "bun"
+            ? {
+                ...ingredient,
+                count: 0,
+              }
+            : ingredient,
+        ),
+      };
+    }
+
     //
     default: {
       return state;

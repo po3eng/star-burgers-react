@@ -7,7 +7,9 @@ import {
   UPDATE_TYPE,
   INCREASE_INGREDIENT_COUNT,
 } from "../../../services/actions/ingredients";
-const ListConstructorIngredients = ({ board }) => {
+
+import EmptyIngredient from "../empty-ingedient/empty-ingredient";
+const ListConstructorIngredients = () => {
   const dispatch = useDispatch();
   const orderIngredients = useSelector(
     (store) => store.ingredients.orderIngredients,
@@ -22,25 +24,23 @@ const ListConstructorIngredients = ({ board }) => {
       dispatch({
         type: UPDATE_TYPE,
         ...itemId,
-        board,
       });
       dispatch({ type: INCREASE_INGREDIENT_COUNT, ...itemId });
     },
   });
 
-  
   return (
     <div ref={drop} className={`${classes.scrollWraper} custom-scroll`}>
-      {orderIngredients.length > 0 &&
+      {orderIngredients.length > 0 ? (
         orderIngredients
-          .filter((i) => i.board === board)
+          .filter((i) => i.board === "ingredients")
           .map((ingredient, idx) => (
             <Ingredient drag ingredient={ingredient} key={ingredient.id} />
-          ))}
+          ))
+      ) : (
+        <EmptyIngredient />
+      )}
     </div>
   );
-};
-ListConstructorIngredients.propTypes = {
-  ingredient: PropTypes.array,
 };
 export default ListConstructorIngredients;

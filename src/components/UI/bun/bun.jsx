@@ -1,18 +1,40 @@
 import PropTypes from "prop-types";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-const Bun = ({ type, bun }) => {
+import EmptyBun from "../empty-bun/empty-bun";
+
+import { useDrop } from "react-dnd";
+import { addBunToOrder } from "../../../services/actions/ingredients";
+import { useDispatch, useSelector } from "react-redux";
+
+const Bun = ({ type }) => {
+  const bun = useSelector((store) => store.ingredients.bun);
+  const dispatch = useDispatch();
+  const [{ isHover }, drop] = useDrop({
+    accept: "bun",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(itemId) {
+      dispatch(addBunToOrder(itemId));
+    },
+  });
+
   const position = type === "top" ? "(верх)" : "(низ)";
   return (
-    bun && (
-      <ConstructorElement
-        type={type}
-        extraClass="mb-2 mt-2 ml-6"
-        isLocked={true}
-        text={`${bun.name} ${position}`}
-        price={bun.price}
-        thumbnail={bun.image}
-      />
-    )
+    <div ref={drop}>
+      {bun._id ? (
+        <ConstructorElement
+          type={type}
+          extraClass="mb-2 mt-2 ml-6"
+          isLocked={true}
+          text={`${bun.name} ${position}`}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      ) : (
+        <EmptyBun type={type}></EmptyBun>
+      )}
+    </div>
   );
 };
 

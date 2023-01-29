@@ -19,6 +19,11 @@ export const DECREASE_INGREDIENT_COUNT = "DECREASE_INGREDIENT_COUNT";
 
 export const DELETE_ORDER_INGREDIENT = "DELETE_ORDER_INGREDIENT";
 
+export const ADD_ORDER_BUN = "ADD_ORDER_BUN";
+
+export const INCREASE_BUN_COUNT = "INCREASE_BUN_COUNT";
+export const DECREASE_BUN_COUNT = "DECREASE_BUN_COUNT";
+
 export const getIngredients = () => (dispatch) => {
   dispatch({
     type: GET_INGREDIENTS_REQUEST,
@@ -45,6 +50,20 @@ export const deleteOrderIngredient = (ingredient) => (dispatch) => {
   dispatch({
     type: DELETE_ORDER_INGREDIENT,
     id: ingredient.id,
+  });
+};
+export const addBunToOrder = (ingredient) => (dispatch) => {
+  dispatch({
+    type: ADD_ORDER_BUN,
+    _id: ingredient._id,
+  });
+  dispatch({
+    type: INCREASE_BUN_COUNT,
+    _id: ingredient._id,
+  });
+  dispatch({
+    type: DECREASE_BUN_COUNT,
+    _id: ingredient._id,
   });
 };
 
