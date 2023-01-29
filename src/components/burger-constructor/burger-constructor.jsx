@@ -11,12 +11,16 @@ import {
   SHOW_PRELOADER,
 } from "../../services/actions/preloader";
 import { CLEAR_ORDER, setOrder } from "../../services/actions/ingredients";
+import EmptyIngredient from "../UI/empty-ingedient/empty-ingredient";
+import EmptyBun from "../UI/empty-bun/empty-bun";
 
 const BurgerConstructor = () => {
   const [modal, setModal] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0);
 
-  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const ingredients = useSelector(
+    (store) => store.ingredients.orderIngredients,
+  );
   const dispatch = useDispatch();
 
   const totalPrice = useMemo(() => {
@@ -46,6 +50,10 @@ const BurgerConstructor = () => {
         </Modal>
       )}
       <div className="pl-4 pr-4">
+        <EmptyBun type="top"></EmptyBun>
+        <EmptyIngredient />
+        <EmptyBun type="bottom"></EmptyBun>
+
         <Burger />
         <div className={`${classes.wraper} pt-10`}>
           <Price size="medium" price={totalPrice} />

@@ -13,6 +13,11 @@ export const GET_ORDER_SUCCESS = "GET_ORER_SUCCESS";
 export const SET_ORDER = "SET_ORDER";
 export const CLEAR_ORDER = "CLEAR_ORDER";
 
+export const UPDATE_TYPE = "UPDATE_TYPE";
+export const INCREASE_INGREDIENT_COUNT = "INCREASE_INGREDIENT_COUNT";
+export const DECREASE_INGREDIENT_COUNT = "DECREASE_INGREDIENT_COUNT";
+
+export const DELETE_ORDER_INGREDIENT = "DELETE_ORDER_INGREDIENT";
 
 export const getIngredients = () => (dispatch) => {
   dispatch({
@@ -29,6 +34,17 @@ export const getIngredients = () => (dispatch) => {
         type: GET_INGREDIENTS_FAILED,
       });
     }
+  });
+};
+
+export const deleteOrderIngredient = (ingredient) => (dispatch) => {
+  dispatch({
+    type: DECREASE_INGREDIENT_COUNT,
+    _id: ingredient._id,
+  });
+  dispatch({
+    type: DELETE_ORDER_INGREDIENT,
+    id: ingredient.id,
   });
 };
 

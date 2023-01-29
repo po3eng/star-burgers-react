@@ -5,6 +5,9 @@ import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   HIDE_PRELOADER,
@@ -28,12 +31,14 @@ function App() {
       <div className={classes.app}>
         <AppHeader />
         <main className={classes.content}>
-          <div className={classes.col2}>
-            <BurgerIngredients />
-          </div>
-          <div className={`${classes.col2} pt-25`}>
-            <BurgerConstructor />
-          </div>
+          <DndProvider backend={HTML5Backend}>
+            <div className={classes.col2}>
+              <BurgerIngredients />
+            </div>
+            <div className={`${classes.col2} pt-25`}>
+              <BurgerConstructor />
+            </div>
+          </DndProvider>
         </main>
       </div>
     </>

@@ -16,6 +16,7 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch();
 
   const sectionRef = useRef({});
+
   const [modal, setModal] = useState(false);
   const [current, setCurrent] = useState("bun");
 
@@ -46,6 +47,7 @@ const BurgerIngredients = () => {
     });
   }, [current]);
 
+  
   return (
     <>
       {modal && (
@@ -76,9 +78,7 @@ const BurgerIngredients = () => {
           >
             <ListBurgerIngredients
               type={type}
-              onClick={(i) => {
-                showInfoIngredient(i);
-              }}
+              onClick={(i) => {showInfoIngredient(i);}}
               ingredients={getIngredients(type.id)}
             />
           </section>
