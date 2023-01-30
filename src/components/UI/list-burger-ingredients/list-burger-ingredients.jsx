@@ -9,7 +9,7 @@ const ListBurgerIngredients = ({ type, ingredients, onClick }) => {
         {type.name}
       </p>
       <div className={` ${classes.wraper} pt-6 ml-4`}>
-        {ingredients.map((item, idx) => (
+        {ingredients.map((item) => (
           <BurgerIngredient
             ingredient={item}
             key={item._id}

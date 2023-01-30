@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 
 function App() {
+  
   const preloaderShow = useSelector((store) => store.preloader.preloaderShow);
   const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <>
-      {preloaderShow && <Preloader></Preloader>}
+      {preloaderShow && <Preloader />}
       <div className={classes.app}>
         <AppHeader />
         <main className={classes.content}>

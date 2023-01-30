@@ -41,7 +41,7 @@ export const getIngredients = () => (dispatch) => {
         });
       }
     })
-    .catch((e) => console.err(e))
+    .catch((e) => console.error(e))
     .finally(() => {
       dispatch({ type: HIDE_PRELOADER });
     });

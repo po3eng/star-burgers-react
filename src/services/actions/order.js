@@ -42,7 +42,7 @@ export const setOrder = (orderIngredients) => (dispatch) => {
       }
     })
     .catch((e) => {
-      console.err(e);
+      console.error(e);
       dispatch({
         type: CLEAR_ORDER,
       });

@@ -1,3 +1,4 @@
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/app/app";
 
@@ -5,7 +6,6 @@ import { compose, createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { rootReducer } from "./services/reducers";
 import thunk from "redux-thunk";
-
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -22,7 +22,9 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <Provider store={store}>
+  <StrictMode>
+ <Provider store={store}>
     <App />
-  </Provider>,
+  </Provider>
+  </StrictMode>,
 );
