@@ -3,16 +3,18 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
-
   SET_CURRENT_INGREDIENT,
-  UPDATE_TYPE,
+  ADD_CONSTRUCTOR_INGREDIENT,
   INCREASE_INGREDIENT_COUNT,
   DECREASE_INGREDIENT_COUNT,
-  DELETE_ORDER_INGREDIENT,
-  ADD_ORDER_BUN,
+  DELETE_CONSTRUCTOR_INGREDIENT,
+  ADD_CONSTRUCTOR_BUN,
   DECREASE_BUN_COUNT,
   INCREASE_BUN_COUNT,
-  MOVE_ORDER_INGREDIENT,
+  MOVE_CONSTRUCTOR_INGREDIENT,
+  DELETE_ALL_CONSTRUCTOR_INGREDIENTS,
+  DECREASE_ALL_INGREDIENTS_COUNT,
+  DELETE_CONSTRUCTOR_BUN,
 } from "../actions/ingredients";
 
 const initialState = {
@@ -21,6 +23,7 @@ const initialState = {
   ingredientsFailed: false,
   burgerIngredients: [],
   currentIngredient: {},
+  order: { number: "00000" },
   orderIngredients: [],
   bun: { price: 0 },
 };
@@ -42,7 +45,6 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
     case GET_INGREDIENTS_FAILED: {
-      
       return { ...state, ingredientsFailed: true, ingredientsRequest: false };
     }
     case SET_CURRENT_INGREDIENT: {
@@ -50,6 +52,20 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case CLEAR_CURRENT_INGREDIENT: {
       return { ...state, currentIngredient: {} };
+    }
+
+    case INCREASE_INGREDIENT_COUNT: {
+      return {
+        ...state,
+        ingredients: state.ingredients.map((ingredient) =>
+          ingredient._id === action._id
+            ? {
+                ...ingredient,
+                count: ingredient.count ? ingredient.count + 1 : 1,
+              }
+            : ingredient,
+        ),
+      };
     }
 
     case DECREASE_INGREDIENT_COUNT: {
@@ -66,7 +82,7 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
 
-    case DELETE_ORDER_INGREDIENT: {
+    case DELETE_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
         orderIngredients: state.orderIngredients.filter(
@@ -75,7 +91,7 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
 
-    case UPDATE_TYPE: {
+    case ADD_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
         orderIngredients: [
@@ -90,7 +106,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ],
       };
     }
-    case ADD_ORDER_BUN: {
+    case ADD_CONSTRUCTOR_BUN: {
       return {
         ...state,
         bun: {
@@ -127,7 +143,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ),
       };
     }
-    case MOVE_ORDER_INGREDIENT: {
+    case MOVE_CONSTRUCTOR_INGREDIENT: {
       const cloneOrderIngredients = [...state.orderIngredients];
       const swap = (arr, a, b) => {
         arr[a] = arr.splice(b, 1, arr[a])[0];
@@ -136,6 +152,22 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         orderIngredients: cloneOrderIngredients,
+      };
+    }
+
+    case DELETE_ALL_CONSTRUCTOR_INGREDIENTS: {
+      return { ...state, orderIngredients: [] };
+    }
+    case DELETE_CONSTRUCTOR_BUN: {
+      return { ...state, bun: {} };
+    }
+    case DECREASE_ALL_INGREDIENTS_COUNT: {
+      return {
+        ...state,
+        ingredients: state.ingredients.map((ingredient) => ({
+          ...ingredient,
+          count: 0,
+        })),
       };
     }
 

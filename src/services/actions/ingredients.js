@@ -8,14 +8,17 @@ export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const SET_CURRENT_INGREDIENT = "SET_DETAIL_INGREDIENT";
 export const CLEAR_CURRENT_INGREDIENT = "CLEAR_CURRENT_INGREDIENT";
 
-export const UPDATE_TYPE = "UPDATE_TYPE";
 export const INCREASE_INGREDIENT_COUNT = "INCREASE_INGREDIENT_COUNT";
 export const DECREASE_INGREDIENT_COUNT = "DECREASE_INGREDIENT_COUNT";
+export const DECREASE_ALL_INGREDIENTS_COUNT = "DECREASE_ALL_INGREDIENTS_COUNT";
 
-export const DELETE_ORDER_INGREDIENT = "DELETE_ORDER_INGREDIENT";
-export const MOVE_ORDER_INGREDIENT = "MOVE_ORDER_INGREDIENT";
-
-export const ADD_ORDER_BUN = "ADD_ORDER_BUN";
+export const ADD_CONSTRUCTOR_INGREDIENT = "ADD_CONSTRUCTOR_INGREDIENT";
+export const DELETE_CONSTRUCTOR_INGREDIENT = "DELETE_CONSTRUCTOR_INGREDIENT";
+export const DELETE_CONSTRUCTOR_BUN = "DELETE_CONSTRUCTOR_BUN";
+export const MOVE_CONSTRUCTOR_INGREDIENT = "MOVE_CONSTRUCTOR_INGREDIENT";
+export const ADD_CONSTRUCTOR_BUN = "ADD_CONSTRUCTOR_BUN";
+export const DELETE_ALL_CONSTRUCTOR_INGREDIENTS =
+  "DELETE_ALL_CONSTRUCTOR_INGREDIENTS";
 
 export const INCREASE_BUN_COUNT = "INCREASE_BUN_COUNT";
 export const DECREASE_BUN_COUNT = "DECREASE_BUN_COUNT";
@@ -44,19 +47,20 @@ export const getIngredients = () => (dispatch) => {
     });
 };
 
-export const deleteOrderIngredient = (ingredient) => (dispatch) => {
+export const deleteConstructorIngredient = (ingredient) => (dispatch) => {
   dispatch({
     type: DECREASE_INGREDIENT_COUNT,
     _id: ingredient._id,
   });
   dispatch({
-    type: DELETE_ORDER_INGREDIENT,
+    type: DELETE_CONSTRUCTOR_INGREDIENT,
     id: ingredient.id,
   });
 };
-export const addBunToOrder = (ingredient) => (dispatch) => {
+
+export const addBunToConstructor = (ingredient) => (dispatch) => {
   dispatch({
-    type: ADD_ORDER_BUN,
+    type: ADD_CONSTRUCTOR_BUN,
     _id: ingredient._id,
   });
   dispatch({
@@ -68,3 +72,5 @@ export const addBunToOrder = (ingredient) => (dispatch) => {
     _id: ingredient._id,
   });
 };
+
+

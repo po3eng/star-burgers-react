@@ -3,7 +3,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import EmptyBun from "../empty-bun/empty-bun";
 
 import { useDrop } from "react-dnd";
-import { addBunToOrder } from "../../../services/actions/ingredients";
+import { addBunToConstructor } from "../../../services/actions/ingredients";
 import { useDispatch, useSelector } from "react-redux";
 
 const Bun = ({ type }) => {
@@ -15,7 +15,7 @@ const Bun = ({ type }) => {
       isHover: monitor.isOver(),
     }),
     drop(itemId) {
-      dispatch(addBunToOrder(itemId));
+      dispatch(addBunToConstructor(itemId));
     },
   });
 

@@ -4,7 +4,7 @@ import classes from "./list-constructor-ingredients.module.css";
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import {
-  UPDATE_TYPE,
+  ADD_CONSTRUCTOR_INGREDIENT,
   INCREASE_INGREDIENT_COUNT,
 } from "../../../services/actions/ingredients";
 
@@ -22,7 +22,7 @@ const ListConstructorIngredients = () => {
     }),
     drop(itemId) {
       dispatch({
-        type: UPDATE_TYPE,
+        type: ADD_CONSTRUCTOR_INGREDIENT,
         ...itemId,
       });
       dispatch({ type: INCREASE_INGREDIENT_COUNT, ...itemId });
