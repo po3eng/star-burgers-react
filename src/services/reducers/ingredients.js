@@ -15,6 +15,7 @@ import {
   ADD_ORDER_BUN,
   DECREASE_BUN_COUNT,
   INCREASE_BUN_COUNT,
+  MOVE_ORDER_INGREDIENT,
 } from "../actions/ingredients";
 
 const initialState = {
@@ -25,7 +26,7 @@ const initialState = {
   currentIngredient: {},
   order: { number: "00000" },
   orderIngredients: [],
-  bun: {},
+  bun: { price: 0 },
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -164,6 +165,17 @@ export const ingredientsReducer = (state = initialState, action) => {
               }
             : ingredient,
         ),
+      };
+    }
+    case MOVE_ORDER_INGREDIENT: {
+      const cloneOrderIngredients = [...state.orderIngredients];
+      const swap = (arr, a, b) => {
+        arr[a] = arr.splice(b, 1, arr[a])[0];
+      };
+      swap(cloneOrderIngredients, action.dragIndex, action.hoverIndex);
+      return {
+        ...state,
+        orderIngredients: cloneOrderIngredients,
       };
     }
 

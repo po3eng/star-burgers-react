@@ -35,12 +35,20 @@ const ListConstructorIngredients = () => {
         orderIngredients
           .filter((i) => i.board === "ingredients")
           .map((ingredient, idx) => (
-            <Ingredient drag ingredient={ingredient} key={ingredient.id} />
+            <Ingredient
+              drag
+              ingredient={ingredient}
+              key={ingredient.id}
+              index={idx}
+            />
           ))
       ) : (
-        <EmptyIngredient />
+        <EmptyIngredient></EmptyIngredient>
       )}
     </div>
   );
+};
+ListConstructorIngredients.propTypes = {
+  ingredient: PropTypes.array,
 };
 export default ListConstructorIngredients;

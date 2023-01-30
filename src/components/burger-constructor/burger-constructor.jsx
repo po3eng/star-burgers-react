@@ -12,26 +12,25 @@ import {
 } from "../../services/actions/preloader";
 import { CLEAR_ORDER, setOrder } from "../../services/actions/ingredients";
 
-
 const BurgerConstructor = () => {
   const [modal, setModal] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0);
 
-  const ingredients = useSelector(
-    (store) => store.ingredients.orderIngredients,
-  );
+  const { orderIngredients, bun } = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
-
+  const totalOrder = useMemo(() => [...orderIngredients, bun, bun]);
+  
   const totalPrice = useMemo(() => {
-    return ingredients.reduce(
-      (accumulator, item) => accumulator + item.price,
+    return totalOrder.reduce(
+      (accumulator, item) => accumulator + item?.price || 0,
       0,
     );
   });
 
   const sendOrder = () => {
+    // FIXME: сделать асинхронным
     dispatch({ type: SHOW_PRELOADER });
-    dispatch(setOrder(ingredients.map((item) => item._id)));
+    dispatch(setOrder(totalOrder.map((item) => item._id)));
     setModal(true);
     dispatch({ type: HIDE_PRELOADER });
   };

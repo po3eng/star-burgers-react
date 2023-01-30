@@ -5,9 +5,9 @@ import ListConstructorIngredients from "../list-constructor-ingredients/list-con
 const Burger = () => {
   return (
     <>
-      <Bun type="top" board="bun" />
-      <ListConstructorIngredients board="ingredients" />
-      <Bun type="bottom" board="bun" />
+      <Bun type="top" />
+      <ListConstructorIngredients />
+      <Bun type="bottom" />
     </>
   );
 };
