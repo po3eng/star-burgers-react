@@ -9,10 +9,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  HIDE_PRELOADER,
-  SHOW_PRELOADER,
-} from "../../services/actions/preloader";
 import { getIngredients } from "../../services/actions/ingredients";
 
 function App() {
@@ -20,9 +16,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: SHOW_PRELOADER });
     dispatch(getIngredients());
-    dispatch({ type: HIDE_PRELOADER });
   }, []);
 
   return (

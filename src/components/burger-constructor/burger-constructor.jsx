@@ -10,16 +10,15 @@ import {
   HIDE_PRELOADER,
   SHOW_PRELOADER,
 } from "../../services/actions/preloader";
-import { CLEAR_ORDER, setOrder } from "../../services/actions/ingredients";
+import { CLEAR_ORDER, setOrder } from "../../services/actions/order";
 
 const BurgerConstructor = () => {
   const [modal, setModal] = useState(false);
-  const [orderNumber, setOrderNumber] = useState(0);
 
   const { orderIngredients, bun } = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
   const totalOrder = useMemo(() => [...orderIngredients, bun, bun]);
-  
+
   const totalPrice = useMemo(() => {
     return totalOrder.reduce(
       (accumulator, item) => accumulator + item?.price || 0,
@@ -29,10 +28,8 @@ const BurgerConstructor = () => {
 
   const sendOrder = () => {
     // FIXME: сделать асинхронным
-    dispatch({ type: SHOW_PRELOADER });
     dispatch(setOrder(totalOrder.map((item) => item._id)));
     setModal(true);
-    dispatch({ type: HIDE_PRELOADER });
   };
 
   const hideOrderInfo = () => {
@@ -44,7 +41,7 @@ const BurgerConstructor = () => {
     <>
       {modal && (
         <Modal handleCloseModal={() => hideOrderInfo()}>
-          <OrderDetails orderNumber={orderNumber} />
+          <OrderDetails />
         </Modal>
       )}
       <div className="pl-4 pr-4">
