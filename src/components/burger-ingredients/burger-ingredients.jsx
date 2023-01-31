@@ -12,24 +12,23 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
 
 const BurgerIngredients = () => {
-  const ingredients  = useSelector((store) => store.ingredients.ingredients);
+  const { ingredients, currentIngredient } = useSelector(
+    (store) => store.ingredients,
+  );
   const dispatch = useDispatch();
   const sectionRef = useRef(null);
-  const [modal, setModal] = useState(false);
 
   const [current, setCurrent] = useState("bun");
 
   const hideInfoIngredient = useCallback(() => {
-    setModal(false);
-    dispatch({ type: CLEAR_CURRENT_INGREDIENT });
-  }, [setModal, dispatch]);
+    dispatch({ type: SET_CURRENT_INGREDIENT, ingredient: null });
+  }, [dispatch]);
 
   const showInfoIngredient = useCallback(
     (ingredient) => {
       dispatch({ type: SET_CURRENT_INGREDIENT, ingredient });
-      setModal(true);
     },
-    [setModal, dispatch],
+    [dispatch],
   );
 
   const getIngredients = useCallback(
@@ -39,9 +38,6 @@ const BurgerIngredients = () => {
     [ingredients],
   );
 
-  const setRef = (el) => {
-    sectionRef.current["bun"] = el;
-  };
   const view = (event, type) => {
     event && setCurrent(type);
   };
@@ -56,7 +52,7 @@ const BurgerIngredients = () => {
 
   return (
     <>
-      {modal && (
+      {currentIngredient && (
         <Modal
           header="Детали ингредиента"
           forwardRef

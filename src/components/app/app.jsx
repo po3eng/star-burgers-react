@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 
 function App() {
-  
   const preloaderShow = useSelector((store) => store.preloader.preloaderShow);
   const dispatch = useDispatch();
 

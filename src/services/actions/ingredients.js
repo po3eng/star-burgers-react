@@ -84,3 +84,10 @@ export const moveConstructorIngredient = (dragIndex, hoverIndex) => {
     hoverIndex,
   };
 };
+
+export const setCurrentIngredient = (ingredient) => {
+  return {
+    type: SET_CURRENT_INGREDIENT,
+    ingredient,
+  };
+};

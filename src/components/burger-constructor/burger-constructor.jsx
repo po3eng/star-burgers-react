@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOrderNumber, setOrder } from "../../services/actions/order";
 
@@ -15,7 +15,6 @@ const BurgerConstructor = () => {
   const { constructorIngredients, bun } = useSelector(
     (store) => store.ingredients,
   );
-
   const dispatch = useDispatch();
 
   const totalOrder = useMemo(
@@ -30,13 +29,13 @@ const BurgerConstructor = () => {
     );
   }, [totalOrder]);
 
-  const sendOrder = () => {
+  const sendOrder = useCallback(() => {
     dispatch(setOrder(totalOrder));
-  };
+  }, [dispatch, setOrder]);
 
-  const hideOrderInfo = () => {
+  const hideOrderInfo = useCallback(() => {
     dispatch(setOrderNumber(null));
-  };
+  }, [dispatch, setOrderNumber]);
 
   return (
     <>
