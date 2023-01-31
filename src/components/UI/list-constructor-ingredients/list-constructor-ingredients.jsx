@@ -4,7 +4,6 @@ import classes from "./list-constructor-ingredients.module.css";
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import {
-  ADD_CONSTRUCTOR_INGREDIENT,
   addIngredient,
 } from "../../../services/actions/ingredients";
 

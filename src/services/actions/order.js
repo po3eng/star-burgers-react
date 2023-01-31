@@ -4,10 +4,9 @@ import { SHOW_PRELOADER, HIDE_PRELOADER } from "./preloader";
 export const SET_ORDER_REQUEST = "SET_ORDER_REQUEST";
 export const SET_ORDER_SUCCES = "SET_ORDER_SUCCES";
 export const SET_ORDER_FAILURE = "SET_ORDER_FAILURE";
-export const SET_ORDER = "SET_ORDER";
-export const CLEAR_ORDER = "CLEAR_ORDER";
 
 export const ADD_CONSTRUCTOR_INGREDIENT = "ADD_CONSTRUCTOR_INGREDIENT";
+
 export const setOrderNumber = (order) => {
   return {
     type: SET_ORDER_SUCCES,

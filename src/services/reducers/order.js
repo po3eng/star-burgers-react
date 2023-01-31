@@ -3,7 +3,6 @@ import {
   SET_ORDER_REQUEST,
   SET_ORDER_FAILURE,
   SET_ORDER_SUCCES,
-  CLEAR_ORDER,
 } from "../actions/order";
 
 const initialState = {
@@ -37,15 +36,6 @@ export const orderReducer = (state = initialState, action) => {
       };
     }
 
-    case SET_ORDER: {
-      return {
-        ...state,
-        order: action.order,
-      };
-    }
-    case CLEAR_ORDER: {
-      return { ...state, order: "00000" };
-    }
     default: {
       return state;
     }
