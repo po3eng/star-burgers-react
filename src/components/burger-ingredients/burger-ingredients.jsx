@@ -4,10 +4,7 @@ import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ing
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import Modal from "../UI/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CLEAR_CURRENT_INGREDIENT,
-  SET_CURRENT_INGREDIENT,
-} from "../../services/actions/ingredients";
+import { SET_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
 
@@ -16,7 +13,9 @@ const BurgerIngredients = () => {
     (store) => store.ingredients,
   );
   const dispatch = useDispatch();
-  const sectionRef = useRef(null);
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
 
   const [current, setCurrent] = useState("bun");
 
@@ -43,11 +42,30 @@ const BurgerIngredients = () => {
   };
 
   useEffect(() => {
-    sectionRef.current.scrollIntoView({
-      block: "start",
-      inline: "start",
-      behavior: "smooth",
-    });
+    switch (current) {
+      case "bun":
+        bunRef.current.scrollIntoView({
+          block: "start",
+          inline: "start",
+          behavior: "smooth",
+        });
+
+        break;
+      case "sauce":
+        sauceRef.current.scrollIntoView({
+          block: "start",
+          inline: "start",
+          behavior: "smooth",
+        });
+        break;
+      case "main":
+        mainRef.current.scrollIntoView({
+          block: "start",
+          inline: "start",
+          behavior: "smooth",
+        });
+        break;
+    }
   }, [current]);
 
   return (
@@ -75,7 +93,7 @@ const BurgerIngredients = () => {
         </Tab>
       </section>
       <section className={`${classes.scrollSection} custom-scroll`}>
-        <section ref={sectionRef}>
+        <section ref={bunRef}>
           <InView threshold="0.8" onChange={(e) => view(e, "bun")}>
             <ListBurgerIngredients
               type="bun"
@@ -85,22 +103,26 @@ const BurgerIngredients = () => {
             />
           </InView>
         </section>
-        <InView threshold="0.8" onChange={(e) => view(e, "sauce")}>
-          <ListBurgerIngredients
-            type="sauce"
-            title="Соусы"
-            onClick={showInfoIngredient}
-            ingredients={getIngredients("sauce")}
-          />
-        </InView>
-        <InView threshold="0.2" onChange={(e) => view(e, "main")}>
-          <ListBurgerIngredients
-            type="main"
-            title="Начинки"
-            onClick={showInfoIngredient}
-            ingredients={getIngredients("main")}
-          />
-        </InView>
+        <section ref={sauceRef}>
+          <InView threshold="0.8" onChange={(e) => view(e, "sauce")}>
+            <ListBurgerIngredients
+              type="sauce"
+              title="Соусы"
+              onClick={showInfoIngredient}
+              ingredients={getIngredients("sauce")}
+            />
+          </InView>
+        </section>
+        <section ref={mainRef}>
+          <InView threshold="0.2" onChange={(e) => view(e, "main")}>
+            <ListBurgerIngredients
+              type="main"
+              title="Начинки"
+              onClick={showInfoIngredient}
+              ingredients={getIngredients("main")}
+            />
+          </InView>
+        </section>
       </section>
     </>
   );
