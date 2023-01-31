@@ -1,27 +1,50 @@
-import { SET_ORDER, GET_ORDER_REQUEST, CLEAR_ORDER } from "../actions/order";
+import {
+  SET_ORDER,
+  SET_ORDER_REQUEST,
+  SET_ORDER_FAILURE,
+  SET_ORDER_SUCCES,
+  CLEAR_ORDER,
+} from "../actions/order";
+
 const initialState = {
-  order: { number: "00000" },
+  order: null,
+  orderRequest: false,
+  orderFailed: false,
 };
 export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ORDER_REQUEST: {
+    case SET_ORDER_REQUEST: {
       return {
         ...state,
         orderRequest: true,
+        orderFailed: false,
+      };
+    }
+    case SET_ORDER_FAILURE: {
+      return {
+        ...state,
+        order: null,
+        orderRequest: false,
+        orderFailed: true,
+      };
+    }
+    case SET_ORDER_SUCCES: {
+      return {
+        ...state,
+        order: action.order,
+        orderRequest: true,
+        orderFailed: false,
       };
     }
 
     case SET_ORDER: {
       return {
         ...state,
-        orderFailed: false,
         order: action.order,
-        orderRequest: false,
       };
     }
-
     case CLEAR_ORDER: {
-      return { ...state, order: { number: "00000" } };
+      return { ...state, order: "00000" };
     }
     default: {
       return state;

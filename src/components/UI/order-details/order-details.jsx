@@ -1,10 +1,9 @@
 import classes from "./order-details.module.css";
 import doneImg from "../../../images/done.svg";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 const OrderDetails = () => {
-  const orderNumber = useSelector((store) => store.order.order.number);
+  const orderNumber = useSelector((store) => store.order.order);
   return (
     <div className={classes.content}>
       <p className={classes.order_number + " text text_type_digits-large"}>

@@ -13,15 +13,15 @@ const AppHeader = () => {
       <nav className={classes.nav}>
         <div className={classes.nav_left}>
           <AppHeaderItem text="Конструктор">
-            <BurgerIcon type="primary" />
+            <BurgerIcon type="secondary" />
           </AppHeaderItem>
           <AppHeaderItem text="Лента заказов">
-            <ListIcon type="primary" />
+            <ListIcon type="secondary" />
           </AppHeaderItem>
         </div>
         <div className={classes.nav_right}>
           <AppHeaderItem text="Личный кабинет">
-            <ProfileIcon type="primary" />
+            <ProfileIcon type="secondary" />
           </AppHeaderItem>
         </div>
       </nav>

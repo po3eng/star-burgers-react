@@ -17,60 +17,70 @@ export const DELETE_CONSTRUCTOR_INGREDIENT = "DELETE_CONSTRUCTOR_INGREDIENT";
 export const DELETE_CONSTRUCTOR_BUN = "DELETE_CONSTRUCTOR_BUN";
 export const MOVE_CONSTRUCTOR_INGREDIENT = "MOVE_CONSTRUCTOR_INGREDIENT";
 export const ADD_CONSTRUCTOR_BUN = "ADD_CONSTRUCTOR_BUN";
-export const DELETE_ALL_CONSTRUCTOR_INGREDIENTS =
-  "DELETE_ALL_CONSTRUCTOR_INGREDIENTS";
-
-export const INCREASE_BUN_COUNT = "INCREASE_BUN_COUNT";
-export const DECREASE_BUN_COUNT = "DECREASE_BUN_COUNT";
 
 export const getIngredients = () => (dispatch) => {
   dispatch({
     type: SHOW_PRELOADER,
   });
+  dispatch({
+    type: GET_INGREDIENTS_REQUEST,
+  });
   api
     .getIngredients()
     .then((res) => {
       if (res && res.success) {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          ingredients: res.data,
-        });
+        dispatch(setIngredient(res.data));
       } else {
         dispatch({
           type: GET_INGREDIENTS_FAILED,
         });
       }
     })
-    .catch((e) => console.error(e))
+    .catch((e) => {
+      dispatch({
+        type: GET_INGREDIENTS_FAILED,
+      });
+    })
     .finally(() => {
       dispatch({ type: HIDE_PRELOADER });
     });
 };
 
-export const deleteConstructorIngredient = (ingredient) => (dispatch) => {
-  dispatch({
-    type: DECREASE_INGREDIENT_COUNT,
-    _id: ingredient._id,
-  });
-  dispatch({
-    type: DELETE_CONSTRUCTOR_INGREDIENT,
-    id: ingredient.id,
-  });
+export const setIngredient = (data) => {
+  return {
+    type: GET_INGREDIENTS_SUCCESS,
+    ingredients: data,
+  };
 };
-
-export const addBunToConstructor = (ingredient) => (dispatch) => {
-  dispatch({
+export const addBunToConstructor = (ingredient) => {
+  return {
     type: ADD_CONSTRUCTOR_BUN,
     _id: ingredient._id,
-  });
-  dispatch({
-    type: INCREASE_BUN_COUNT,
-    _id: ingredient._id,
-  });
-  dispatch({
-    type: DECREASE_BUN_COUNT,
-    _id: ingredient._id,
-  });
+    count: 2,
+  };
 };
 
+export const addIngredient = (ingredient) => {
+  return {
+    type: ADD_CONSTRUCTOR_INGREDIENT,
+    count: ingredient.count ? ingredient.count + 1 : 1,
+    id: Math.floor(Math.random() * 100000) + 1,
+    _id: ingredient._id,
+  };
+};
 
+export const deleteIngredient = (ingredient) => {
+  return {
+    type: DELETE_CONSTRUCTOR_INGREDIENT,
+    _id: ingredient._id,
+    id: ingredient.id,
+  };
+};
+
+export const moveConstructorIngredient = (dragIndex, hoverIndex) => {
+  return {
+    type: MOVE_CONSTRUCTOR_INGREDIENT,
+    dragIndex,
+    hoverIndex,
+  };
+};

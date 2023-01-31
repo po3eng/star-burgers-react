@@ -8,7 +8,7 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
   const { _id, id } = ingredient;
   const [{ isDrag }, drag] = useDrag({
     type: ingredient.type,
-    item: { _id, id },
+    item: { ...ingredient },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),

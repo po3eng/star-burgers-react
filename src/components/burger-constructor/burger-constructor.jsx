@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CLEAR_ORDER, setOrder } from "../../services/actions/order";
+import { setOrderNumber, setOrder } from "../../services/actions/order";
 
 import classes from "./burger.constructor.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,12 +11,16 @@ import OrderDetails from "../UI/order-details/order-details";
 import Bun from "../UI/bun/bun";
 import ListConstructorIngredients from "../UI/list-constructor-ingredients/list-constructor-ingredients";
 const BurgerConstructor = () => {
-  const [modal, setModal] = useState(false);
-  const { orderIngredients, bun } = useSelector((store) => store.ingredients);
+  const modal = useSelector((store) => store.order.order);
+  const { constructorIngredients, bun } = useSelector(
+    (store) => store.ingredients,
+  );
+
   const dispatch = useDispatch();
+
   const totalOrder = useMemo(
-    () => [bun, ...orderIngredients, bun],
-    [bun, orderIngredients],
+    () => [bun, ...constructorIngredients, bun],
+    [bun, constructorIngredients],
   );
 
   const totalPrice = useMemo(() => {
@@ -27,13 +31,11 @@ const BurgerConstructor = () => {
   }, [totalOrder]);
 
   const sendOrder = () => {
-    dispatch(setOrder(totalOrder.map((item) => item._id)));
-    setModal(true);
+    dispatch(setOrder(totalOrder));
   };
 
   const hideOrderInfo = () => {
-    dispatch({ type: CLEAR_ORDER });
-    setModal(false);
+    dispatch(setOrderNumber(null));
   };
 
   return (

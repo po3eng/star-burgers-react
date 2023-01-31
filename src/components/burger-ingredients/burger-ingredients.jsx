@@ -1,22 +1,22 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import classes from "./burger-ingredients.module.css";
-import IngredientsTab from "../UI/tab/tab";
 import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ingredients";
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import Modal from "../UI/modal/modal";
-import { TYPES_OF_INGREDIENTS } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CLEAR_CURRENT_INGREDIENT,
   SET_CURRENT_INGREDIENT,
 } from "../../services/actions/ingredients";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { InView } from "react-intersection-observer";
 
 const BurgerIngredients = () => {
-  const { ingredients } = useSelector((store) => store.ingredients);
+  const ingredients  = useSelector((store) => store.ingredients.ingredients);
   const dispatch = useDispatch();
-
-  const sectionRef = useRef({});
+  const sectionRef = useRef(null);
   const [modal, setModal] = useState(false);
+
   const [current, setCurrent] = useState("bun");
 
   const hideInfoIngredient = useCallback(() => {
@@ -39,9 +39,17 @@ const BurgerIngredients = () => {
     [ingredients],
   );
 
+  const setRef = (el) => {
+    sectionRef.current["bun"] = el;
+  };
+  const view = (event, type) => {
+    event && setCurrent(type);
+  };
+
   useEffect(() => {
-    sectionRef.current[current].scrollIntoView({
+    sectionRef.current.scrollIntoView({
       block: "start",
+      inline: "start",
       behavior: "smooth",
     });
   }, [current]);
@@ -51,38 +59,52 @@ const BurgerIngredients = () => {
       {modal && (
         <Modal
           header="Детали ингредиента"
-          handleCloseModal={() => hideInfoIngredient()}
+          forwardRef
+          handleCloseModal={hideInfoIngredient}
         >
           <IngredientDetails />
         </Modal>
       )}
 
-      <section>
-        <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
-      </section>
-      <section>
-        <IngredientsTab
-          types={TYPES_OF_INGREDIENTS}
-          current={current}
-          change={setCurrent}
-        />
+      <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
+      <section className={classes.tabs}>
+        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
+          Булки
+        </Tab>
+        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
+          Соусы
+        </Tab>
+        <Tab value="main" active={current === "main"} onClick={setCurrent}>
+          Начинки
+        </Tab>
       </section>
       <section className={`${classes.scrollSection} custom-scroll`}>
-        {TYPES_OF_INGREDIENTS.map((type) => (
-          <section
-            className="mt-10"
-            key={type.id}
-            ref={(el) => (sectionRef.current[type.id] = el)}
-          >
+        <section ref={sectionRef}>
+          <InView threshold="0.8" onChange={(e) => view(e, "bun")}>
             <ListBurgerIngredients
-              type={type}
-              onClick={(i) => {
-                showInfoIngredient(i);
-              }}
-              ingredients={getIngredients(type.id)}
+              type="bun"
+              title="Булки"
+              onClick={showInfoIngredient}
+              ingredients={getIngredients("bun")}
             />
-          </section>
-        ))}
+          </InView>
+        </section>
+        <InView threshold="0.8" onChange={(e) => view(e, "sauce")}>
+          <ListBurgerIngredients
+            type="sauce"
+            title="Соусы"
+            onClick={showInfoIngredient}
+            ingredients={getIngredients("sauce")}
+          />
+        </InView>
+        <InView threshold="0.2" onChange={(e) => view(e, "main")}>
+          <ListBurgerIngredients
+            type="main"
+            title="Начинки"
+            onClick={showInfoIngredient}
+            ingredients={getIngredients("main")}
+          />
+        </InView>
       </section>
     </>
   );

@@ -6,8 +6,8 @@ import classes from "./constructor-ingredient.module.css";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import {
-  MOVE_CONSTRUCTOR_INGREDIENT,
-  deleteConstructorIngredient,
+  deleteIngredient,
+  moveConstructorIngredient,
 } from "../../../services/actions/ingredients";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
@@ -43,7 +43,7 @@ const ConstructorIngredient = ({ ingredient, index, drag }) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT,dragIndex, hoverIndex });
+      dispatch(moveConstructorIngredient(dragIndex, hoverIndex));
       item.index = hoverIndex;
     },
   });
@@ -60,7 +60,7 @@ const ConstructorIngredient = ({ ingredient, index, drag }) => {
   dragRef(dropRef(ref));
 
   const handleDelete = (ingredient) => {
-    dispatch(deleteConstructorIngredient(ingredient));
+    dispatch(deleteIngredient(ingredient));
   };
 
   return (

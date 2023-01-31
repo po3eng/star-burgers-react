@@ -8,7 +8,9 @@ const AppHeaderItem = ({ text, children }) => {
       <Button htmlType="button" type="secondary" size="medium">
         <div className={classes.appHeaderItemButton}>
           {children}
-          {text}
+          <p className="text text_type_main-default text_color_inactive">
+            {text}
+          </p>
         </div>
       </Button>
     </a>

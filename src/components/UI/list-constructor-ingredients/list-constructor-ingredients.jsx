@@ -5,14 +5,14 @@ import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
-  INCREASE_INGREDIENT_COUNT,
+  addIngredient,
 } from "../../../services/actions/ingredients";
 
 import EmptyIngredient from "../empty-ingedient/empty-ingredient";
 const ListConstructorIngredients = () => {
   const dispatch = useDispatch();
-  const orderIngredients = useSelector(
-    (store) => store.ingredients.orderIngredients,
+  const constructorIngredients = useSelector(
+    (store) => store.ingredients.constructorIngredients,
   );
 
   const [{ isHover }, drop] = useDrop({
@@ -20,28 +20,22 @@ const ListConstructorIngredients = () => {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(itemId) {
-      dispatch({
-        type: ADD_CONSTRUCTOR_INGREDIENT,
-        ...itemId,
-      });
-      dispatch({ type: INCREASE_INGREDIENT_COUNT, ...itemId });
+    drop(ingredient) {
+      dispatch(addIngredient(ingredient));
     },
   });
 
   return (
     <div ref={drop} className={`${classes.scrollWraper} custom-scroll`}>
-      {orderIngredients.length > 0 ? (
-        orderIngredients
-          .filter((i) => i.board === "ingredients")
-          .map((ingredient, idx) => (
-            <Ingredient
-              drag
-              ingredient={ingredient}
-              key={ingredient.id}
-              index={idx}
-            />
-          ))
+      {constructorIngredients.length > 0 ? (
+        constructorIngredients.map((ingredient, idx) => (
+          <Ingredient
+            drag
+            ingredient={ingredient}
+            key={ingredient.id}
+            index={idx}
+          />
+        ))
       ) : (
         <EmptyIngredient></EmptyIngredient>
       )}
