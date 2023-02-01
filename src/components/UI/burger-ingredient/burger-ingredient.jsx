@@ -4,8 +4,7 @@ import classes from "./burger-ingredient.module.css";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 
-const BurgerIngredient = ({ ingredient, onClick }) => {
-  const { _id, id } = ingredient;
+const BurgerIngredient = ({ ingredient, onClick, count }) => {
   const [{ isDrag }, drag] = useDrag({
     type: ingredient.type,
     item: { ...ingredient },
@@ -23,9 +22,7 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
       }}
     >
       <div className={`${classes.counterWraper} row`}>
-        {ingredient.count > 0 && (
-          <Counter count={ingredient.count} size="default" extraClass="m-1" />
-        )}
+        {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
         <img
           className={classes.image}
           src={ingredient.image}
@@ -43,10 +40,13 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
     </div>
   );
 };
-
+BurgerIngredient.defaultProps = {
+  count: 0,
+};
 BurgerIngredient.propTypes = {
   ingredient: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
+  count: PropTypes.number,
 };
 
 export default BurgerIngredient;

@@ -16,6 +16,7 @@ export const addIngredient = (ingredient) => {
     ingredient: { ...ingredient, id: Math.floor(Math.random() * 100000) + 1 },
   };
 };
+
 export const deleteIngredient = (ingredient) => {
   return {
     type: DELETE_CONSTRUCTOR_INGREDIENT,
