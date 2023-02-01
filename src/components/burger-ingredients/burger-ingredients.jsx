@@ -4,7 +4,10 @@ import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ing
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import Modal from "../UI/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
+import {
+  CLEAR_CURRENT_INGREDIENT,
+  setCurrentIngredient,
+} from "../../services/actions/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
 
@@ -12,6 +15,7 @@ const BurgerIngredients = () => {
   const { ingredients, currentIngredient } = useSelector(
     (store) => store.ingredients,
   );
+
   const dispatch = useDispatch();
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
@@ -20,12 +24,13 @@ const BurgerIngredients = () => {
   const [current, setCurrent] = useState("bun");
 
   const hideInfoIngredient = useCallback(() => {
-    dispatch({ type: SET_CURRENT_INGREDIENT, ingredient: null });
+    dispatch({ type: CLEAR_CURRENT_INGREDIENT });
   }, [dispatch]);
 
   const showInfoIngredient = useCallback(
     (ingredient) => {
-      dispatch({ type: SET_CURRENT_INGREDIENT, ingredient });
+      console.log(ingredient);
+      dispatch(setCurrentIngredient(ingredient));
     },
     [dispatch],
   );

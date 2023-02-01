@@ -27,7 +27,7 @@ function App() {
         <main className={classes.content}>
           <DndProvider backend={HTML5Backend}>
             <div className={classes.col2}>
-              <BurgerIngredients />
+             <BurgerIngredients />
             </div>
             <div className={`${classes.col2} pt-25`}>
               <BurgerConstructor />

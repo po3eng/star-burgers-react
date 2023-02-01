@@ -1,8 +1,8 @@
 import {
-  SET_ORDER,
   SET_ORDER_REQUEST,
   SET_ORDER_FAILURE,
   SET_ORDER_SUCCES,
+  CLEAR_ORDER,
 } from "../actions/order";
 
 const initialState = {
@@ -33,6 +33,12 @@ export const orderReducer = (state = initialState, action) => {
         order: action.order,
         orderRequest: true,
         orderFailed: false,
+      };
+    }
+    case CLEAR_ORDER: {
+      return {
+        ...state,
+        order: null,
       };
     }
 

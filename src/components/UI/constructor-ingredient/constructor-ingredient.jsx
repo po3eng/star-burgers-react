@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import {
   deleteIngredient,
   moveConstructorIngredient,
-} from "../../../services/actions/ingredients";
+} from "../../../services/actions/constructor";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 const ConstructorIngredient = ({ ingredient, index, drag }) => {

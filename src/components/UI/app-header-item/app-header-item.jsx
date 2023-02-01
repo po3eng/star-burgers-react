@@ -1,18 +1,14 @@
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./app-header-item.module.css";
 import PropTypes from "prop-types";
 
-const AppHeaderItem = ({ text, children }) => {
+const AppHeaderItem = ({ text, children, active }) => {
+  const classActive = active ? "" : "text_color_inactive";
   return (
     <a href="/">
-      <Button htmlType="button" type="secondary" size="medium">
-        <div className={classes.appHeaderItemButton}>
-          {children}
-          <p className="text text_type_main-default text_color_inactive">
-            {text}
-          </p>
-        </div>
-      </Button>
+      <div className={`${classes.appHeaderItemButton} ${classActive} `}>
+        {children}
+        <p className="text text_type_main-default">{text}</p>
+      </div>
     </a>
   );
 };
@@ -20,5 +16,6 @@ const AppHeaderItem = ({ text, children }) => {
 AppHeaderItem.propTypes = {
   text: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
+  active: PropTypes.bool,
 };
-export default AppHeaderItem;
+export default AppHeaderItem; 

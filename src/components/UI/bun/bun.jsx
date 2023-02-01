@@ -3,19 +3,19 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import EmptyBun from "../empty-bun/empty-bun";
 
 import { useDrop } from "react-dnd";
-import { addBunToConstructor } from "../../../services/actions/ingredients";
+import { addBunToConstructor } from "../../../services/actions/constructor";
 import { useDispatch, useSelector } from "react-redux";
 
 const Bun = ({ type }) => {
-  const bun = useSelector((store) => store.ingredients.bun);
+  const bun = useSelector((store) => store.constr.bun);
   const dispatch = useDispatch();
   const [{ isHover }, drop] = useDrop({
     accept: "bun",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(itemId) {
-      dispatch(addBunToConstructor(itemId));
+    drop(ingredient) {
+      dispatch(addBunToConstructor(ingredient));
     },
   });
 

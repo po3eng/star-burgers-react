@@ -8,12 +8,13 @@ import classes from "./app-header.module.css";
 import AppHeaderItem from "../UI/app-header-item/app-header-item";
 
 const AppHeader = () => {
+  const active = true;
   return (
     <header className={`${classes.appHeader} pt-4`}>
       <nav className={classes.nav}>
         <div className={classes.nav_left}>
-          <AppHeaderItem text="Конструктор">
-            <BurgerIcon type="secondary" />
+          <AppHeaderItem active={active} text="Конструктор">
+            <BurgerIcon type={active && "primary"} />
           </AppHeaderItem>
           <AppHeaderItem text="Лента заказов">
             <ListIcon type="secondary" />

@@ -6,11 +6,19 @@ export const SET_ORDER_SUCCES = "SET_ORDER_SUCCES";
 export const SET_ORDER_FAILURE = "SET_ORDER_FAILURE";
 
 export const ADD_CONSTRUCTOR_INGREDIENT = "ADD_CONSTRUCTOR_INGREDIENT";
+export const CLEAR_ORDER = "CLEAR_ORDER";
 
 export const setOrderNumber = (order) => {
   return {
     type: SET_ORDER_SUCCES,
     order: order,
+  };
+};
+
+export const clearOrderNumber = () => {
+  return {
+    type: CLEAR_ORDER,
+    order: null,
   };
 };
 

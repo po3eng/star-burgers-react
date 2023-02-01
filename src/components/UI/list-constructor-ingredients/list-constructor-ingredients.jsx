@@ -3,15 +3,13 @@ import Ingredient from "../constructor-ingredient/constructor-ingredient";
 import classes from "./list-constructor-ingredients.module.css";
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
-import {
-  addIngredient,
-} from "../../../services/actions/ingredients";
+import { addIngredient } from "../../../services/actions/constructor";
 
 import EmptyIngredient from "../empty-ingedient/empty-ingredient";
 const ListConstructorIngredients = () => {
   const dispatch = useDispatch();
   const constructorIngredients = useSelector(
-    (store) => store.ingredients.constructorIngredients,
+    (store) => store.constr.constructorIngredients,
   );
 
   const [{ isHover }, drop] = useDrop({
