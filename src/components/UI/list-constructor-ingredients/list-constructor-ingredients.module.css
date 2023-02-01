@@ -1,4 +1,4 @@
 .scrollWraper {
-    overflow-y: scroll;
-    height: 480px;
+    overflow-y: auto;
+    max-height: 480px;
 }

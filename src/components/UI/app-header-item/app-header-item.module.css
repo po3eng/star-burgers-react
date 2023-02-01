@@ -4,4 +4,11 @@
     flex: none;
     order: 0;
     flex-grow: 0;
+    margin: 15px;
+    padding-right: 8px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }

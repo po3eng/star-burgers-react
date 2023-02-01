@@ -1,19 +1,39 @@
-import { useState, useCallback, useContext, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import classes from "./burger-ingredients.module.css";
-import IngredientsTab from "../UI/tab/tab";
 import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ingredients";
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
-import PropsTypes from "prop-types";
 import Modal from "../UI/modal/modal";
-import { TYPES_OF_INGREDIENTS } from "../../utils/constants";
-import { BurgerContext } from "../services/burgers-context";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  CLEAR_CURRENT_INGREDIENT,
+  setCurrentIngredient,
+} from "../../services/actions/ingredients";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { InView } from "react-intersection-observer";
 
 const BurgerIngredients = () => {
-  const sectionRef = useRef({});
-  const ingredients = useContext(BurgerContext);
-  const [modal, setModal] = useState(false);
-  const [ingredient, setIngredient] = useState({});
+  const { ingredients, currentIngredient } = useSelector(
+    (store) => store.ingredients,
+  );
+
+  const dispatch = useDispatch();
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
+
   const [current, setCurrent] = useState("bun");
+
+  const hideInfoIngredient = useCallback(() => {
+    dispatch({ type: CLEAR_CURRENT_INGREDIENT });
+  }, [dispatch]);
+
+  const showInfoIngredient = useCallback(
+    (ingredient) => {
+      console.log(ingredient);
+      dispatch(setCurrentIngredient(ingredient));
+    },
+    [dispatch],
+  );
 
   const getIngredients = useCallback(
     (type) => {
@@ -22,58 +42,92 @@ const BurgerIngredients = () => {
     [ingredients],
   );
 
-  useEffect(() => {
-    sectionRef.current[current].scrollIntoView({
-      block: "start",
-      behavior: "smooth",
-    });
-  }, [current]);
+  const view = (event, type) => {
+    event && setCurrent(type);
+  };
 
-  const showInfoIngredient = useCallback(
-    (ingredient) => {
-      setIngredient(ingredient);
-      setModal(true);
-    },
-    [setModal, setIngredient],
-  );
+  useEffect(() => {
+    switch (current) {
+      case "bun":
+        bunRef.current.scrollIntoView({
+          block: "start",
+          inline: "start",
+          behavior: "smooth",
+        });
+
+        break;
+      case "sauce":
+        sauceRef.current.scrollIntoView({
+          block: "start",
+          inline: "start",
+          behavior: "smooth",
+        });
+        break;
+      case "main":
+        mainRef.current.scrollIntoView({
+          block: "start",
+          inline: "start",
+          behavior: "smooth",
+        });
+        break;
+    }
+  }, [current]);
 
   return (
     <>
-      {modal && (
+      {currentIngredient && (
         <Modal
           header="Детали ингредиента"
-          handleCloseModal={() => setModal(false)}
+          forwardRef
+          handleCloseModal={hideInfoIngredient}
         >
-          <IngredientDetails ingredient={ingredient} />
+          <IngredientDetails />
         </Modal>
       )}
 
-      <section>
-        <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
-      </section>
-      <section>
-        <IngredientsTab
-          types={TYPES_OF_INGREDIENTS}
-          current={current}
-          change={setCurrent}
-        />
+      <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
+      <section className={classes.tabs}>
+        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
+          Булки
+        </Tab>
+        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
+          Соусы
+        </Tab>
+        <Tab value="main" active={current === "main"} onClick={setCurrent}>
+          Начинки
+        </Tab>
       </section>
       <section className={`${classes.scrollSection} custom-scroll`}>
-        {TYPES_OF_INGREDIENTS.map((type) => (
-          <section
-            className="mt-10"
-            key={type.id}
-            ref={(el) => (sectionRef.current[type.id] = el)}
-          >
+        <section ref={bunRef}>
+          <InView threshold="0.8" onChange={(e) => view(e, "bun")}>
             <ListBurgerIngredients
-              type={type}
-              onClick={(i) => {
-                showInfoIngredient(i);
-              }}
-              ingredients={getIngredients(type.id)}
+              type="bun"
+              title="Булки"
+              onClick={showInfoIngredient}
+              ingredients={getIngredients("bun")}
             />
-          </section>
-        ))}
+          </InView>
+        </section>
+        <section ref={sauceRef}>
+          <InView threshold="0.8" onChange={(e) => view(e, "sauce")}>
+            <ListBurgerIngredients
+              type="sauce"
+              title="Соусы"
+              onClick={showInfoIngredient}
+              ingredients={getIngredients("sauce")}
+            />
+          </InView>
+        </section>
+        <section ref={mainRef}>
+          <InView threshold="0.2" onChange={(e) => view(e, "main")}>
+            <ListBurgerIngredients
+              type="main"
+              title="Начинки"
+              onClick={showInfoIngredient}
+              ingredients={getIngredients("main")}
+            />
+          </InView>
+        </section>
       </section>
     </>
   );

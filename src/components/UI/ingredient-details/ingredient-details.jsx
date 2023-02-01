@@ -1,9 +1,9 @@
 import classes from "./ingredient-details.module.css";
 import ListNutrients from "../list-nutrients/list-nutrients";
-import PropTypes from "prop-types";
-import ModalPortal from "../modal/modal";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = () => {
+  const ingredient = useSelector((store) => store.ingredients.currentIngredient);
   return (
     <div className={classes.content}>
       <img
@@ -15,10 +15,5 @@ const IngredientDetails = ({ ingredient }) => {
       <ListNutrients ingredient={ingredient}></ListNutrients>
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.object.isRequired,
-  handleCloseModal: PropTypes.func,
 };
 export default IngredientDetails;
