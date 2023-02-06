@@ -46,7 +46,7 @@ const BurgerConstructor = () => {
         <Bun type="top" />
         <ListConstructorIngredients />
         <Bun type="bottom" />
-        <div className={`${classes.wraper} pt-10`}>
+        <div className={`${classes.wraper} pt-10 pr-10`}>
           <Price size="medium" price={totalPrice} />
           <Button
             htmlType="button"
