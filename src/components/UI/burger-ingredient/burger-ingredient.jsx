@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 
 const BurgerIngredient = ({ ingredient, onClick, count }) => {
-  const [{ isDrag }, drag] = useDrag({
+  const [{}, drag] = useDrag({
     type: ingredient.type,
     item: { ...ingredient },
     collect: (monitor) => ({

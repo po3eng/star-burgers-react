@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const EmptyBun = ({ type }) => {
   const bun =
-    type == "top"
+    type === "top"
       ? `${styles.empty_text} ml-6 mb-2 constructor-element constructor-element_pos_top`
       : `${styles.empty_text} ml-6 mt-2 constructor-element constructor-element_pos_bottom `;
   return (

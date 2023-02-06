@@ -13,9 +13,8 @@ import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 const ConstructorIngredient = ({ ingredient, index, drag }) => {
   const dispatch = useDispatch();
-
   const ref = useRef(null);
-  const [{ handlerId }, dropRef] = useDrop({
+  const [{}, dropRef] = useDrop({
     accept: ["drag"],
     collect(monitor) {
       return {

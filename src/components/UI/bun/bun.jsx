@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Bun = ({ type }) => {
   const bun = useSelector((store) => store.constr.bun);
   const dispatch = useDispatch();
-  const [{ isHover }, drop] = useDrop({
+  const [{}, drop] = useDrop({
     accept: "bun",
     collect: (monitor) => ({
       isHover: monitor.isOver(),

@@ -54,7 +54,6 @@ const BurgerIngredients = () => {
           inline: "start",
           behavior: "smooth",
         });
-
         break;
       case "sauce":
         sauceRef.current.scrollIntoView({
@@ -69,6 +68,8 @@ const BurgerIngredients = () => {
           inline: "start",
           behavior: "smooth",
         });
+        break;
+      default:
         break;
     }
   }, [current]);

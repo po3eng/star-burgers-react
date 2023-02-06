@@ -12,7 +12,7 @@ const ListConstructorIngredients = () => {
     (store) => store.constr.constructorIngredients,
   );
 
-  const [{ isHover }, drop] = useDrop({
+  const [{  }, drop] = useDrop({
     accept: ["main", "sauce"],
     collect: (monitor) => ({
       isHover: monitor.isOver(),
