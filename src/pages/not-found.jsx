@@ -13,8 +13,8 @@ export function NotFound404() {
         <br />
         <br />
         <p className="text text_type_main-small">
-          check the address or try{" "}
-          <Link to="/" className={styles.link}>
+          check the address or try
+          <Link to="/" >
             homepage
           </Link>
         </p>

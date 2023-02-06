@@ -6,7 +6,7 @@ import Register from "../../pages/register";
 import ForgotPassword from "../../pages/forgot-password";
 import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
-
+import IngredientPage from "../../pages/ingredients";
 import { NotFound404 } from "../../pages/not-found";
 const BurgerRouter = () => {
   return (
@@ -17,7 +17,7 @@ const BurgerRouter = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password " element={<ResetPassword />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/ingredients/:id" element={<NotFound404 />} />
+      <Route path="/ingredients/:id" element={<IngredientPage />} />
       <Route path="*" element={<NotFound404 />} />
     </Routes>
   );

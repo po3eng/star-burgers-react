@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
 }
 
 .row {
@@ -20,14 +22,20 @@
 .content {
   width: 1280px;
   display: flex;
+  height: 90vh;
   flex-direction: row;
-  /* align-items: center; */
+  align-items: center;
   justify-content: center;
-  gap: 40px;
 }
 
 .col2 {
   flex: 50%;
 }
 
-
+.home {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  justify-content: center;
+  gap: 40px;
+}
