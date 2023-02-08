@@ -1,19 +1,25 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const IngredientPage = () => {
   const { id } = useParams();
   const { ingredients } = useSelector((store) => store.ingredients);
-  const ingredient = useMemo(() => {
-    return ingredients.find((i) => i._id === id);
+
+  console.log(ingredients);
+  const [ingredient, setIngredient] = useState({ name: "" });
+  const getIngredient = useCallback(() => {
+    return setIngredient(ingredients.find((i) => i._id === id));
   }, [id, ingredients]);
 
-  useEffect(() => {});
-  console.log(ingredient);
+  useEffect(() => {
+    if (ingredients) {
+      getIngredient();
+    }
+  }, [id, ingredients]);
   return (
     <>
-      <p className="text text_type_main-medium">{ingredient.name}</p>
+      <p className="text text_type_main-medium">werwerwer{ingredient.name}</p>
     </>
   );
 };

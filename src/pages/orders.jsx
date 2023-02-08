@@ -2,21 +2,18 @@ import { Link } from "react-router-dom";
 
 import styles from "./not-found.module.css";
 
-export function NotFound404() {
+export function Orders() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1 className="text text_type_main-large">Oops! 404 Error</h1>
+        <h1 className="text text_type_main-large">Oops!</h1>
         <p className="text text_type_main-medium">
-          The page you requested does not exist
+          Страница находится в разработке
         </p>
         <br />
         <br />
         <p className="text text_type_main-small">
-          check the address or try
-          <Link className="link ml-4" to="/" >
-            homepage
-          </Link>
+          <Link className={styles.link}  to="/">На главную</Link>
         </p>
       </div>
     </div>

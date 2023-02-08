@@ -8,6 +8,7 @@ import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
 import IngredientPage from "../../pages/ingredients";
 import { NotFound404 } from "../../pages/not-found";
+import { Orders } from "../../pages/orders";
 const BurgerRouter = () => {
   return (
     <Routes>
@@ -18,6 +19,7 @@ const BurgerRouter = () => {
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/ingredients/:id" element={<IngredientPage />} />
+      <Route path="/profile/orders" element={<Orders />} />
       <Route path="*" element={<NotFound404 />} />
     </Routes>
   );

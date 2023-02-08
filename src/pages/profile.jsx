@@ -46,12 +46,12 @@ const Profile = () => {
         >
           Профиль
         </p>
-        <p
+        <Link to="/profile/orders"
           style={{ height: "64px", width: "320px" }}
           className="text text_type_main-medium text_color_inactive"
         >
           История заказов
-        </p>
+        </Link>
         <p
           style={{ height: "64px", width: "320px" }}
           className="text text_type_main-medium text_color_inactive"
