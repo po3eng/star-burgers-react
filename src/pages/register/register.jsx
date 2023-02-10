@@ -5,61 +5,66 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import calsses from "./register.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../services/actions/auth";
 
 const Register = () => {
-  const [mail, setEmail] = useState("");
+  const [form, setForm] = useState({ email: "", name: "", password: "" });
+  const user = useSelector((store) => store.auth.user);
+
+  const dispatch = useDispatch();
   const onChangeEmail = (e) => {
-    setEmail(e.target.value);
+    setForm({ ...form, email: e.target.value });
   };
 
-  const [password, setPassword] = useState("");
   const onChangePassword = (e) => {
-    setPassword(e.target.value);
+    setForm({ ...form, password: e.target.value });
   };
 
-  const [value, setValue] = useState();
-  const inputRef = useRef(null);
+  const onChangeName = (e) => {
+    setForm({ ...form, name: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(form));
+  };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "20px",
-        alignSelf: "center",
-        flex: "50%",
-      }}
-    >
+    <div className={calsses.container}>
+      {user && <Navigate to="/" replace></Navigate>}
       <p className="text text_type_main-medium">Регистрация</p>
-      <Input
-        type={"text"}
-        placeholder={"Имя"}
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        name={"name"}
-        ref={inputRef}
-        size={"default"}
-        extraClass="mb-2"
-      />
-      <EmailInput
-        onChange={onChangeEmail}
-        placeholder={"E-mail"}
-        value={mail}
-        name={"email"}
-        extraClass="mb-2"
-      />
-      <PasswordInput
-        onChange={onChangePassword}
-        value={password}
-        placeholder={"Пароль"}
-        name={"password"}
-        extraClass="mb-2"
-      />
-      <Button htmlType="button" type="primary" size="medium">
-        Зарегистрироваться
-      </Button>
+      <form onSubmit={onSubmit} className={calsses.container}>
+        <Input
+          type={"text"}
+          placeholder={"Имя"}
+          onChange={onChangeName}
+          value={form.name}
+          name={"name"}
+          size={"default"}
+          extraClass="mb-2"
+        />
+        <EmailInput
+          onChange={onChangeEmail}
+          placeholder={"E-mail"}
+          value={form.email}
+          name={"email"}
+          extraClass="mb-2"
+        />
+        <PasswordInput
+          onChange={onChangePassword}
+          value={form.password}
+          placeholder={"Пароль"}
+          name={"password"}
+          extraClass="mb-2"
+        />
+
+        <Button type="primary" size="medium">
+          Зарегистрироваться
+        </Button>
+      </form>
       <p className="text text_type_main-small text_color_inactive mt-20">
         Уже зарегистрированы?
         <Link className="pl-2" to="/login" style={{ color: "#4C4CFF" }}>

@@ -20,6 +20,9 @@ export function setCookie(name, value, props) {
   }
   document.cookie = updatedCookie;
 }
+export function removeCookie(name) {
+  document.cookie = name + "=; Max-Age=0";
+}
 
 export function getCookie(name) {
   const matches = document.cookie.match(

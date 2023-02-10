@@ -1,5 +1,6 @@
 import { HOST } from "./constants.js";
 import { getCookie } from "./cookies.js";
+import { getLocalStorage } from "./local-storage.js";
 import { request } from "./request.js";
 class API {
   getIngredients() {
@@ -18,14 +19,14 @@ class API {
     return request(`${HOST}/api/orders`, payload);
   }
 
-  registrationUser({ name, email, password }) {
+  registrationUser(form) {
     const payload = {
       method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify(form),
     };
     return request(`${HOST}/api/auth/register`, payload);
   }
@@ -84,7 +85,7 @@ class API {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        authorization: getCookie("token"),
+        Authorization: `Bearer ${getLocalStorage("token")}`,
       },
     };
 
@@ -97,7 +98,7 @@ class API {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        authorization: getCookie("token"),
+        Authorization: `Bearer ${getLocalStorage("token")}`,
       },
       body: JSON.stringify({ name, email, password }),
     };

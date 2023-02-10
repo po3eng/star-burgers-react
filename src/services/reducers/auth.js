@@ -5,15 +5,17 @@ import {
   GET_FORGOT_FAILURE,
   GET_FORGOT_REQUEST,
   GET_FORGOT_SUCCES,
+  GET_USER_FAILURE,
+  GET_USER_REQUEST,
+  GET_USER_SUCCES,
   CLEAR_USER,
+  GET_REFRESH_TOKEN_SUCCES,
+  GET_REFRESH_TOKEN_FAILURE,
+  GET_REFRESH_TOKEN_REQUEST,
 } from "../actions/auth";
 
-import { setCookie, getCookie } from "../../utils/cookies";
-import {
-  setLocalStorage,
-  getLocalStorage,
-  removeLocalStorage,
-} from "../../utils/local-storage";
+import { removeCookie, setCookie } from "../../utils/cookies";
+import { removeLocalStorage, setLocalStorage } from "../../utils/local-storage";
 
 const initialState = {
   user: null,
@@ -23,13 +25,26 @@ const initialState = {
   forgotRequest: false,
   forgotFailed: false,
   isForgot: false,
+
+  userRequest: false,
+  userFailed: false,
+
+  refreshTokenRequest: false,
+  refreshTokenFailed: false,
 };
 
-// описание редьюсера
-// 1 атворизация
-// 2. регистрация
-// 3. выход
-// 4. рефреш токена
+const updateTokensState = ({ accessToken, refreshToken }) => {
+  let authToken = null;
+  if (accessToken) {
+    authToken = accessToken.split("Bearer ")[1];
+  }
+  if (authToken) {
+    setLocalStorage("token", authToken);
+  }
+  if (refreshToken) {
+    setCookie("token", refreshToken);
+  }
+};
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -40,16 +55,7 @@ export const authReducer = (state = initialState, action) => {
       };
     }
     case GET_AUTH_SUCCES: {
-      let authToken = null;
-      if (action.data.accessToken) {
-        authToken = action.data.accessToken.split("Bearer ")[1];
-      }
-      if (authToken) {
-        setLocalStorage("token", authToken);
-      }
-      if (action.data.refreshToken) {
-        setCookie("token", action.data.refreshToken);
-      }
+      updateTokensState(action.data);
       return {
         ...state,
         authFailed: false,
@@ -73,6 +79,7 @@ export const authReducer = (state = initialState, action) => {
         isForgot: false,
       };
     }
+
     case GET_FORGOT_SUCCES: {
       return {
         ...state,
@@ -81,11 +88,58 @@ export const authReducer = (state = initialState, action) => {
         isForgot: true,
       };
     }
+    case GET_USER_FAILURE: {
+      return { ...state, userFailed: true, userRequest: false };
+    }
+
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        userFailed: false,
+        userRequest: true,
+      };
+    }
+    case GET_USER_SUCCES: {
+      return {
+        ...state,
+        userFailed: false,
+        userRequest: false,
+        user: action.user,
+      };
+    }
+
+    case GET_REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+        refreshTokenFailed: false,
+        refreshTokenRequest: true,
+      };
+    }
+
+    case GET_REFRESH_TOKEN_SUCCES: {
+      updateTokensState(action.data);
+      return {
+        ...state,
+        refreshTokenFailed: false,
+        refreshTokenRequest: false,
+      };
+    }
+
+    case GET_REFRESH_TOKEN_FAILURE: {
+      return { ...state, refreshTokenFailed: true, refreshTokenRequest: false };
+    }
+
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        refreshTokenFailed: false,
+        refreshTokenRequest: true,
+      };
+    }
 
     case CLEAR_USER: {
       removeLocalStorage("token");
-      // очистка токенов
-      // очистка пользователя
+      removeCookie("token", "");
       return { ...state, user: null };
     }
 

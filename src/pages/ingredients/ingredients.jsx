@@ -1,27 +1,22 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
+import IngredientDetails from "../../components/UI/ingredient-details/ingredient-details";
+import classes from "./ingredients.module.css";
 const IngredientPage = () => {
   const { id } = useParams();
   const { ingredients } = useSelector((store) => store.ingredients);
-
-  console.log(ingredients);
   const [ingredient, setIngredient] = useState({ name: "" });
-  const getIngredient = useCallback(() => {
-    return setIngredient(ingredients.find((i) => i._id === id));
-  }, [id, ingredients]);
 
   useEffect(() => {
-    if (ingredients) {
-      getIngredient();
+    if (ingredients.length) {
+      setIngredient(ingredients.find((item) => item._id === id));
     }
-  }, [id, ingredients]);
+  }, [ingredients]);
   return (
-    <>
-      <p className="text text_type_main-medium">werwerwer{ingredient.name}</p>
-    </>
+    <div className={classes.container}>
+      <IngredientDetails ingredient={ingredient} />
+    </div>
   );
 };
-
 export default IngredientPage;

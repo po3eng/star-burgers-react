@@ -8,14 +8,14 @@ export function NotFound404() {
       <div className={styles.content}>
         <h1 className="text text_type_main-large">Oops! 404 Error</h1>
         <p className="text text_type_main-medium">
-          The page you requested does not exist
+          Запрашиваемая вами страница не существует
         </p>
         <br />
         <br />
         <p className="text text_type_main-small">
-          check the address or try
-          <Link className="link ml-4" to="/" >
-            homepage
+          проверьте адрес или вернитесь на
+          <Link className={`${styles.link} ml-2`} to="/">
+            Главную
           </Link>
         </p>
       </div>

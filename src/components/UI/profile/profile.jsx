@@ -1,53 +1,55 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
+import classes from "./profile.module.css";
 import {
   EmailInput,
   PasswordInput,
-  Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
+
 const Profile = () => {
-  const [mail, setEmail] = useState("");
+  const user = useSelector((store) => store.auth.user);
+
+  useEffect(() => {
+    if (user && user.email && user.name) {
+      setForm({ ...user, password: "" });
+    }
+  }, [user]);
+
+  const [form, setForm] = useState({ email: "", name: "", password: "" });
   const onChangeEmail = (e) => {
-    setEmail(e.target.value);
+    setForm({ ...form, email: e.target.value });
   };
 
-  const [password, setPassword] = useState("");
   const onChangePassword = (e) => {
-    setPassword(e.target.value);
+    setForm({ ...form, password: e.target.value });
   };
 
-  const [value, setValue] = useState();
-  const inputRef = useRef(null);
+  const onChangeName = (e) => {
+    setForm({ ...form, name: e.target.value });
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "20px",
-      }}
-    >
+    <div className={classes.wraper}>
       <Input
         type={"text"}
         placeholder={"Имя"}
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
+        onChange={onChangeName}
+        value={form.name}
         name={"name"}
-        ref={inputRef}
         size={"default"}
         extraClass="mb-2"
       />
       <EmailInput
         onChange={onChangeEmail}
         placeholder={"E-mail"}
-        value={mail}
+        value={form.email}
         name={"email"}
         extraClass="mb-2"
       />
       <PasswordInput
         onChange={onChangePassword}
-        value={password}
+        value={form.password}
         placeholder={"Пароль"}
         name={"password"}
         extraClass="mb-2"

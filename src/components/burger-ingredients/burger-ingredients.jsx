@@ -10,12 +10,13 @@ import {
 } from "../../services/actions/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
+import { useNavigate } from "react-router-dom";
 
 const BurgerIngredients = () => {
   const { ingredients, currentIngredient } = useSelector(
     (store) => store.ingredients,
   );
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
@@ -29,10 +30,9 @@ const BurgerIngredients = () => {
 
   const showInfoIngredient = useCallback(
     (ingredient) => {
-      console.log(ingredient);
-      dispatch(setCurrentIngredient(ingredient));
+      navigate(`/ingredients/${ingredient._id}`);
     },
-    [dispatch],
+    [navigate],
   );
 
   const getIngredients = useCallback(

@@ -18,7 +18,7 @@ const AppHeader = () => {
             text="Конструктор"
           ></HeaderItem>
           <HeaderItem
-            to="/login"
+            to="/order-feed"
             Element={ListIcon}
             text="Лента заказов"
           ></HeaderItem>
