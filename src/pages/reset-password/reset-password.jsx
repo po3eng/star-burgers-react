@@ -6,17 +6,13 @@ import {
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 const ResetPassword = () => {
-  const [mail, setEmail] = useState("bob@example.com");
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
 
   const [password, setPassword] = useState();
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   };
 
-  const [value, setValue] = useState();
+  const [token, setToken] = useState();
   const inputRef = useRef(null);
 
   return (
@@ -42,8 +38,8 @@ const ResetPassword = () => {
       <Input
         type={"text"}
         placeholder={"Введите код из письма"}
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
+        onChange={(e) => setToken(e.target.value)}
+        value={token}
         name={"name"}
         ref={inputRef}
         size={"default"}

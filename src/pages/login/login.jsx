@@ -3,15 +3,22 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { signIn } from "../services/actions/auth";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { signIn } from "../../services/actions/auth";
 const Login = () => {
+  const user = useSelector((store) => store.auth.user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  }, [user]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -37,9 +44,6 @@ const Login = () => {
       }}
     >
       <p className="text text_type_main-medium">Вход</p>
-      <p className="text text_type_main-medium">{email}</p>
-      <p className="text text_type_main-medium">{password}</p>
-
       <EmailInput
         onChange={onChangeEmail}
         placeholder={"E-mail"}
@@ -59,13 +63,17 @@ const Login = () => {
       </Button>
       <p className="text text_type_main-small primary mt-20 mb-24 text_color_inactive">
         Вы — новый пользователь?
-        <Link className="pl-2" style={{ color: "#4C4CFF" }} to="/login">
+        <Link className="pl-2" style={{ color: "#4C4CFF" }} to="/register">
           Зарегистрироваться
         </Link>
       </p>
       <p className="text text_type_main-small primary text_color_inactive">
         Забыли пароль?
-        <Link className="pl-2 link" style={{ color: "#4C4CFF" }} to="/login">
+        <Link
+          className="pl-2 link"
+          style={{ color: "#4C4CFF" }}
+          to="/forgot-password"
+        >
           Востановить пароль
         </Link>
       </p>

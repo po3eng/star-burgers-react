@@ -2,6 +2,9 @@ import {
   GET_AUTH_FAILURE,
   GET_AUTH_REQUEST,
   GET_AUTH_SUCCES,
+  GET_FORGOT_FAILURE,
+  GET_FORGOT_REQUEST,
+  GET_FORGOT_SUCCES,
   CLEAR_USER,
 } from "../actions/auth";
 
@@ -16,6 +19,10 @@ const initialState = {
   user: null,
   authRequest: false,
   authFailed: false,
+
+  forgotRequest: false,
+  forgotFailed: false,
+  isForgot: false,
 };
 
 // описание редьюсера
@@ -53,6 +60,28 @@ export const authReducer = (state = initialState, action) => {
     case GET_AUTH_FAILURE: {
       return { ...state, authFailed: true, authRequest: false };
     }
+
+    case GET_FORGOT_FAILURE: {
+      return { ...state, forgotFailed: true, forgotRequest: false };
+    }
+
+    case GET_FORGOT_REQUEST: {
+      return {
+        ...state,
+        forgotFailed: false,
+        forgotRequest: true,
+        isForgot: false,
+      };
+    }
+    case GET_FORGOT_SUCCES: {
+      return {
+        ...state,
+        forgotFailed: false,
+        forgotRequest: false,
+        isForgot: true,
+      };
+    }
+
     case CLEAR_USER: {
       removeLocalStorage("token");
       // очистка токенов

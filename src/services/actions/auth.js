@@ -6,6 +6,10 @@ export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCES = "GET_AUTH_SUCCES";
 export const GET_AUTH_FAILURE = "GET_AUTH_FAILURE";
 
+export const GET_FORGOT_REQUEST = "GET_FORGOT_REQUEST";
+export const GET_FORGOT_SUCCES = "GET_FORGOT_SUCCES";
+export const GET_FORGOT_FAILURE = "GET_FORGOT_FAILURE";
+
 export const SET_USER = "SET_USER";
 export const CLEAR_USER = "CLEAR_USER";
 
@@ -21,6 +25,35 @@ export const signIn = (form) => (dispatch) => {
     .then((res) => {
       if (res && res.success) {
         dispatch(setUser(res));
+      } else {
+        dispatch({
+          type: GET_AUTH_FAILURE,
+        });
+      }
+    })
+    .catch((e) => {
+      dispatch({
+        type: GET_FORGOT_FAILURE,
+      });
+    })
+    .finally(() => {
+      dispatch({ type: HIDE_PRELOADER });
+    });
+};
+
+
+export const forgotPassword = (form) => (dispatch) => {
+  dispatch({
+    type: SHOW_PRELOADER,
+  });
+  dispatch({
+    type: GET_FORGOT_REQUEST,
+  });
+  api
+    .forgotPassword(form)
+    .then((res) => {
+      if (res && res.success) {
+        dispatch({ type: GET_FORGOT_SUCCES });
       } else {
         dispatch({
           type: GET_AUTH_FAILURE,

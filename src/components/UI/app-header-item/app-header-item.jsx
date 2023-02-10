@@ -1,18 +1,24 @@
 import classes from "./app-header-item.module.css";
 import PropTypes from "prop-types";
-const AppHeaderItem = ({ text, children, active }) => {
-  const classActive = active ? "" : "text_color_inactive";
+
+import { Link, useLocation } from "react-router-dom";
+
+const HeaderItem = ({ Element, text, to }) => {
+  const { pathname } = useLocation();
+  const classActive = pathname === to ? "" : "text_color_inactive";
   return (
-    <div className={`${classes.appHeaderItemButton} ${classActive} `}>
-      {children}
-      <p className="text text_type_main-default">{text}</p>
-    </div>
+    <Link to={to}>
+      <div className={`${classes.appHeaderItemButton}`}>
+        <Element type={pathname === to ? "primary" : "secondary"}></Element>
+        <p className={`text text_type_main-default  ${classActive}`}>{text}</p>
+      </div>
+    </Link>
   );
 };
 
-AppHeaderItem.propTypes = {
+HeaderItem.propTypes = {
   text: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
-  active: PropTypes.bool,
+  to: PropTypes.string.isRequired,
+  Element: PropTypes.func.isRequired,
 };
-export default AppHeaderItem;
+export default HeaderItem;
