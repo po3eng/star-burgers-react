@@ -4,15 +4,14 @@ import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ing
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import Modal from "../UI/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CLEAR_CURRENT_INGREDIENT,
-  setCurrentIngredient,
-} from "../../services/actions/ingredients";
+import { CLEAR_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BurgerIngredients = () => {
+  const location = useLocation();
+
   const { ingredients, currentIngredient } = useSelector(
     (store) => store.ingredients,
   );
@@ -30,7 +29,9 @@ const BurgerIngredients = () => {
 
   const showInfoIngredient = useCallback(
     (ingredient) => {
-      navigate(`/ingredients/${ingredient._id}`);
+      navigate(`/ingredients/${ingredient._id}`, {
+        state: { background: location },
+      });
     },
     [navigate],
   );
@@ -78,7 +79,6 @@ const BurgerIngredients = () => {
       {currentIngredient && (
         <Modal
           header="Детали ингредиента"
-          forwardRef
           handleCloseModal={hideInfoIngredient}
         >
           <IngredientDetails />

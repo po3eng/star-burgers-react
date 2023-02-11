@@ -3,7 +3,7 @@ import classes from "./profile.module.css";
 import { getCookie } from "../../utils/cookies";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { CLEAR_USER, logout, userData } from "../../services/actions/auth";
+import { logout, userData } from "../../services/actions/auth";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
