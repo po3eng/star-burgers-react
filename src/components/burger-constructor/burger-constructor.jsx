@@ -10,10 +10,13 @@ import OrderDetails from "../UI/order-details/order-details";
 
 import Bun from "../UI/bun/bun";
 import ListConstructorIngredients from "../UI/list-constructor-ingredients/list-constructor-ingredients";
+import { getCookie } from "../../utils/cookies";
+import { useNavigate } from "react-router-dom";
 const BurgerConstructor = () => {
   const order = useSelector((store) => store.order.order);
   const { constructorIngredients, bun } = useSelector((store) => store.constr);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const totalOrder = useMemo(
     () => [bun, ...constructorIngredients, bun],
@@ -28,6 +31,11 @@ const BurgerConstructor = () => {
   }, [totalOrder]);
 
   const sendOrder = () => {
+    const token = getCookie("token");
+    if (!token) {
+      navigate('/login',{replace:true})
+    }
+    
     dispatch(setOrder(totalOrder));
   };
 

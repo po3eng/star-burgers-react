@@ -16,6 +16,11 @@ const Login = () => {
     }
   }, [user]);
 
+
+
+  // TODO: отверстать форму! с онсабмитом
+  // изменить стайт на стэйт форм
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();

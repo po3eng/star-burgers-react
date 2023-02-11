@@ -78,6 +78,17 @@ class API {
     };
     return request(`${HOST}/api/password-reset`, payload);
   }
+  resetPassword(form) {
+    const payload = {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    };
+    return request(`${HOST}/api/password-reset/reset`, payload);
+  }
 
   getUserData() {
     const payload = {
@@ -92,7 +103,7 @@ class API {
     return request(`${HOST}/api/auth/user`, payload);
   }
 
-  upadateUserData({ name, email, password }) {
+  upadateUserData(form) {
     const payload = {
       method: "PATCH",
       mode: "cors",
@@ -100,7 +111,7 @@ class API {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getLocalStorage("token")}`,
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify(form),
     };
     return request(`${HOST}/api/auth/user`, payload);
   }

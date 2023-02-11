@@ -3,17 +3,18 @@ import classes from "./profile.module.css";
 import { getCookie } from "../../utils/cookies";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { CLEAR_USER, userData } from "../../services/actions/auth";
+import { CLEAR_USER, logout, userData } from "../../services/actions/auth";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.auth.user);
+
   useEffect(() => {
-    dispatch(userData());
+    user && dispatch(userData());
   }, []);
 
   const onExit = () => {
-    dispatch({ type: CLEAR_USER });
+    dispatch(logout(getCookie("token")));
   };
 
   return (

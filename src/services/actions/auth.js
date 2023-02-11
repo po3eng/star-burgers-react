@@ -28,6 +28,8 @@ export const updateToken = (data) => ({
   data: data,
 });
 
+/// TODO: описать все экшены для thunk
+
 export const signIn = (form) => (dispatch) => {
   dispatch({ type: SHOW_PRELOADER });
   dispatch({ type: GET_AUTH_REQUEST });
@@ -51,6 +53,24 @@ export const forgotPassword = (form) => (dispatch) => {
   dispatch({ type: GET_FORGOT_REQUEST });
   api
     .forgotPassword(form)
+    .then((res) => {
+      res && res.success
+        ? dispatch({ type: GET_FORGOT_SUCCES })
+        : dispatch({ type: GET_AUTH_FAILURE });
+    })
+    .catch((e) => {
+      dispatch({ type: GET_AUTH_FAILURE });
+    })
+    .finally(() => {
+      dispatch({ type: HIDE_PRELOADER });
+    });
+};
+
+export const resetPassword = (form) => (dispatch) => {
+  dispatch({ type: SHOW_PRELOADER });
+  dispatch({ type: GET_FORGOT_REQUEST });
+  api
+    .resetPassword(form)
     .then((res) => {
       res && res.success
         ? dispatch({ type: GET_FORGOT_SUCCES })
@@ -99,10 +119,42 @@ export const registerUser = (form) => (dispatch) => {
   api
     .registrationUser(form)
     .then((res) => {
-      res && res.success && dispatch(setUser(res))
-
+      res && res.success && dispatch(setUser(res));
     })
     .catch((e) => {
       dispatch({ type: GET_REFRESH_TOKEN_FAILURE });
+    });
+};
+
+// при обновленнии пользователя
+// обновить данные в стэйте
+// если надо обновить хранидища
+
+export const updateUserData = (form) => (dispatch) => {
+  dispatch({ type: GET_USER_REQUEST });
+  api
+    .upadateUserData(form)
+    .then((res) => {
+      res && res.success
+        ? dispatch({ type: GET_USER_SUCCES, user: res.user })
+        : dispatch({ type: GET_USER_FAILURE });
+    })
+    .catch((e) => {
+      e.status === 403 && dispatch(refreshToken(getCookie("token")));
+      dispatch({ type: GET_USER_FAILURE });
+    });
+};
+export const logout = (token) => (dispatch) => {
+  dispatch({ type: GET_USER_REQUEST });
+  api
+    .logout({ token })
+    .then((res) => {
+      if (res && res.success) {
+        dispatch({ type: CLEAR_USER });
+      }
+    })
+    .catch((e) => {
+      // при любом раскладе на страницу логина
+      dispatch({ type: GET_USER_FAILURE });
     });
 };

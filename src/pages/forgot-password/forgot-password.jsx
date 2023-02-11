@@ -7,14 +7,16 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../../services/actions/auth";
+import { getCookie } from "../../utils/cookies";
 const ForgotPassword = () => {
   const user = useSelector((store) => store.auth.user);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) {
+    const token = getCookie("token");
+    if (!token) {
       navigate("/", { replace: true });
     }
-  }, [user]);
+  }, []);
 
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
