@@ -67,14 +67,13 @@ class API {
     return request(`${HOST}/api/auth/token `, payload);
   }
 
-  forgotPassword({ email }) {
+  forgotPassword(email) {
     const payload = {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify(email),
     };
     return request(`${HOST}/api/password-reset`, payload);
   }

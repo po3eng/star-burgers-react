@@ -16,7 +16,8 @@ const ForgotPassword = () => {
     setEmail(e.target.value);
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatch(forgotPassword({ email }));
   };
 

@@ -18,8 +18,10 @@ import Orders from "../../pages/orders/orders";
 import Profile from "../UI/profile/profile";
 import Modal from "../UI/modal/modal";
 
-import ProtectedRouteElement from "../protected-route-element";
+import ProtectedRouteElement from "../user-protected-route-element";
 import Logout from "../logout";
+import UserProtectedRouteElement from "../user-protected-route-element";
+import GuestProtectedRouteElement from "../guest-protected-route-element";
 const BurgerRouter = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -31,26 +33,34 @@ const BurgerRouter = () => {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={<UserProtectedRouteElement element={<Login />} />}
+        />
+        <Route
+          path="/register"
+          element={<UserProtectedRouteElement element={<Register />} />}
+        />
         <Route
           path="/forgot-password"
-          element={<ProtectedRouteElement element={<ForgotPassword />} />}
+          element={<UserProtectedRouteElement element={<ForgotPassword />} />}
         />
         <Route
           path="/reset-password"
-          element={<ProtectedRouteElement element={<ResetPassword />} />}
+          element={<UserProtectedRouteElement element={<ResetPassword />} />}
         />
         <Route
           path="/profile"
-          element={<ProtectedRouteElement element={<ProfilePage />} />}
+          element={<GuestProtectedRouteElement element={<ProfilePage />} />}
         >
           <Route index path="form" element={<Profile />} />
-          {/* <Route path="/profile/orders" element={<Orders />} /> */}
           <Route path="*" element={<NotFound404 />} />
         </Route>
+        <Route
+          path="/logout"
+          element={<GuestProtectedRouteElement element={<Logout />} />}
+        />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
-        <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {background && (

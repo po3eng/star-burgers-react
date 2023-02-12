@@ -21,7 +21,8 @@ const LoginForm = () => {
     setForm({ ...form, password: e.target.value });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatch(signIn(form));
   };
 
