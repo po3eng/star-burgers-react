@@ -4,8 +4,8 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useRef } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import calsses from "./register.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../services/actions/auth";
@@ -34,7 +34,6 @@ const Register = () => {
 
   return (
     <div className={calsses.container}>
-      {user && <Navigate to="/" replace></Navigate>}
       <p className="text text_type_main-medium">Регистрация</p>
       <form onSubmit={onSubmit} className={calsses.container}>
         <Input

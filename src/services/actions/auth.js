@@ -144,6 +144,7 @@ export const updateUserData = (form) => (dispatch) => {
       dispatch({ type: GET_USER_FAILURE });
     });
 };
+
 export const logout = (token) => (dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
   api

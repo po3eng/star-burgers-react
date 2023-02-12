@@ -4,7 +4,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./reset-password.module.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetPassword } from "../../services/actions/auth";
@@ -12,6 +12,10 @@ const ResetPassword = () => {
   const [form, setForm] = useState({ token: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  
+
+
   const onChangePassword = (e) => {
     setForm({ ...form, password: e.target.value });
   };
@@ -24,6 +28,7 @@ const ResetPassword = () => {
     dispatch(resetPassword(form));
     navigate("/login", { replace: true });
   };
+
 
   return (
     <form onSubmit={onSubmit} className={classes.container}>

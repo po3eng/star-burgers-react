@@ -1,23 +1,14 @@
 import {
   EmailInput,
-  PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { forgotPassword } from "../../services/actions/auth";
-import { getCookie } from "../../utils/cookies";
-const ForgotPassword = () => {
-  const user = useSelector((store) => store.auth.user);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = getCookie("token");
-    if (!token) {
-      navigate("/", { replace: true });
-    }
-  }, []);
+import classes from "./forgot-password.module.css";
 
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
 
@@ -32,17 +23,7 @@ const ForgotPassword = () => {
   const isForgot = useSelector((store) => store.auth.isForgot);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "20px",
-        justifySelf: "end",
-        alignSelf: "center",
-        flex: "50%",
-      }}
-    >
+    <form className={classes.container} onSubmit={onSubmit}>
       <p className="text text_type_main-medium">Воcстановление пароля</p>
       <EmailInput
         onChange={onChangeEmail}
@@ -51,17 +32,17 @@ const ForgotPassword = () => {
         name={"email"}
         extraClass="mb-2"
       />
-      <Button onClick={onSubmit} htmlType="button" type="primary" size="medium">
+      <Button type="primary" size="medium">
         Восcтановить
       </Button>
       <p className="text text_type_main-small text_color_inactive mt-20">
         Вспомнили пароль?
-        <Link className="pl-2" to="/login" style={{ color: "#4C4CFF" }}>
+        <Link className={`${classes.link} pl-2`} to="/login">
           Войти
         </Link>
       </p>
       {isForgot && <Navigate to="/reset-password" replace={true} />}
-    </div>
+    </form>
   );
 };
 

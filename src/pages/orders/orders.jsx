@@ -2,13 +2,13 @@ import styles from "../not-found/not-found.module.css";
 import { getCookie } from "../../utils/cookies";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useMatch } from "react-router-dom";
 import { userData } from "../../services/actions/auth";
 
 const Orders = () => {
   const dispatch = useDispatch();
   const token = getCookie("token");
-
+  const match = useMatch("./profile/orders");
   useEffect(() => {
     token && dispatch(userData());
   }, []);

@@ -19,6 +19,7 @@ import Profile from "../UI/profile/profile";
 import Modal from "../UI/modal/modal";
 
 import ProtectedRouteElement from "../protected-route-element";
+import Logout from "../logout";
 const BurgerRouter = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -44,11 +45,12 @@ const BurgerRouter = () => {
           path="/profile"
           element={<ProtectedRouteElement element={<ProfilePage />} />}
         >
-          <Route index element={<Profile />} />
+          <Route index path="form" element={<Profile />} />
           {/* <Route path="/profile/orders" element={<Orders />} /> */}
           <Route path="*" element={<NotFound404 />} />
         </Route>
         <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {background && (

@@ -20,6 +20,7 @@ const Profile = () => {
   }, [user]);
 
   const [form, setForm] = useState({ email: "", name: "", password: "" });
+
   const [isActions, setIsActions] = useState(false);
 
   const onChangeEmail = (e) => {
@@ -34,7 +35,6 @@ const Profile = () => {
 
   const onChangeName = (e) => {
     setIsActions(true);
-
     setForm({ ...form, name: e.target.value });
   };
 
