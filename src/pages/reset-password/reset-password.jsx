@@ -8,20 +8,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetPassword } from "../../services/actions/auth";
+import useForm from "../../hooks/useForm";
 const ResetPassword = () => {
-  const [form, setForm] = useState({ token: "", password: "" });
+  const [form, onChangeHandle] = useForm({ token: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  
-
-
-  const onChangePassword = (e) => {
-    setForm({ ...form, password: e.target.value });
-  };
-  const onChangeToken = (e) => {
-    setForm({ ...form, token: e.target.value });
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -29,12 +20,11 @@ const ResetPassword = () => {
     navigate("/login", { replace: true });
   };
 
-
   return (
     <form onSubmit={onSubmit} className={classes.container}>
       <p className="text text_type_main-medium">Восстановление пароля</p>
       <PasswordInput
-        onChange={onChangePassword}
+        onChange={onChangeHandle}
         placeholder={"Введите новый пароль"}
         value={form.password}
         name={"password"}
@@ -43,7 +33,7 @@ const ResetPassword = () => {
       <Input
         type={"text"}
         placeholder={"Введите код из письма"}
-        onChange={onChangeToken}
+        onChange={onChangeHandle}
         value={form.token}
         name={"name"}
         size={"default"}

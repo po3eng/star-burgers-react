@@ -4,28 +4,19 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import calsses from "./register.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/actions/auth";
 
 const Register = () => {
-  const [form, setForm] = useState({ email: "", name: "", password: "" });
-  const user = useSelector((store) => store.auth.user);
+  const [form, handleChangeForm] = useForm({
+    email: "",
+    name: "",
+    password: "",
+  });
 
   const dispatch = useDispatch();
-  const onChangeEmail = (e) => {
-    setForm({ ...form, email: e.target.value });
-  };
-
-  const onChangePassword = (e) => {
-    setForm({ ...form, password: e.target.value });
-  };
-
-  const onChangeName = (e) => {
-    setForm({ ...form, name: e.target.value });
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -39,21 +30,21 @@ const Register = () => {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={onChangeName}
+          onChange={handleChangeForm}
           value={form.name}
           name={"name"}
           size={"default"}
           extraClass="mb-2"
         />
         <EmailInput
-          onChange={onChangeEmail}
+          onChange={handleChangeForm}
           placeholder={"E-mail"}
           value={form.email}
           name={"email"}
           extraClass="mb-2"
         />
         <PasswordInput
-          onChange={onChangePassword}
+          onChange={handleChangeForm}
           value={form.password}
           placeholder={"Пароль"}
           name={"password"}

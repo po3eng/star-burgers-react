@@ -25,7 +25,6 @@ import GuestProtectedRouteElement from "../guest-protected-route-element";
 const BurgerRouter = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
-
   const navigate = useNavigate();
   const onClose = () => navigate("/");
 

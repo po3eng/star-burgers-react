@@ -4,22 +4,19 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./login-form.module.css";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { signIn } from "../../../services/actions/auth";
+import useForm from "../../../hooks/useForm";
 
 const LoginForm = () => {
-  const [form, setForm] = useState({ email: "", password: "" });
-  const dispatch = useDispatch();
-  const onChangeEmail = (e) => {
-    setForm({ ...form, email: e.target.value });
-  };
+  const [form, handleChangeForm] = useForm({
+    email: "",
+    password: "",
+  });
 
-  const onChangePassword = (e) => {
-    setForm({ ...form, password: e.target.value });
-  };
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -30,14 +27,14 @@ const LoginForm = () => {
     <form onSubmit={onSubmit} className={classes.container}>
       <p className="text text_type_main-medium">Вход</p>
       <EmailInput
-        onChange={onChangeEmail}
+        onChange={handleChangeForm}
         placeholder={"E-mail"}
         value={form.email}
         name={"email"}
         extraClass="mb-2"
       />
       <PasswordInput
-        onChange={onChangePassword}
+        onChange={handleChangeForm}
         value={form.password}
         placeholder={"Пароль"}
         name={"password"}

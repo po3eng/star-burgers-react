@@ -8,10 +8,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../../services/actions/auth";
+import useForm from "../../../hooks/useForm";
 
 const Profile = () => {
-  const user = useSelector((store) => store.auth.user);
   const dispatch = useDispatch();
+  const user = useSelector((store) => store.auth.user);
+  const [isActions, setIsActions] = useState(false);
+  const [form, handleChangeForm, setForm] = useForm({
+    email: "",
+    name: "",
+    password: "",
+  });
 
   useEffect(() => {
     if (user && user.email && user.name) {
@@ -19,23 +26,9 @@ const Profile = () => {
     }
   }, [user]);
 
-  const [form, setForm] = useState({ email: "", name: "", password: "" });
-
-  const [isActions, setIsActions] = useState(false);
-
-  const onChangeEmail = (e) => {
+  const handleChange = (e) => {
     setIsActions(true);
-    setForm({ ...form, email: e.target.value });
-  };
-
-  const onChangePassword = (e) => {
-    setIsActions(true);
-    setForm({ ...form, password: e.target.value });
-  };
-
-  const onChangeName = (e) => {
-    setIsActions(true);
-    setForm({ ...form, name: e.target.value });
+    handleChangeForm(e);
   };
 
   const onSubmit = (e) => {
@@ -54,21 +47,21 @@ const Profile = () => {
       <Input
         type={"text"}
         placeholder={"Имя"}
-        onChange={onChangeName}
+        onChange={handleChange}
         value={form.name}
         name={"name"}
         size={"default"}
         extraClass="mb-2"
       />
       <EmailInput
-        onChange={onChangeEmail}
+        onChange={handleChange}
         placeholder={"E-mail"}
         value={form.email}
         name={"email"}
         extraClass="mb-2"
       />
       <PasswordInput
-        onChange={onChangePassword}
+        onChange={handleChange}
         value={form.password}
         placeholder={"Пароль"}
         name={"password"}
@@ -78,14 +71,13 @@ const Profile = () => {
       {isActions && (
         <div className={classes.actions}>
           <Button
-            htmlType="button"
             type="secondary"
             onClick={onAbort}
             size="medium"
           >
             Отмена
           </Button>
-          <Button  type="primary" size="medium">
+          <Button type="primary" size="medium">
             Соханить
           </Button>
         </div>
