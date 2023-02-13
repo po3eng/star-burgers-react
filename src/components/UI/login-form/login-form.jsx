@@ -40,7 +40,7 @@ const LoginForm = () => {
         name={"password"}
         extraClass="mb-2"
       />
-      <Button type="primary" size="medium">
+      <Button htmlType="submit" type="primary" size="medium">
         Войти
       </Button>
       <p className="text text_type_main-small primary mt-20 mb-24 text_color_inactive">

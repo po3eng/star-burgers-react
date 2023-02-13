@@ -52,7 +52,7 @@ const Register = () => {
           extraClass="mb-2"
         />
 
-        <Button type="primary" size="medium">
+        <Button  htmlType="submit" type="primary" size="medium">
           Зарегистрироваться
         </Button>
       </form>

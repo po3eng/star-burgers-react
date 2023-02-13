@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   constructorIngredients: [],
-  bun: { price: 0 },
+  bun: null,
 };
 
 export const constructorReducer = (state = initialState, action) => {
@@ -55,7 +55,7 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         constructorIngredients: [],
-        bun: { price: 0 },
+        bun: null,
       };
     }
 

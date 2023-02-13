@@ -71,13 +71,14 @@ const Profile = () => {
       {isActions && (
         <div className={classes.actions}>
           <Button
+            htmlType="reset"
             type="secondary"
             onClick={onAbort}
             size="medium"
           >
             Отмена
           </Button>
-          <Button type="primary" size="medium">
+          <Button htmlType="submit" type="primary" size="medium">
             Соханить
           </Button>
         </div>

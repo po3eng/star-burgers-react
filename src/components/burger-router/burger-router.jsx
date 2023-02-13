@@ -14,50 +14,47 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
 import IngredientPage from "../../pages/ingredients/ingredients";
 import { NotFound404 } from "../../pages/not-found/not-found";
-import Orders from "../../pages/orders/orders";
 import Profile from "../UI/profile/profile";
 import Modal from "../UI/modal/modal";
 
-import ProtectedRouteElement from "../user-protected-route-element";
 import Logout from "../logout";
-import UserProtectedRouteElement from "../user-protected-route-element";
-import GuestProtectedRouteElement from "../guest-protected-route-element";
+import ProtectedRoute from "../protected-rout-element";
+
 const BurgerRouter = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
   const onClose = () => navigate("/");
-
   return (
     <>
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
-          element={<UserProtectedRouteElement element={<Login />} />}
+          element={<ProtectedRoute anonymous element={<Login />} />}
         />
         <Route
           path="/register"
-          element={<UserProtectedRouteElement element={<Register />} />}
+          element={<ProtectedRoute anonymous element={<Register />} />}
         />
         <Route
           path="/forgot-password"
-          element={<UserProtectedRouteElement element={<ForgotPassword />} />}
+          element={<ProtectedRoute anonymous element={<ForgotPassword />} />}
         />
         <Route
           path="/reset-password"
-          element={<UserProtectedRouteElement element={<ResetPassword />} />}
+          element={<ProtectedRoute anonymous element={<ResetPassword />} />}
         />
         <Route
           path="/profile"
-          element={<GuestProtectedRouteElement element={<ProfilePage />} />}
+          element={<ProtectedRoute  element={<ProfilePage />} />}
         >
           <Route index path="form" element={<Profile />} />
           <Route path="*" element={<NotFound404 />} />
         </Route>
         <Route
           path="/logout"
-          element={<GuestProtectedRouteElement element={<Logout />} />}
+          element={<ProtectedRoute element={<Logout />} />}
         />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFound404 />} />

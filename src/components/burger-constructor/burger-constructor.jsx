@@ -33,10 +33,11 @@ const BurgerConstructor = () => {
   const sendOrder = () => {
     const token = getCookie("token");
     if (!token) {
-      navigate('/login',{replace:true})
+      navigate("/login", { replace: true });
     }
-    
-    dispatch(setOrder(totalOrder));
+    if (totalOrder.length > 2 && bun) {
+      dispatch(setOrder(totalOrder));
+    }
   };
 
   const hideOrderInfo = () => {

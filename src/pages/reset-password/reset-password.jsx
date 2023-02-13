@@ -44,7 +44,7 @@ const ResetPassword = () => {
         size={"default"}
         extraClass="ml-1"
       />
-      <Button type="primary" size="medium">
+      <Button htmlType="submit" type="primary" size="medium">
         Сохранить
       </Button>
       <p className="text text_type_main-small text_color_inactive pt-20">

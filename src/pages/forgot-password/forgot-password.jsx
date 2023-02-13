@@ -32,7 +32,7 @@ const ForgotPassword = () => {
         name={"email"}
         extraClass="mb-2"
       />
-      <Button type="primary" size="medium">
+      <Button  htmlType="submit" type="primary" size="medium">
         Восcтановить
       </Button>
       <p className="text text_type_main-small text_color_inactive mt-20">

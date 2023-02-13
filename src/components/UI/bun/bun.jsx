@@ -22,7 +22,7 @@ const Bun = ({ type }) => {
   const position = type === "top" ? "(верх)" : "(низ)";
   return (
     <div ref={drop}>
-      {bun._id ? (
+      {bun && bun._id ? (
         <ConstructorElement
           type={type}
           extraClass="mb-2 mt-2 ml-6"
