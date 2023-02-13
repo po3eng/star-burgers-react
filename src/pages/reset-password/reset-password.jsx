@@ -4,8 +4,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./reset-password.module.css";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetPassword } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm";
@@ -13,11 +12,17 @@ const ResetPassword = () => {
   const [form, onChangeHandle] = useForm({ token: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const isForgot = location.state?.isForgot;
+  if (!isForgot) {
+    return <Navigate to="/" replace />;
+  }
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(resetPassword(form));
-    navigate("/login", { replace: true });
+    const res = dispatch(resetPassword(form));
+    res.then((data) => {
+      data.success && navigate("/login", { replace: true });
+    });
   };
 
   return (
@@ -35,7 +40,7 @@ const ResetPassword = () => {
         placeholder={"Введите код из письма"}
         onChange={onChangeHandle}
         value={form.token}
-        name={"name"}
+        name={"token"}
         size={"default"}
         extraClass="ml-1"
       />

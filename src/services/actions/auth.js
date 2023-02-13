@@ -27,7 +27,6 @@ export const GET_UPDATE_REQUEST = "GET_USER_REQUEST";
 export const GET_UPDATE_SUCCES = "GET_USER_SUCCES";
 export const GET_UPDATE_FAILURE = "GET_USER_FAILURE";
 
-
 export const GET_LOGOUT_REQUEST = "GET_USER_REQUEST";
 export const GET_LOGOUT_SUCCES = "GET_USER_SUCCES";
 export const GET_LOGOUT_FAILURE = "GET_USER_FAILURE";
@@ -66,12 +65,13 @@ export const signIn = (form) => (dispatch) => {
 export const forgotPassword = (form) => (dispatch) => {
   dispatch({ type: SHOW_PRELOADER });
   dispatch({ type: GET_FORGOT_REQUEST });
-  api
+  return api
     .forgotPassword(form)
     .then((res) => {
       res && res.success
         ? dispatch({ type: GET_FORGOT_SUCCES })
         : dispatch({ type: GET_AUTH_FAILURE });
+      return res;
     })
     .catch((e) => {
       dispatch({ type: GET_AUTH_FAILURE });
@@ -84,12 +84,13 @@ export const forgotPassword = (form) => (dispatch) => {
 export const resetPassword = (form) => (dispatch) => {
   dispatch({ type: SHOW_PRELOADER });
   dispatch({ type: GET_RESET_REQUEST });
-  api
+  return api
     .resetPassword(form)
     .then((res) => {
       res && res.success
         ? dispatch({ type: GET_RESET_SUCCES })
         : dispatch({ type: GET_RESET_FAILURE });
+      return res;
     })
     .catch((e) => {
       dispatch({ type: GET_RESET_FAILURE });

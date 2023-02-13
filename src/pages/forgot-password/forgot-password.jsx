@@ -2,8 +2,8 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../../services/actions/auth";
 import classes from "./forgot-password.module.css";
 import useForm from "../../hooks/useForm";
@@ -11,13 +11,16 @@ import useForm from "../../hooks/useForm";
 const ForgotPassword = () => {
   const [form, onChangeForm] = useForm({ email: "" });
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(forgotPassword(form));
+    const res = dispatch(forgotPassword(form));
+    res.then((data) => {
+      data &&
+        data.success &&
+        navigate("/reset-password", { state: { isForgot: true } });
+    });
   };
-
-  const isForgot = useSelector((store) => store.auth.isForgot);
 
   return (
     <form className={classes.container} onSubmit={onSubmit}>
@@ -38,7 +41,6 @@ const ForgotPassword = () => {
           Войти
         </Link>
       </p>
-      {isForgot && <Navigate to="/reset-password" replace={true} />}
     </form>
   );
 };

@@ -3,6 +3,7 @@ import {
   DELETE_CONSTRUCTOR_INGREDIENT,
   ADD_CONSTRUCTOR_BUN,
   MOVE_CONSTRUCTOR_INGREDIENT,
+  CLEAR_CONSTRUCTOR,
 } from "../actions/constructor";
 
 const initialState = {
@@ -47,6 +48,14 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         constructorIngredients: cloneOrderIngredients,
+      };
+    }
+
+    case CLEAR_CONSTRUCTOR: {
+      return {
+        ...state,
+        constructorIngredients: [],
+        bun: { price: 0 },
       };
     }
 

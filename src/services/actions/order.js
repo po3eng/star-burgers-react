@@ -1,4 +1,5 @@
 import api from "../../utils/api";
+import { clearConstructor } from "./constructor";
 import { SHOW_PRELOADER, HIDE_PRELOADER } from "./preloader";
 
 export const SET_ORDER_REQUEST = "SET_ORDER_REQUEST";
@@ -31,6 +32,7 @@ export const setOrder = (orderIngredients) => (dispatch) => {
     .then((res) => {
       if (res && res.success) {
         dispatch(setOrderNumber(res.order.number));
+        dispatch(clearConstructor());
       } else {
         dispatch({ type: SET_ORDER_FAILURE });
       }
