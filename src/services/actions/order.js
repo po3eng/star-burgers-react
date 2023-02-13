@@ -1,6 +1,9 @@
 import api from "../../utils/api";
 import { clearConstructor } from "./constructor";
-import { SHOW_PRELOADER, HIDE_PRELOADER } from "./preloader";
+import {
+  showPreloader,
+  hidePreloader,
+} from "./preloader";
 
 export const SET_ORDER_REQUEST = "SET_ORDER_REQUEST";
 export const SET_ORDER_SUCCES = "SET_ORDER_SUCCES";
@@ -25,7 +28,7 @@ export const clearOrderNumber = () => {
 
 export const setOrder = (orderIngredients) => (dispatch) => {
   orderIngredients = orderIngredients.map((item) => item._id);
-  dispatch({ type: SHOW_PRELOADER });
+  dispatch(showPreloader());
   dispatch({ type: SET_ORDER_REQUEST });
   api
     .setOrder(orderIngredients)
@@ -41,6 +44,6 @@ export const setOrder = (orderIngredients) => (dispatch) => {
       dispatch({ type: SET_ORDER_FAILURE });
     })
     .finally(() => {
-      dispatch({ type: HIDE_PRELOADER });
+      dispatch(hidePreloader());
     });
 };

@@ -1,7 +1,7 @@
 import api from "../../utils/api";
 import { getCookie } from "../../utils/cookies";
 
-import { SHOW_PRELOADER, HIDE_PRELOADER } from "./preloader";
+import { showPreloader, hidePreloader } from "./preloader";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCES = "GET_AUTH_SUCCES";
@@ -45,7 +45,7 @@ export const updateToken = (data) => ({
 });
 
 export const signIn = (form) => (dispatch) => {
-  dispatch({ type: SHOW_PRELOADER });
+  dispatch(showPreloader);
   dispatch({ type: GET_AUTH_REQUEST });
   api
     .login(form)
@@ -58,12 +58,12 @@ export const signIn = (form) => (dispatch) => {
       dispatch({ type: GET_FORGOT_FAILURE });
     })
     .finally(() => {
-      dispatch({ type: HIDE_PRELOADER });
+      dispatch(hidePreloader());
     });
 };
 
 export const forgotPassword = (form) => (dispatch) => {
-  dispatch({ type: SHOW_PRELOADER });
+  dispatch(showPreloader());
   dispatch({ type: GET_FORGOT_REQUEST });
   return api
     .forgotPassword(form)
@@ -77,12 +77,12 @@ export const forgotPassword = (form) => (dispatch) => {
       dispatch({ type: GET_AUTH_FAILURE });
     })
     .finally(() => {
-      dispatch({ type: HIDE_PRELOADER });
+      dispatch(hidePreloader());
     });
 };
 
 export const resetPassword = (form) => (dispatch) => {
-  dispatch({ type: SHOW_PRELOADER });
+  dispatch(showPreloader());
   dispatch({ type: GET_RESET_REQUEST });
   return api
     .resetPassword(form)
@@ -96,7 +96,7 @@ export const resetPassword = (form) => (dispatch) => {
       dispatch({ type: GET_RESET_FAILURE });
     })
     .finally(() => {
-      dispatch({ type: HIDE_PRELOADER });
+      dispatch(hidePreloader());
     });
 };
 
