@@ -6,14 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { forgotPassword } from "../../services/actions/auth";
 import classes from "./forgot-password.module.css";
+import useForm from "../../hooks/useForm";
 
 const ForgotPassword = () => {
-  const [from, onChangeForm] = useForm({ email: "" });
+  const [form, onChangeForm] = useForm({ email: "" });
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(forgotPassword({ email }));
+    dispatch(forgotPassword(form));
   };
 
   const isForgot = useSelector((store) => store.auth.isForgot);
@@ -24,7 +25,7 @@ const ForgotPassword = () => {
       <EmailInput
         onChange={onChangeForm}
         placeholder={"E-mail"}
-        value={from.email}
+        value={form.email}
         name={"email"}
         extraClass="mb-2"
       />

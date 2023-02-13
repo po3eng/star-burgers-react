@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import calsses from "./register.module.css";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/actions/auth";
+import useForm from "../../hooks/useForm";
 
 const Register = () => {
   const [form, handleChangeForm] = useForm({

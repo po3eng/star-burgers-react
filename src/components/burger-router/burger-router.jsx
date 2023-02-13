@@ -30,7 +30,7 @@ const BurgerRouter = () => {
 
   return (
     <>
-      <Routes>
+      <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
@@ -65,7 +65,7 @@ const BurgerRouter = () => {
       {background && (
         <Routes>
           <Route
-            path="/ingredients/:id"
+            path="ingredients/:id"
             element={
               <Modal header="Детали ингредиента" handleCloseModal={onClose}>
                 <IngredientPage />

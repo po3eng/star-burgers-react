@@ -17,14 +17,12 @@ const BurgerIngredients = () => {
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
 
 
   const [current, setCurrent] = useState("bun");
-  
   const hideInfoIngredient = useCallback(() => {
     dispatch({ type: CLEAR_CURRENT_INGREDIENT });
   }, [dispatch]);
