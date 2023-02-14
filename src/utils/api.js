@@ -13,6 +13,7 @@ class API {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${getLocalStorage("token")}`,
       },
       body: JSON.stringify({ ingredients }),
     };
@@ -43,26 +44,26 @@ class API {
     return request(`${HOST}/api/auth/login`, payload);
   }
 
-  logout({ token }) {
+  logout() {
     const payload = {
       method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ token: getCookie("token") }),
     };
     return request(`${HOST}/api/auth/logout`, payload);
   }
 
-  refreshUserToken({ token }) {
+  refreshUserToken() {
     const payload = {
       method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ token: getCookie("token") }),
     };
     return request(`${HOST}/api/auth/token `, payload);
   }

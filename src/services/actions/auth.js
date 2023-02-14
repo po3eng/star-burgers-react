@@ -110,24 +110,18 @@ export const userData = () => (dispatch) => {
         : dispatch({ type: GET_USER_FAILURE });
     })
     .catch((e) => {
-      e.status === 403 && dispatch(refreshToken(getCookie("token")));
+      e.status === 403 && dispatch(refreshToken());
       dispatch({ type: GET_USER_FAILURE });
     });
 };
 
-export const refreshToken = (token) => (dispatch) => {
+export const refreshToken = () => (dispatch) => {
   dispatch({ type: GET_REFRESH_TOKEN_REQUEST });
-  api
-    .refreshUserToken({ token })
-    .then((res) => {
-      res && res.success
-        ? dispatch(updateToken(res))
-        : dispatch({ type: GET_REFRESH_TOKEN_FAILURE });
-    })
-    .catch((e) => {
-      e.status === 401 && dispatch({ type: CLEAR_USER });
-      dispatch({ type: GET_REFRESH_TOKEN_FAILURE });
-    });
+  return api.refreshUserToken().then((res) => {
+    res && res.success
+      ? dispatch(updateToken(res))
+      : dispatch({ type: GET_REFRESH_TOKEN_FAILURE });
+  });
 };
 
 export const registerUser = (form) => (dispatch) => {
@@ -152,15 +146,15 @@ export const updateUserData = (form) => (dispatch) => {
         : dispatch({ type: GET_UPDATE_FAILURE });
     })
     .catch((e) => {
-      e.status === 403 && dispatch(refreshToken(getCookie("token")));
+      e.status === 403 && dispatch(refreshToken());
       dispatch({ type: GET_UPDATE_FAILURE });
     });
 };
 
-export const logout = (token) => (dispatch) => {
+export const logout = () => (dispatch) => {
   dispatch({ type: GET_LOGOUT_REQUEST });
   api
-    .logout({ token })
+    .logout()
     .then((res) => {
       if (res && res.success) {
         dispatch({ type: GET_LOGOUT_SUCCES });

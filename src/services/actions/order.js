@@ -1,9 +1,7 @@
 import api from "../../utils/api";
+import { refreshToken } from "./auth";
 import { clearConstructor } from "./constructor";
-import {
-  showPreloader,
-  hidePreloader,
-} from "./preloader";
+import { showPreloader, hidePreloader } from "./preloader";
 
 export const SET_ORDER_REQUEST = "SET_ORDER_REQUEST";
 export const SET_ORDER_SUCCES = "SET_ORDER_SUCCES";
@@ -35,13 +33,28 @@ export const setOrder = (orderIngredients) => (dispatch) => {
     .then((res) => {
       if (res && res.success) {
         dispatch(setOrderNumber(res.order.number));
-        dispatch(clearConstructor());
+      }
+      return res;
+    })
+    .then((res) => {
+      dispatch(clearConstructor());
+    })
+    .catch((e) => {
+      if (e.status === 403) {
+        dispatch(refreshToken()).then(() => {
+          api
+            .setOrder(orderIngredients)
+            .then((res) => {
+              dispatch(setOrderNumber(res.order.number));
+              return res;
+            })
+            .then(() => {
+              dispatch(clearConstructor());
+            });
+        });
       } else {
         dispatch({ type: SET_ORDER_FAILURE });
       }
-    })
-    .catch((e) => {
-      dispatch({ type: SET_ORDER_FAILURE });
     })
     .finally(() => {
       dispatch(hidePreloader());

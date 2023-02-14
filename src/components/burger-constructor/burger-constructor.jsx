@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearOrderNumber, setOrder } from "../../services/actions/order";
 
@@ -31,7 +31,6 @@ const BurgerConstructor = () => {
   }, [totalOrder]);
 
   const sendOrder = () => {
-    
     const token = getCookie("token");
     if (!token) {
       navigate("/login", { replace: true });

@@ -2,6 +2,8 @@ const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
   }
+  // TODO: сделать проверки статусов
+
   return Promise.reject(res);
 };
 
