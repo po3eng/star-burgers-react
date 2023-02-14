@@ -5,12 +5,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./login-form.module.css";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { signIn } from "../../../services/actions/auth";
 import useForm from "../../../hooks/useForm";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [form, handleChangeForm] = useForm({
     email: "",
     password: "",
@@ -21,6 +23,7 @@ const LoginForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(signIn(form));
+    navigate(location.state?.from || "/");
   };
 
   return (

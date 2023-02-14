@@ -31,12 +31,14 @@ const BurgerConstructor = () => {
   }, [totalOrder]);
 
   const sendOrder = () => {
+    
     const token = getCookie("token");
     if (!token) {
       navigate("/login", { replace: true });
-    }
-    if (totalOrder.length > 2 && bun) {
-      dispatch(setOrder(totalOrder));
+    } else {
+      if (totalOrder.length > 2 && bun) {
+        dispatch(setOrder(totalOrder));
+      }
     }
   };
 

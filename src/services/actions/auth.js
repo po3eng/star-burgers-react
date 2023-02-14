@@ -45,7 +45,7 @@ export const updateToken = (data) => ({
 });
 
 export const signIn = (form) => (dispatch) => {
-  dispatch(showPreloader);
+  dispatch(showPreloader());
   dispatch({ type: GET_AUTH_REQUEST });
   api
     .login(form)
