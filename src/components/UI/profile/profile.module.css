@@ -1,0 +1,17 @@
+.wraper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    gap: 20px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: end;
+    gap: 20px;
+    padding-right: 4px;
+
+}

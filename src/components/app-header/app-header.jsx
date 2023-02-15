@@ -5,31 +5,36 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./app-header.module.css";
-import AppHeaderItem from "../UI/app-header-item/app-header-item";
-
+import HeaderItem from "../UI/app-header-item/app-header-item";
+import { Link } from "react-router-dom";
 const AppHeader = () => {
-  const active = true;
   return (
     <header className={`${classes.appHeader} pt-4`}>
       <nav className={classes.nav}>
         <div className={classes.nav_left}>
-          <AppHeaderItem active={active} text="Конструктор">
-            <BurgerIcon type={active && "primary"} />
-          </AppHeaderItem>
-          <AppHeaderItem text="Лента заказов">
-            <ListIcon type="secondary" />
-          </AppHeaderItem>
+          <HeaderItem
+            to="/"
+            Element={BurgerIcon}
+            text="Конструктор"
+          ></HeaderItem>
+          <HeaderItem
+            to="/order-feed"
+            Element={ListIcon}
+            text="Лента заказов"
+          ></HeaderItem>
         </div>
         <div className={classes.nav_right}>
-          <AppHeaderItem text="Личный кабинет">
-            <ProfileIcon type="secondary" />
-          </AppHeaderItem>
+          <HeaderItem
+            to="/profile"
+            Element={ProfileIcon}
+            text="Личный кабинет"
+          ></HeaderItem>
         </div>
       </nav>
       <div className={classes.logo}>
-        <a href="/">
+        <Link to="/">
           <Logo />
-        </a>
+        </Link>
       </div>
     </header>
   );

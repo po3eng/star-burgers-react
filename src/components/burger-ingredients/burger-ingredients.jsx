@@ -4,35 +4,36 @@ import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ing
 import IngredientDetails from "../UI/ingredient-details/ingredient-details";
 import Modal from "../UI/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CLEAR_CURRENT_INGREDIENT,
-  setCurrentIngredient,
-} from "../../services/actions/ingredients";
+import { CLEAR_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BurgerIngredients = () => {
+  const location = useLocation();
+
   const { ingredients, currentIngredient } = useSelector(
     (store) => store.ingredients,
   );
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
 
-  const [current, setCurrent] = useState("bun");
 
+  const [current, setCurrent] = useState("bun");
   const hideInfoIngredient = useCallback(() => {
     dispatch({ type: CLEAR_CURRENT_INGREDIENT });
   }, [dispatch]);
 
   const showInfoIngredient = useCallback(
     (ingredient) => {
-      console.log(ingredient);
-      dispatch(setCurrentIngredient(ingredient));
+      navigate(`/ingredients/${ingredient._id}`, {
+        state: { background: location },
+      });
     },
-    [dispatch],
+    [navigate],
   );
 
   const getIngredients = useCallback(
@@ -79,7 +80,6 @@ const BurgerIngredients = () => {
       {currentIngredient && (
         <Modal
           header="Детали ингредиента"
-          forwardRef
           handleCloseModal={hideInfoIngredient}
         >
           <IngredientDetails />
