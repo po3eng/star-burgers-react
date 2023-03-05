@@ -7,7 +7,7 @@ import { userData } from "../../services/actions/auth";
 
 const Orders = () => {
   const dispatch = useDispatch();
-  const token = getCookie("token");
+  const token = getCookie("refreshToken");
   const match = useMatch("./profile/orders");
   useEffect(() => {
     token && dispatch(userData());

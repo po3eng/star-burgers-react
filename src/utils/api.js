@@ -1,10 +1,10 @@
 import { HOST } from "./constants.js";
-import { getCookie } from "./cookies.js";
-import { getLocalStorage } from "./local-storage.js";
-import { request } from "./request.js";
+import { getCookie } from "./cookies.ts";
+import { getLocalStorage } from "./local-storage.ts";
+import { fetchWithRefresh } from "./request.ts";
 class API {
   getIngredients() {
-    return request(`${HOST}/api/ingredients`);
+    return fetchWithRefresh(`${HOST}/api/ingredients`);
   }
 
   setOrder(ingredients) {
@@ -13,11 +13,11 @@ class API {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getLocalStorage("token")}`,
+        Authorization: `Bearer ${getLocalStorage("accessToken")}`,
       },
       body: JSON.stringify({ ingredients }),
     };
-    return request(`${HOST}/api/orders`, payload);
+    return fetchWithRefresh(`${HOST}/api/orders`, payload);
   }
 
   registrationUser(form) {
@@ -29,7 +29,7 @@ class API {
       },
       body: JSON.stringify(form),
     };
-    return request(`${HOST}/api/auth/register`, payload);
+    return fetchWithRefresh(`${HOST}/api/auth/register`, payload);
   }
 
   login({ email, password }) {
@@ -41,7 +41,7 @@ class API {
       },
       body: JSON.stringify({ email, password }),
     };
-    return request(`${HOST}/api/auth/login`, payload);
+    return fetchWithRefresh(`${HOST}/api/auth/login`, payload);
   }
 
   logout() {
@@ -51,9 +51,9 @@ class API {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ token: getCookie("token") }),
+      body: JSON.stringify({ token: getCookie("refreshToken") }),
     };
-    return request(`${HOST}/api/auth/logout`, payload);
+    return fetchWithRefresh(`${HOST}/api/auth/logout`, payload);
   }
 
   refreshUserToken() {
@@ -63,9 +63,9 @@ class API {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ token: getCookie("token") }),
+      body: JSON.stringify({ token: getCookie("refreshToken") }),
     };
-    return request(`${HOST}/api/auth/token `, payload);
+    return fetchWithRefresh(`${HOST}/api/auth/token `, payload);
   }
 
   forgotPassword(email) {
@@ -76,7 +76,7 @@ class API {
       },
       body: JSON.stringify(email),
     };
-    return request(`${HOST}/api/password-reset`, payload);
+    return fetchWithRefresh(`${HOST}/api/password-reset`, payload);
   }
   resetPassword(form) {
     const payload = {
@@ -87,7 +87,7 @@ class API {
       },
       body: JSON.stringify(form),
     };
-    return request(`${HOST}/api/password-reset/reset`, payload);
+    return fetchWithRefresh(`${HOST}/api/password-reset/reset`, payload);
   }
 
   getUserData() {
@@ -96,11 +96,11 @@ class API {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getLocalStorage("token")}`,
+        Authorization: `Bearer ${getLocalStorage("accessToken")}`,
       },
     };
 
-    return request(`${HOST}/api/auth/user`, payload);
+    return fetchWithRefresh(`${HOST}/api/auth/user`, payload);
   }
 
   upadateUserData(form) {
@@ -109,16 +109,13 @@ class API {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getLocalStorage("token")}`,
+        Authorization: `Bearer ${getLocalStorage("accessToken")}`,
       },
       body: JSON.stringify(form),
     };
-    return request(`${HOST}/api/auth/user`, payload);
+    return fetchWithRefresh(`${HOST}/api/auth/user`, payload);
   }
 }
 
 const api = new API();
 export default api;
-
-// GET https://norma.nomoreparties.space/api/auth/user - эндпоинт получения данных о пользователе.
-// PATCH https://norma.nomoreparties.space/api/auth/user - эндпоинт обновления данных о пользователе.

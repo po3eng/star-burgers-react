@@ -39,10 +39,10 @@ const updateTokensState = ({ accessToken, refreshToken }) => {
     authToken = accessToken.split("Bearer ")[1];
   }
   if (authToken) {
-    setLocalStorage("token", authToken);
+    setLocalStorage("accessToken", authToken);
   }
   if (refreshToken) {
-    setCookie("token", refreshToken);
+    setCookie("refreshToken", refreshToken);
   }
 };
 
@@ -138,8 +138,8 @@ export const authReducer = (state = initialState, action) => {
     }
 
     case CLEAR_USER: {
-      removeLocalStorage("token");
-      removeCookie("token", "");
+      removeLocalStorage("accessToken");
+      removeCookie("refreshToken", "");
       return { ...state, user: null };
     }
 

@@ -20,7 +20,7 @@ const ProfilePage = () => {
     navigate("/profile/form");
   }, []);
 
-  const token = getCookie("token");
+  const token = getCookie("refreshToken");
 
   useEffect(() => {
     token && dispatch(userData());

@@ -31,7 +31,7 @@ const BurgerConstructor = () => {
   }, [totalOrder]);
 
   const sendOrder = () => {
-    const token = getCookie("token");
+    const token = getCookie("refreshToken");
     if (!token) {
       navigate("/login", { replace: true });
     } else {
