@@ -1,16 +1,18 @@
-import { HOST } from "./constants.js";
-import { getCookie } from "./cookies.ts";
-import { getLocalStorage } from "./local-storage.ts";
-import { fetchWithRefresh } from "./request.ts";
+import { TIngredient } from "../components/UI/ingredient-details/ingredient-details";
+import { HOST } from "./constants";
+import { getCookie } from "./cookies";
+import { getLocalStorage } from "./local-storage";
+import { fetchWithRefresh, request } from "./request";
+
+//TODO: типизировать формы
 class API {
   getIngredients() {
-    return fetchWithRefresh(`${HOST}/api/ingredients`);
+    return request(`${HOST}/api/ingredients`);
   }
 
-  setOrder(ingredients) {
+  setOrder(ingredients: Array<TIngredient>) {
     const payload = {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getLocalStorage("accessToken")}`,
@@ -20,10 +22,9 @@ class API {
     return fetchWithRefresh(`${HOST}/api/orders`, payload);
   }
 
-  registrationUser(form) {
+  registrationUser<T>(form: T) {
     const payload = {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -32,14 +33,13 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/register`, payload);
   }
 
-  login({ email, password }) {
+  login<T>(form: T) {
     const payload = {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(form),
     };
     return fetchWithRefresh(`${HOST}/api/auth/login`, payload);
   }
@@ -47,7 +47,6 @@ class API {
   logout() {
     const payload = {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -59,7 +58,6 @@ class API {
   refreshUserToken() {
     const payload = {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -68,20 +66,19 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/token `, payload);
   }
 
-  forgotPassword(email) {
+  forgotPassword<T>(from: T) {
     const payload = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(email),
+      body: JSON.stringify(from),
     };
     return fetchWithRefresh(`${HOST}/api/password-reset`, payload);
   }
-  resetPassword(form) {
+  resetPassword<T>(form: T) {
     const payload = {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -93,7 +90,6 @@ class API {
   getUserData() {
     const payload = {
       method: "GET",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getLocalStorage("accessToken")}`,
@@ -103,10 +99,9 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/user`, payload);
   }
 
-  upadateUserData(form) {
+  upadateUserData<T>(form: T) {
     const payload = {
       method: "PATCH",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getLocalStorage("accessToken")}`,

@@ -9,6 +9,10 @@ type TServerResponse<T> = {
   success: boolean;
 } & T;
 
+export const request = (url: string, options?: RequestInit) => {
+  return fetch(url, options).then(checkResponse);
+};
+
 export const fetchWithRefresh = async <T>(
   url: RequestInfo,
   options: RequestInit,
