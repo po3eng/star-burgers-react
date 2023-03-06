@@ -4,13 +4,31 @@ import { getCookie } from "./cookies";
 import { getLocalStorage } from "./local-storage";
 import { fetchWithRefresh, request } from "./request";
 
+import { TUser } from "../services/actions/auth";
+import { TServerResponse } from "./request";
+
 //TODO: типизировать формы
+type TUserResponse = TServerResponse<{ user: TUser }>;
+type TIngredientsResponse = TServerResponse<{ data: Array<TIngredient> }>;
+
+export type TTokens = {
+  accessToken: string;
+  refreshToken: string;
+};
+export type TResetPassword = {
+  password: string;
+  token: string;
+};
+type TLoginResponse = TServerResponse<{ user: TUser } & TTokens>;
+
+type TOrder = { name: string; order: { number: number } };
+type TOrderResponce = TServerResponse<TOrder>;
 class API {
-  getIngredients() {
+  getIngredients(): Promise<TIngredientsResponse> {
     return request(`${HOST}/api/ingredients`);
   }
 
-  setOrder(ingredients: Array<TIngredient>) {
+  setOrder(ingredients: Array<string>): Promise<TOrderResponce> {
     const payload = {
       method: "POST",
       headers: {
@@ -22,7 +40,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/orders`, payload);
   }
 
-  registrationUser<T>(form: T) {
+  registrationUser(form: TUser): Promise<TLoginResponse> {
     const payload = {
       method: "POST",
       headers: {
@@ -33,7 +51,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/register`, payload);
   }
 
-  login<T>(form: T) {
+  login(form: Omit<TUser, "name">): Promise<TLoginResponse> {
     const payload = {
       method: "POST",
       headers: {
@@ -44,7 +62,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/login`, payload);
   }
 
-  logout() {
+  logout(): Promise<TServerResponse<unknown>> {
     const payload = {
       method: "POST",
       headers: {
@@ -66,7 +84,8 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/token `, payload);
   }
 
-  forgotPassword<T>(from: T) {
+  // FIXME: ИСПРАВИИТЬ unknown!
+  forgotPassword(from: { email: string }): Promise<TServerResponse<unknown>> {
     const payload = {
       method: "POST",
       headers: {
@@ -76,7 +95,8 @@ class API {
     };
     return fetchWithRefresh(`${HOST}/api/password-reset`, payload);
   }
-  resetPassword<T>(form: T) {
+
+  resetPassword(form: TResetPassword): Promise<TServerResponse<unknown>> {
     const payload = {
       method: "POST",
       headers: {
@@ -87,7 +107,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/password-reset/reset`, payload);
   }
 
-  getUserData() {
+  getUserData(): Promise<TUserResponse> {
     const payload = {
       method: "GET",
       headers: {
@@ -99,7 +119,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/user`, payload);
   }
 
-  upadateUserData<T>(form: T) {
+  upadateUserData<T>(form: T): Promise<TUserResponse> {
     const payload = {
       method: "PATCH",
       headers: {

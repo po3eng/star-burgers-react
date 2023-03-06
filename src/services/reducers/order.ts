@@ -5,12 +5,20 @@ import {
   CLEAR_ORDER,
 } from "../actions/order";
 
+type TOrderState = {
+  order: number | null;
+  orderRequest: boolean;
+  orderFailed: boolean;
+};
 const initialState = {
   order: null,
   orderRequest: false,
   orderFailed: false,
 };
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (
+  state: TOrderState = initialState,
+  action: any,
+) => {
   switch (action.type) {
     case SET_ORDER_REQUEST: {
       return {

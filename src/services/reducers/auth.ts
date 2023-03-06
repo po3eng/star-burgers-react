@@ -1,21 +1,23 @@
-import {
-  GET_AUTH_FAILURE,
-  GET_AUTH_REQUEST,
-  GET_AUTH_SUCCES,
-  GET_FORGOT_FAILURE,
-  GET_FORGOT_REQUEST,
-  GET_FORGOT_SUCCES,
-  GET_USER_FAILURE,
-  GET_USER_REQUEST,
-  GET_USER_SUCCES,
-  CLEAR_USER,
-  GET_REFRESH_TOKEN_SUCCES,
-  GET_REFRESH_TOKEN_FAILURE,
-  GET_REFRESH_TOKEN_REQUEST,
-} from "../actions/auth";
-
 import { removeCookie, setCookie } from "../../utils/cookies";
 import { removeLocalStorage, setLocalStorage } from "../../utils/local-storage";
+import { TUser } from "../actions/auth";
+import { TTokens } from "../../utils/api";
+
+type TAuthState = {
+  user: TUser | null;
+  authRequest: boolean;
+  authFailed: boolean;
+
+  forgotRequest: boolean;
+  forgotFailed: boolean;
+  isForgot: boolean;
+
+  userRequest: boolean;
+  userFailed: boolean;
+
+  refreshTokenRequest: boolean;
+  refreshTokenFailed: boolean;
+};
 
 const initialState = {
   user: null,
@@ -33,7 +35,7 @@ const initialState = {
   refreshTokenFailed: false,
 };
 
-const updateTokensState = ({ accessToken, refreshToken }) => {
+const updateTokensState = ({ accessToken, refreshToken }:TTokens) => {
   let authToken = null;
   if (accessToken) {
     authToken = accessToken.split("Bearer ")[1];
@@ -46,15 +48,15 @@ const updateTokensState = ({ accessToken, refreshToken }) => {
   }
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state: TAuthState = initialState, action: any) => {
   switch (action.type) {
-    case GET_AUTH_REQUEST: {
+    case "GET_AUTH_REQUEST": {
       return {
         ...state,
         authRequest: true,
       };
     }
-    case GET_AUTH_SUCCES: {
+    case "GET_AUTH_SUCCES": {
       updateTokensState(action.data);
       return {
         ...state,
@@ -63,15 +65,15 @@ export const authReducer = (state = initialState, action) => {
         authRequest: false,
       };
     }
-    case GET_AUTH_FAILURE: {
+    case "GET_AUTH_FAILURE": {
       return { ...state, authFailed: true, authRequest: false };
     }
 
-    case GET_FORGOT_FAILURE: {
+    case "GET_FORGOT_FAILURE": {
       return { ...state, forgotFailed: true, forgotRequest: false };
     }
 
-    case GET_FORGOT_REQUEST: {
+    case "GET_FORGOT_REQUEST": {
       return {
         ...state,
         forgotFailed: false,
@@ -80,7 +82,7 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case GET_FORGOT_SUCCES: {
+    case "GET_FORGOT_SUCCES": {
       return {
         ...state,
         forgotFailed: false,
@@ -88,18 +90,18 @@ export const authReducer = (state = initialState, action) => {
         isForgot: true,
       };
     }
-    case GET_USER_FAILURE: {
+    case "GET_USER_FAILURE": {
       return { ...state, userFailed: true, userRequest: false };
     }
 
-    case GET_USER_REQUEST: {
+    case "GET_USER_REQUEST": {
       return {
         ...state,
         userFailed: false,
         userRequest: true,
       };
     }
-    case GET_USER_SUCCES: {
+    case "GET_USER_SUCCES": {
       return {
         ...state,
         userFailed: false,
@@ -108,7 +110,7 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case GET_REFRESH_TOKEN_REQUEST: {
+    case "GET_REFRESH_TOKEN_REQUEST": {
       return {
         ...state,
         refreshTokenFailed: false,
@@ -116,7 +118,7 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case GET_REFRESH_TOKEN_SUCCES: {
+    case "GET_REFRESH_TOKEN_SUCCES": {
       updateTokensState(action.data);
       return {
         ...state,
@@ -125,11 +127,11 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case GET_REFRESH_TOKEN_FAILURE: {
+    case "GET_REFRESH_TOKEN_FAILURE": {
       return { ...state, refreshTokenFailed: true, refreshTokenRequest: false };
     }
 
-    case GET_USER_REQUEST: {
+    case "GET_USER_REQUEST": {
       return {
         ...state,
         refreshTokenFailed: false,
@@ -137,9 +139,9 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case CLEAR_USER: {
+    case "CLEAR_USER": {
       removeLocalStorage("accessToken");
-      removeCookie("refreshToken", "");
+      removeCookie("refreshToken");
       return { ...state, user: null };
     }
 

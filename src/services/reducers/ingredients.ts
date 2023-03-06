@@ -4,9 +4,16 @@ import {
   GET_INGREDIENTS_SUCCESS,
   SET_CURRENT_INGREDIENT,
   CLEAR_CURRENT_INGREDIENT,
-  
 } from "../actions/ingredients";
 
+import { TIngredient } from "../../components/UI/ingredient-details/ingredient-details";
+
+type TIngredientsState = {
+  ingredients: Array<TIngredient>;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+  currentIngredient: TIngredient | null;
+};
 const initialState = {
   ingredients: [],
   ingredientsRequest: false,
@@ -14,7 +21,10 @@ const initialState = {
   currentIngredient: null,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (
+  state: TIngredientsState = initialState,
+  action: any,
+) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

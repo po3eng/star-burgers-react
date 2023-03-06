@@ -5,12 +5,13 @@ const checkResponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-type TServerResponse<T> = {
+export type TServerResponse<T> = {
   success: boolean;
 } & T;
 
-export const request = (url: string, options?: RequestInit) => {
-  return fetch(url, options).then(checkResponse);
+export const request = async <T>(url: string, options?: RequestInit) => {
+  const res = await fetch(url, options);
+  return await checkResponse<T>(res);
 };
 
 export const fetchWithRefresh = async <T>(

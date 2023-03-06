@@ -4,7 +4,7 @@ const initialState = {
   preloaderShow: false,
 };
 
-export const preloaderReducer = (state = initialState, action) => {
+export const preloaderReducer = (state = initialState, action:any) => {
   switch (action.type) {
     case SHOW_PRELOADER: {
       return {

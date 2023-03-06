@@ -1,9 +1,10 @@
 type TCokieProps = {
   expires?: string | Date;
+  path?: string;
 } & { [key: string]: string };
 
 export function setCookie(name: string, value: string, props?: TCokieProps) {
-  props = props || {};
+  props = props || { path: "/" };
   let exp = props.expires;
   if (typeof exp == "number" && exp) {
     const d = new Date();

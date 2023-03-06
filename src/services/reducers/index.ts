@@ -12,3 +12,4 @@ export const rootReducer = combineReducers({
   constr: constructorReducer,
   auth: authReducer,
 });
+

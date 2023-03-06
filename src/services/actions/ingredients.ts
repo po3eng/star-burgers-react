@@ -1,6 +1,6 @@
 import api from "../../utils/api";
-import {  hidePreloader, showPreloader } from "./preloader";
-
+import { hidePreloader, showPreloader } from "./preloader";
+import { TIngredient } from "../../components/UI/ingredient-details/ingredient-details";
 export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -8,7 +8,7 @@ export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const SET_CURRENT_INGREDIENT = "SET_DETAIL_INGREDIENT";
 export const CLEAR_CURRENT_INGREDIENT = "CLEAR_CURRENT_INGREDIENT";
 
-export const getIngredients = () => (dispatch) => {
+export const getIngredients = () => (dispatch: any) => {
   dispatch(showPreloader());
   dispatch({
     type: GET_INGREDIENTS_REQUEST,
@@ -34,14 +34,14 @@ export const getIngredients = () => (dispatch) => {
     });
 };
 
-export const setIngredient = (data) => {
+export const setIngredient = (data: Array<TIngredient>) => {
   return {
     type: GET_INGREDIENTS_SUCCESS,
     ingredients: data,
   };
 };
 
-export const setCurrentIngredient = (ingredient) => {
+export const setCurrentIngredient = (ingredient: TIngredient) => {
   return {
     type: SET_CURRENT_INGREDIENT,
     ingredient,
