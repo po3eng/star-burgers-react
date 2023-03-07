@@ -5,24 +5,28 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./reset-password.module.css";
 import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { resetPassword } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm";
+import { SyntheticEvent } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+
 const ResetPassword = () => {
   const [form, onChangeHandle] = useForm({ token: "", password: "" });
-  const dispatch = useDispatch();
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const resetSuccces = useAppSelector((store) => store.auth.resetSuccess);
   const isForgot = location.state?.isForgot;
   if (!isForgot) {
     return <Navigate to="/" replace />;
   }
-  const onSubmit = (e) => {
+  const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const res = dispatch(resetPassword(form));
-    res.then((data) => {
-      data.success && navigate("/login", { replace: true });
-    });
+    dispatch(resetPassword(form));
+    if (resetSuccces) {
+      navigate("/login", { replace: true });
+    }
   };
 
   return (

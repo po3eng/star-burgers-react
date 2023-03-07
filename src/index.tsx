@@ -19,6 +19,7 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
 
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

@@ -1,6 +1,7 @@
 import api from "../../utils/api";
 import { showPreloader, hidePreloader } from "./preloader";
 import { TResetPassword } from "../../utils/api";
+import { AppDispatch } from "../..";
 export type TUser = {
   name?: string;
   email?: string;
@@ -10,7 +11,7 @@ export type TNullPassword = {
   email: string;
   token?: string;
 };
-
+// TODO: вынести в ac
 export const getAuthRequest = () => ({ type: "GET_AUTH_REQUEST" } as const);
 export const getAuthSucces = (data: TUser) =>
   ({ type: "GET_AUTH_SUCCES", data: data } as const);
@@ -91,24 +92,25 @@ export const forgotPassword = (form: TNullPassword) => (dispatch: any) => {
     });
 };
 
-export const resetPassword = (form: TResetPassword) => (dispatch: any) => {
-  dispatch(showPreloader());
-  dispatch(getResetRequest());
-  return api
-    .resetPassword(form)
-    .then((res) => {
-      res && res.success
-        ? dispatch(getResetSucces())
-        : dispatch(getResetFailure());
-      return res;
-    })
-    .catch((e) => {
-      dispatch(dispatch(getResetFailure()));
-    })
-    .finally(() => {
-      dispatch(hidePreloader());
-    });
-};
+export const resetPassword =
+  (form: TResetPassword) => (dispatch: AppDispatch) => {
+    dispatch(showPreloader());
+    dispatch(getResetRequest());
+    return api
+      .resetPassword(form)
+      .then((res) => {
+        res && res.success
+          ? dispatch(getResetSucces())
+          : dispatch(getResetFailure());
+        return res;
+      })
+      .catch((e) => {
+        dispatch(dispatch(getResetFailure()));
+      })
+      .finally(() => {
+        dispatch(hidePreloader());
+      });
+  };
 
 export const userData = () => (dispatch: any) => {
   dispatch(getUserRequest());

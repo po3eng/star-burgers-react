@@ -12,6 +12,10 @@ type TAuthState = {
   forgotFailed: boolean;
   isForgot: boolean;
 
+  resetRequest: boolean;
+  resetFailed: boolean;
+  resetSuccess: boolean;
+
   userRequest: boolean;
   userFailed: boolean;
 
@@ -28,6 +32,10 @@ const initialState = {
   forgotFailed: false,
   isForgot: false,
 
+  resetRequest: false,
+  resetFailed: false,
+  resetSuccess: false,
+
   userRequest: false,
   userFailed: false,
 
@@ -35,7 +43,7 @@ const initialState = {
   refreshTokenFailed: false,
 };
 
-const updateTokensState = ({ accessToken, refreshToken }:TTokens) => {
+const updateTokensState = ({ accessToken, refreshToken }: TTokens) => {
   let authToken = null;
   if (accessToken) {
     authToken = accessToken.split("Bearer ")[1];
@@ -143,6 +151,34 @@ export const authReducer = (state: TAuthState = initialState, action: any) => {
       removeLocalStorage("accessToken");
       removeCookie("refreshToken");
       return { ...state, user: null };
+    }
+
+    case "GET_RESET_REQUEST": {
+      updateTokensState(action.data);
+      return {
+        ...state,
+        resetRequest: true,
+        resetFailed: false,
+        resetSuccess: false,
+      };
+    }
+
+    case "GET_RESET_SUCCES": {
+      updateTokensState(action.data);
+      return {
+        ...state,
+        resetRequest: false,
+        resetSuccess: true,
+      };
+    }
+
+    case "GET_RESET_FAILURE": {
+      updateTokensState(action.data);
+      return {
+        ...state,
+        resetRequest: false,
+        resetFailed: true,
+      };
     }
 
     default: {
