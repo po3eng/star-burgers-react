@@ -17,6 +17,7 @@ const ResetPassword: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const resetSuccces = useAppSelector((store) => store.auth.resetSuccess);
+  
   const isForgot = location.state?.isForgot;
   if (!isForgot) {
     return <Navigate to="/" replace />;

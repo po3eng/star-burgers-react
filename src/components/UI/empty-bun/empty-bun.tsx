@@ -1,7 +1,8 @@
+import { FC } from "react";
 import styles from "./empty-bun.module.css";
-import PropTypes from "prop-types";
+import { TBunProps } from "../bun/bun";
 
-const EmptyBun = ({ type }) => {
+const EmptyBun: FC<TBunProps> = ({ type }) => {
   const bun =
     type === "top"
       ? `${styles.empty_text} ml-6 mb-2 constructor-element constructor-element_pos_top`
@@ -15,7 +16,4 @@ const EmptyBun = ({ type }) => {
   );
 };
 
-EmptyBun.propTypes = {
-  type: PropTypes.string.isRequired,
-};
 export default EmptyBun;

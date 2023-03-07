@@ -5,10 +5,11 @@ import IngredientDetails, {
 } from "../../components/UI/ingredient-details/ingredient-details";
 import classes from "./ingredients.module.css";
 import { useAppSelector } from "../../hooks/redux";
+
 const IngredientPage: FC = () => {
   const { id } = useParams();
   const { ingredients } = useAppSelector((store) => store.ingredients);
-  const [ingredient, setIngredient] = useState<TIngredient | undefined>();
+  const [ingredient, setIngredient] = useState<TIngredient>();
 
   useEffect(() => {
     if (ingredients.length) {

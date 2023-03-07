@@ -4,18 +4,24 @@ import EmptyBun from "../empty-bun/empty-bun";
 
 import { useDrop } from "react-dnd";
 import { addBunToConstructor } from "../../../services/actions/constructor";
-import { useDispatch, useSelector } from "react-redux";
+import { FC } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { TIngredient } from "../ingredient-details/ingredient-details";
 
-const Bun = ({ type }) => {
-  const bun = useSelector((store) => store.constr.bun);
-  const dispatch = useDispatch();
+export type TBunProps = {
+  type: "top" | "bottom" | undefined;
+};
+
+const Bun: FC<TBunProps> = ({ type }) => {
+  const bun = useAppSelector((store) => store.constr.bun);
+  const dispatch = useAppDispatch();
   const [{}, drop] = useDrop({
     accept: "bun",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {
-      dispatch(addBunToConstructor(ingredient));
+      dispatch(addBunToConstructor(ingredient as TIngredient));
     },
   });
 
@@ -38,12 +44,4 @@ const Bun = ({ type }) => {
   );
 };
 
-Bun.propTypes = {
-  type: PropTypes.string,
-  bun: PropTypes.object,
-};
-
-Bun.defaultProps = {
-  isTop: "top",
-};
 export default Bun;

@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { logout } from "../services/actions/auth";
+import { FC } from "react";
+import { useAppDispatch } from "../hooks/redux";
 
-const Logout = () => {
-  const dispatch = useDispatch();
+const Logout: FC = () => {
+  const dispatch = useAppDispatch();
   dispatch(logout());
   return <Navigate to="/login" replace />;
 };

@@ -1,14 +1,13 @@
 import styles from "../not-found/not-found.module.css";
 import { getCookie } from "../../utils/cookies";
 import { FC, useEffect } from "react";
-import { Navigate, useMatch } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { userData } from "../../services/actions/auth";
 import { useAppDispatch } from "../../hooks/redux";
 
 const Orders: FC = () => {
   const dispatch = useAppDispatch();
   const token = getCookie("refreshToken");
-  const match = useMatch("./profile/orders");
   useEffect(() => {
     token && dispatch(userData());
   }, []);

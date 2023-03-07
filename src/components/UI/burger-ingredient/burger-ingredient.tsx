@@ -3,8 +3,20 @@ import Price from "../price/price";
 import classes from "./burger-ingredient.module.css";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
+import { TIngredient } from "../ingredient-details/ingredient-details";
+import { FC } from "react";
 
-const BurgerIngredient = ({ ingredient, onClick, count }) => {
+type BurgerIngredientProps = {
+  ingredient: TIngredient;
+  onClick: (ingredient: TIngredient) => void;
+  count: number;
+};
+
+const BurgerIngredient: FC<BurgerIngredientProps> = ({
+  ingredient,
+  onClick,
+  count,
+}) => {
   const [{}, drag] = useDrag({
     type: ingredient.type,
     item: { ...ingredient },
@@ -43,10 +55,4 @@ const BurgerIngredient = ({ ingredient, onClick, count }) => {
 BurgerIngredient.defaultProps = {
   count: 0,
 };
-BurgerIngredient.propTypes = {
-  ingredient: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
-  count: PropTypes.number,
-};
-
 export default BurgerIngredient;

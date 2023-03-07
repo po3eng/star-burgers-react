@@ -4,10 +4,12 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import classes from "./app-header.module.css";
 import HeaderItem from "../UI/app-header-item/app-header-item";
 import { Link } from "react-router-dom";
-const AppHeader = () => {
+import { FC } from "react";
+const AppHeader: FC = () => {
   return (
     <header className={`${classes.appHeader} pt-4`}>
       <nav className={classes.nav}>

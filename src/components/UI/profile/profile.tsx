@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC, SyntheticEvent } from "react";
 import classes from "./profile.module.css";
 import {
   EmailInput,
@@ -6,13 +6,13 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "../../../services/actions/auth";
+import { TUser, updateUserData } from "../../../services/actions/auth";
 import useForm from "../../../hooks/useForm";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 
-const Profile = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((store) => store.auth.user);
+const Profile: FC = () => {
+  const dispatch = useAppDispatch();
+  const user :TUser | null = useAppSelector((store) => store.auth.user);
   const [isActions, setIsActions] = useState(false);
   const [form, handleChangeForm, setForm] = useForm({
     email: "",
@@ -26,17 +26,17 @@ const Profile = () => {
     }
   }, [user]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: SyntheticEvent) => {
     setIsActions(true);
     handleChangeForm(e);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(updateUserData(form));
     setIsActions(false);
   };
-  const onAbort = (e) => {
+  const onAbort = (e: SyntheticEvent) => {
     e.preventDefault();
     setForm({ ...user, password: "" });
     setIsActions(false);

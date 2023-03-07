@@ -4,13 +4,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./login-form.module.css";
-import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { signIn } from "../../../services/actions/auth";
 import useForm from "../../../hooks/useForm";
+import { FC, SyntheticEvent } from "react";
+import { useAppDispatch } from "../../../hooks/redux";
 
-const LoginForm = () => {
+const LoginForm: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [form, handleChangeForm] = useForm({
@@ -18,9 +19,9 @@ const LoginForm = () => {
     password: "",
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(signIn(form));
     navigate(location.state?.from || "/");

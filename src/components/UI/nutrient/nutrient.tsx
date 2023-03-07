@@ -1,7 +1,11 @@
+import { FC } from "react";
 import classes from "./nutrient.module.css";
-import PropTypes from "prop-types";
+type TNutrient = {
+  nameNutrient: string;
+  valueNutrient: number;
+};
 
-const Nutrient = ({ nameNutrient, valueNutrient }) => {
+const Nutrient: FC<TNutrient> = ({ nameNutrient, valueNutrient }) => {
   return (
     <div className={classes.item}>
       <p className="text text_type_main-default text_color_inactive">
@@ -12,11 +16,6 @@ const Nutrient = ({ nameNutrient, valueNutrient }) => {
       </p>
     </div>
   );
-};
-
-Nutrient.propTypes = {
-  nameNutrient: PropTypes.string,
-  valueNutrient: PropTypes.number,
 };
 
 export default Nutrient;

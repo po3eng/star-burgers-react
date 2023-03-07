@@ -1,9 +1,12 @@
 import classes from "./order-details.module.css";
 import doneImg from "../../../images/done.svg";
-import { useSelector } from "react-redux";
+import { FC } from "react";
+import { useAppSelector } from "../../../hooks/redux";
 
-const OrderDetails = () => {
-  const orderNumber = useSelector((store) => store.order.order);
+const OrderDetails: FC = () => {
+  const orderNumber: number | null = useAppSelector(
+    (store) => store.order.order,
+  );
   return (
     <div className={classes.content}>
       <p className={classes.order_number + " text text_type_digits-large"}>

@@ -1,8 +1,12 @@
+import { FC } from "react";
 import Nutrient from "../nutrient/nutrient";
 import styles from "./list-nutrients.module.css";
-import PropTypes from "prop-types";
+import { TIngredient } from "../ingredient-details/ingredient-details";
 
-const ListNutrients = ({ ingredient }) => {
+type TListNutrientsProps = {
+  ingredient: TIngredient;
+};
+const ListNutrients: FC<TListNutrientsProps> = ({ ingredient }) => {
   return (
     <div className={styles.nutrients}>
       <Nutrient
@@ -23,10 +27,6 @@ const ListNutrients = ({ ingredient }) => {
       ></Nutrient>
     </div>
   );
-};
-
-ListNutrients.propTypes = {
-  ingredient: PropTypes.object,
 };
 
 export default ListNutrients;

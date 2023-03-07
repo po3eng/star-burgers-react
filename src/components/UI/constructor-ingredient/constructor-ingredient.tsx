@@ -10,8 +10,10 @@ import {
   moveConstructorIngredient,
 } from "../../../services/actions/constructor";
 import { useDrag, useDrop } from "react-dnd";
-import { useRef } from "react";
-const ConstructorIngredient = ({ ingredient, index, drag }) => {
+import { FC, useRef } from "react";
+
+
+const ConstructorIngredient :FC = ({ ingredient, index, drag }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const [{}, dropRef] = useDrop({

@@ -12,7 +12,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 const ForgotPassword = () => {
   const [form, onChangeForm] = useForm({ email: "" });
   const dispatch = useAppDispatch();
-  const forgetSuccess = useAppSelector((store) => store.auth.forgotSuccess);
+  const forgetSuccess: boolean = useAppSelector(
+    (store) => store.auth.forgotSuccess,
+  );
   const navigate = useNavigate();
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
