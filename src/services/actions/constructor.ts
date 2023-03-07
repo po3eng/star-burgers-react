@@ -28,8 +28,8 @@ export const deleteIngredient = (ingredient: TIngredient) => {
 };
 
 export const moveConstructorIngredient = (
-  dragIndex: string,
-  hoverIndex: string,
+  dragIndex: number,
+  hoverIndex: number,
 ) => {
   return {
     type: MOVE_CONSTRUCTOR_INGREDIENT,

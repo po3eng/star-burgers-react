@@ -19,7 +19,7 @@ export type TIngredient = {
 };
 
 type TIngredientDetailsProps = {
-  ingredient: TIngredient;
+  ingredient: TIngredient | undefined;
 };
 
 const IngredientDetails: FC<TIngredientDetailsProps> = ({ ingredient }) => {
@@ -31,7 +31,7 @@ const IngredientDetails: FC<TIngredientDetailsProps> = ({ ingredient }) => {
         alt={ingredient?.name}
       />
       <p className="text text_type_main-medium pt-4">{ingredient?.name}</p>
-      <ListNutrients ingredient={ingredient}></ListNutrients>
+      {ingredient && <ListNutrients ingredient={ingredient}></ListNutrients>}
     </div>
   );
 };

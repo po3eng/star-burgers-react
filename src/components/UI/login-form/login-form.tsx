@@ -24,6 +24,7 @@ const LoginForm: FC = () => {
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(signIn(form));
+
     navigate(location.state?.from || "/");
   };
 
