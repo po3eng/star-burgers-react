@@ -56,6 +56,8 @@ const updateTokensState = ({ accessToken, refreshToken }: TTokens) => {
   }
 };
 
+// FIXME: action - все типы action?
+
 export const authReducer = (state: TAuthState = initialState, action: any) => {
   switch (action.type) {
     case "GET_AUTH_REQUEST": {

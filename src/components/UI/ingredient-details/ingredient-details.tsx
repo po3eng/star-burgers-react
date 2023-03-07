@@ -19,7 +19,7 @@ export type TIngredient = {
 };
 
 type TIngredientDetailsProps = {
-  ingredient: TIngredient | undefined;
+  ingredient?: TIngredient | undefined;
 };
 
 const IngredientDetails: FC<TIngredientDetailsProps> = ({ ingredient }) => {

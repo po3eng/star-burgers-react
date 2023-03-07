@@ -1,26 +1,27 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, FC } from "react";
 import classes from "./burger-ingredients.module.css";
 import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ingredients";
-import IngredientDetails from "../UI/ingredient-details/ingredient-details";
+import IngredientDetails, {
+  TIngredient,
+} from "../UI/ingredient-details/ingredient-details";
 import Modal from "../UI/modal/modal";
-import { useDispatch, useSelector } from "react-redux";
 import { CLEAR_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const location = useLocation();
 
-  const { ingredients, currentIngredient } = useSelector(
+  const { ingredients, currentIngredient } = useAppSelector(
     (store) => store.ingredients,
   );
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
-
+  const dispatch = useAppDispatch();
+  const bunRef = useRef<HTMLDivElement>(null);
+  const sauceRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
 
   const [current, setCurrent] = useState("bun");
   const hideInfoIngredient = useCallback(() => {
@@ -28,7 +29,7 @@ const BurgerIngredients = () => {
   }, [dispatch]);
 
   const showInfoIngredient = useCallback(
-    (ingredient) => {
+    (ingredient: TIngredient) => {
       navigate(`/ingredients/${ingredient._id}`, {
         state: { background: location },
       });
@@ -37,34 +38,34 @@ const BurgerIngredients = () => {
   );
 
   const getIngredients = useCallback(
-    (type) => {
-      return ingredients.filter((c) => c.type === type);
+    (type: string) => {
+      return ingredients.filter((c: TIngredient) => c.type === type);
     },
     [ingredients],
   );
 
-  const view = (event, type) => {
+  const view = (event: boolean, type: string) => {
     event && setCurrent(type);
   };
 
   useEffect(() => {
     switch (current) {
       case "bun":
-        bunRef.current.scrollIntoView({
+        bunRef.current?.scrollIntoView({
           block: "start",
           inline: "start",
           behavior: "smooth",
         });
         break;
       case "sauce":
-        sauceRef.current.scrollIntoView({
+        sauceRef.current?.scrollIntoView({
           block: "start",
           inline: "start",
           behavior: "smooth",
         });
         break;
       case "main":
-        mainRef.current.scrollIntoView({
+        mainRef.current?.scrollIntoView({
           block: "start",
           inline: "start",
           behavior: "smooth",
@@ -100,7 +101,7 @@ const BurgerIngredients = () => {
       </section>
       <section className={`${classes.scrollSection} custom-scroll`}>
         <section ref={bunRef}>
-          <InView threshold="0.8" onChange={(e) => view(e, "bun")}>
+          <InView threshold={0.8} onChange={(e) => view(e, "bun")}>
             <ListBurgerIngredients
               type="bun"
               title="Булки"
@@ -110,7 +111,7 @@ const BurgerIngredients = () => {
           </InView>
         </section>
         <section ref={sauceRef}>
-          <InView threshold="0.8" onChange={(e) => view(e, "sauce")}>
+          <InView threshold={0.8} onChange={(e) => view(e, "sauce")}>
             <ListBurgerIngredients
               type="sauce"
               title="Соусы"
@@ -120,7 +121,7 @@ const BurgerIngredients = () => {
           </InView>
         </section>
         <section ref={mainRef}>
-          <InView threshold="0.2" onChange={(e) => view(e, "main")}>
+          <InView threshold={0.2} onChange={(e) => view(e, "main")}>
             <ListBurgerIngredients
               type="main"
               title="Начинки"

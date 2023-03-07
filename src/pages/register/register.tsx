@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import calsses from "./register.module.css";
 import { registerUser } from "../../services/actions/auth";
-import useForm from "../../hooks/useForm";
+import useForm from "../../hooks/useForm.js";
 import { useAppDispatch } from "../../hooks/redux";
 import { FC, SyntheticEvent } from "react";
 

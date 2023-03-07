@@ -7,7 +7,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TUser, updateUserData } from "../../../services/actions/auth";
-import useForm from "../../../hooks/useForm";
+import useForm from "../../../hooks/useForm.js";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 
 const Profile: FC = () => {

@@ -1,5 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useMemo, FC } from "react";
 import { clearOrderNumber, setOrder } from "../../services/actions/order";
 
 import classes from "./burger.constructor.module.css";
@@ -12,10 +11,14 @@ import Bun from "../UI/bun/bun";
 import ListConstructorIngredients from "../UI/list-constructor-ingredients/list-constructor-ingredients";
 import { getCookie } from "../../utils/cookies";
 import { useNavigate } from "react-router-dom";
-const BurgerConstructor = () => {
-  const order = useSelector((store) => store.order.order);
-  const { constructorIngredients, bun } = useSelector((store) => store.constr);
-  const dispatch = useDispatch();
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+
+const BurgerConstructor: FC = () => {
+  const order = useAppSelector((store) => store.order.order);
+  const { constructorIngredients, bun } = useAppSelector(
+    (store) => store.constr,
+  );
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const totalOrder = useMemo(

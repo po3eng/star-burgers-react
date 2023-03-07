@@ -7,13 +7,14 @@ import classes from "./login-form.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { signIn } from "../../../services/actions/auth";
-import useForm from "../../../hooks/useForm";
+import useForm from "../../../hooks/useForm.js";
 import { FC, SyntheticEvent } from "react";
 import { useAppDispatch } from "../../../hooks/redux";
 
 const LoginForm: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [form, handleChangeForm] = useForm({
     email: "",
     password: "",

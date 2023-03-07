@@ -5,8 +5,8 @@ import { createPortal } from "react-dom";
 import { FC, ReactNode, useEffect } from "react";
 
 type TModal = {
-  children: ReactNode;
-  header: string;
+  children?: ReactNode;
+  header?: string;
   handleCloseModal: () => void;
 };
 const Modal: FC<TModal> = ({ children, header, handleCloseModal }) => {

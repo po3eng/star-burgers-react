@@ -5,7 +5,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../../services/actions/auth";
 import classes from "./forgot-password.module.css";
-import useForm from "../../hooks/useForm";
+import useForm from "../../hooks/useForm.js";
 import { SyntheticEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 

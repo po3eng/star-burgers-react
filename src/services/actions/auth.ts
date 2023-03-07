@@ -2,18 +2,28 @@ import api from "../../utils/api";
 import { showPreloader, hidePreloader } from "./preloader";
 import { TResetPassword } from "../../utils/api";
 import { AppDispatch } from "../..";
+import { TServerResponse } from "../../utils/request";
 export type TUser = {
   name?: string;
   email?: string;
   password?: string;
 };
+
 export type TNullPassword = {
   email: string;
   token?: string;
 };
+
+type TLoginResponse = TServerResponse<{
+  accessToken: string;
+  refreshToken: string;
+  user: TUser;
+}>;
+
+export type TUserForm = TUser & { token?: string };
 // TODO: вынести в ac
 export const getAuthRequest = () => ({ type: "GET_AUTH_REQUEST" } as const);
-export const getAuthSucces = (data: TUser) =>
+export const getAuthSucces = (data: TLoginResponse) =>
   ({ type: "GET_AUTH_SUCCES", data: data } as const);
 export const getAuthFailure = () => ({ type: "GET_AUTH_FAILURE" } as const);
 
@@ -54,15 +64,14 @@ export const getRefreshTokenFailure = () =>
   ({ type: "GET_REFRESH_TOKEN_FAILURE" } as const);
 
 export const clearUser = () => ({ type: "CLEAR_USER" } as const);
-
-export const signIn = (form: TUser) => (dispatch: any) => {
+export const signIn = (form: TUserForm) => (dispatch: any) => {
   dispatch(showPreloader());
   dispatch(getAuthRequest());
   api
     .login(form)
     .then((res) => {
       res && res.success
-        ? dispatch(getAuthSucces(res.user))
+        ? dispatch(getAuthSucces(res))
         : dispatch(getAuthFailure());
     })
     .catch((e) => {
