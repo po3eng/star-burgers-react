@@ -1,21 +1,15 @@
-import {
-  Link,
-  Navigate,
-  Outlet,
-  useMatch,
-  useNavigate,
-} from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import classes from "./profile.module.css";
 import { getCookie } from "../../utils/cookies";
-import { useDispatch } from "react-redux";
 import { userData } from "../../services/actions/auth";
 import HeaderItem from "../../components/UI/app-header-item/app-header-item";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { useAppDispatch } from "../../hooks/redux";
 
-const ProfilePage = () => {
+const ProfilePage: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     navigate("/profile/form");
   }, []);
@@ -31,7 +25,6 @@ const ProfilePage = () => {
     <div className={classes.wrap}>
       <div className={classes.links}>
         <HeaderItem
-          end
           to="/profile/form"
           textClass={textClass}
           text="Профиль"

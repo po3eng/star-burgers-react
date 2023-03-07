@@ -19,19 +19,18 @@ export type TIngredient = {
 };
 
 type TIngredientDetailsProps = {
-  ingredient: TIngredient;
+  ingredient?: TIngredient;
 };
 
 const IngredientDetails: FC<TIngredientDetailsProps> = ({ ingredient }) => {
-  // const ingredient = useSelector((store) => store.ingredients.currentIngredient);
   return (
     <div className={classes.content}>
       <img
         className={classes.image}
-        src={ingredient.image}
-        alt={ingredient.name}
+        src={ingredient?.image}
+        alt={ingredient?.name}
       />
-      <p className="text text_type_main-medium pt-4">{ingredient.name}</p>
+      <p className="text text_type_main-medium pt-4">{ingredient?.name}</p>
       <ListNutrients ingredient={ingredient}></ListNutrients>
     </div>
   );

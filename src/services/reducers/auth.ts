@@ -9,8 +9,8 @@ type TAuthState = {
   authFailed: boolean;
 
   forgotRequest: boolean;
+  forgotSuccess: boolean;
   forgotFailed: boolean;
-  isForgot: boolean;
 
   resetRequest: boolean;
   resetFailed: boolean;
@@ -30,7 +30,7 @@ const initialState = {
 
   forgotRequest: false,
   forgotFailed: false,
-  isForgot: false,
+  forgotSuccess: false,
 
   resetRequest: false,
   resetFailed: false,
@@ -78,7 +78,12 @@ export const authReducer = (state: TAuthState = initialState, action: any) => {
     }
 
     case "GET_FORGOT_FAILURE": {
-      return { ...state, forgotFailed: true, forgotRequest: false };
+      return {
+        ...state,
+        forgotFailed: true,
+        forgotRequest: false,
+        forgotSuccess: false,
+      };
     }
 
     case "GET_FORGOT_REQUEST": {
@@ -86,7 +91,7 @@ export const authReducer = (state: TAuthState = initialState, action: any) => {
         ...state,
         forgotFailed: false,
         forgotRequest: true,
-        isForgot: false,
+        forgotSuccess: false,
       };
     }
 
@@ -95,7 +100,7 @@ export const authReducer = (state: TAuthState = initialState, action: any) => {
         ...state,
         forgotFailed: false,
         forgotRequest: false,
-        isForgot: true,
+        forgotSuccess: true,
       };
     }
     case "GET_USER_FAILURE": {

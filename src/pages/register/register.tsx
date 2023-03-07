@@ -6,20 +6,21 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import calsses from "./register.module.css";
-import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm";
+import { useAppDispatch } from "../../hooks/redux";
+import { FC, SyntheticEvent } from "react";
 
-const Register = () => {
+const Register :FC = () => {
   const [form, handleChangeForm] = useForm({
     email: "",
     name: "",
     password: "",
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(registerUser(form));
   };
@@ -52,7 +53,7 @@ const Register = () => {
           extraClass="mb-2"
         />
 
-        <Button  htmlType="submit" type="primary" size="medium">
+        <Button htmlType="submit" type="primary" size="medium">
           Зарегистрироваться
         </Button>
       </form>

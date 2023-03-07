@@ -1,7 +1,8 @@
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import classes from "../../components/app/app.module.css";
-const HomePage = () => {
+import { FC } from "react";
+const HomePage: FC = () => {
   return (
     <div className={classes.home}>
       <div className={classes.col2}>

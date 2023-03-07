@@ -7,10 +7,10 @@ import classes from "./reset-password.module.css";
 import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { resetPassword } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm";
-import { SyntheticEvent } from "react";
+import { FC, SyntheticEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
-const ResetPassword = () => {
+const ResetPassword: FC = () => {
   const [form, onChangeHandle] = useForm({ token: "", password: "" });
 
   const dispatch = useAppDispatch();
