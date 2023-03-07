@@ -79,7 +79,7 @@ const Profile: FC = () => {
             Отмена
           </Button>
           <Button htmlType="submit" type="primary" size="medium">
-            Соханить
+            Сохранить
           </Button>
         </div>
       )}
