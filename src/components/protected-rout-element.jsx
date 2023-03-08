@@ -3,7 +3,7 @@ import { getCookie } from "../utils/cookies";
 import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ element, anonymous = false }) => {
-  const isLoggedIn = getCookie("token");
+  const isLoggedIn = getCookie("refreshToken");
   const location = useLocation();
   const from = location.state?.from || "/";
   if (anonymous && isLoggedIn) {
