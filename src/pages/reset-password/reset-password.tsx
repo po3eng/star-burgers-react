@@ -7,7 +7,7 @@ import classes from "./reset-password.module.css";
 import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { resetPassword } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm.js";
-import { FC, SyntheticEvent } from "react";
+import { FC, SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 const ResetPassword: FC = () => {
@@ -16,8 +16,14 @@ const ResetPassword: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const resetSuccces = useAppSelector((store) => store.auth.resetSuccess);
   
+  const resetSuccces = useAppSelector((store) => store.auth.resetSuccess);
+  useEffect(() => {
+    if (resetSuccces) {
+      navigate("/login", { replace: true });
+    }
+  }, [resetSuccces]);
+
   const isForgot = location.state?.isForgot;
   if (!isForgot) {
     return <Navigate to="/" replace />;
@@ -25,9 +31,6 @@ const ResetPassword: FC = () => {
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(resetPassword(form));
-    if (resetSuccces) {
-      navigate("/login", { replace: true });
-    }
   };
 
   return (

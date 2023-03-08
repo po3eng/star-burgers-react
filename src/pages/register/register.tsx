@@ -4,19 +4,27 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import calsses from "./register.module.css";
 import { registerUser } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm.js";
-import { useAppDispatch } from "../../hooks/redux";
-import { FC, SyntheticEvent } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { FC, SyntheticEvent, useEffect } from "react";
 
-const Register :FC = () => {
+const Register: FC = () => {
+  const navigate = useNavigate();
   const [form, handleChangeForm] = useForm({
     email: "",
     name: "",
     password: "",
   });
+  const authSuccess = useAppSelector((store) => store.auth.authSucces);
+  
+  useEffect(() => {
+    if (authSuccess) {
+      navigate("/");
+    }
+  }, [authSuccess]);
 
   const dispatch = useAppDispatch();
 

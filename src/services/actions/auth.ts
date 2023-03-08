@@ -139,7 +139,9 @@ export const registerUser = (form: TUser) => (dispatch: any) => {
   api
     .registrationUser(form)
     .then((res) => {
-      res && res.success && dispatch(getUserSucces(res.user));
+      res && res.success
+        ? dispatch(getAuthSucces(res))
+        : dispatch(getRegisterRequest());
     })
     .catch((e) => {
       dispatch(getRegisterFailure);

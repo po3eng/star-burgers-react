@@ -6,6 +6,7 @@ import { TTokens } from "../../utils/api";
 type TAuthState = {
   user: TUser | null;
   authRequest: boolean;
+  authSucces: boolean;
   authFailed: boolean;
 
   forgotRequest: boolean;
@@ -26,6 +27,7 @@ type TAuthState = {
 const initialState = {
   user: null,
   authRequest: false,
+  authSucces: false,
   authFailed: false,
 
   forgotRequest: false,
@@ -64,6 +66,8 @@ export const authReducer = (state: TAuthState = initialState, action: any) => {
       return {
         ...state,
         authRequest: true,
+        authSucces: false,
+        authFailed: false,
       };
     }
     case "GET_AUTH_SUCCES": {
@@ -72,11 +76,17 @@ export const authReducer = (state: TAuthState = initialState, action: any) => {
         ...state,
         authFailed: false,
         user: action.data.user,
+        authSucces: true,
         authRequest: false,
       };
     }
     case "GET_AUTH_FAILURE": {
-      return { ...state, authFailed: true, authRequest: false };
+      return {
+        ...state,
+        authFailed: true,
+        authRequest: false,
+        authSucces: false,
+      };
     }
 
     case "GET_FORGOT_FAILURE": {

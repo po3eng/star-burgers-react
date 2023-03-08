@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../../services/actions/auth";
 import classes from "./forgot-password.module.css";
 import useForm from "../../hooks/useForm.js";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 const ForgotPassword = () => {
@@ -19,10 +19,13 @@ const ForgotPassword = () => {
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(forgotPassword(form));
+    
+  };
+  useEffect(()=>{
     if (forgetSuccess) {
       navigate("/reset-password", { state: { isForgot: true } });
     }
-  };
+  },[forgetSuccess])
 
   return (
     <form className={classes.container} onSubmit={onSubmit}>
