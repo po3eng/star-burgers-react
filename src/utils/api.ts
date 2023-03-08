@@ -7,9 +7,10 @@ import { fetchWithRefresh, request } from "./request";
 import { TUser } from "../services/actions/auth";
 import { TServerResponse } from "./request";
 
-//TODO: типизировать формы
+
 type TUserResponse = TServerResponse<{ user: TUser }>;
 type TIngredientsResponse = TServerResponse<{ data: Array<TIngredient> }>;
+type TMessageResponse = TServerResponse<{ message: string }>;
 
 export type TTokens = {
   accessToken: string;
@@ -84,8 +85,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/token `, payload);
   }
 
-  // FIXME: ИСПРАВИИТЬ unknown!
-  forgotPassword(from: { email: string }): Promise<TServerResponse<unknown>> {
+  forgotPassword(from: { email: string }): Promise<TMessageResponse> {
     const payload = {
       method: "POST",
       headers: {
@@ -96,7 +96,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/password-reset`, payload);
   }
 
-  resetPassword(form: TResetPassword): Promise<TServerResponse<unknown>> {
+  resetPassword(form: TResetPassword): Promise<TMessageResponse> {
     const payload = {
       method: "POST",
       headers: {
@@ -119,7 +119,7 @@ class API {
     return fetchWithRefresh(`${HOST}/api/auth/user`, payload);
   }
 
-  upadateUserData<T>(form: T): Promise<TUserResponse> {
+  upadateUserData(form: Omit<TUser, "token">): Promise<TUserResponse> {
     const payload = {
       method: "PATCH",
       headers: {

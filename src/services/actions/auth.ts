@@ -103,8 +103,9 @@ export const forgotPassword = (form: TNullPassword) => (dispatch: any) => {
 
 export const resetPassword =
   (form: TResetPassword) => (dispatch: AppDispatch) => {
-    dispatch(showPreloader());
-    dispatch(getResetRequest());
+    // dispatch(showPreloader());
+    // dispatch(getResetRequest());
+
     return api
       .resetPassword(form)
       .then((res) => {

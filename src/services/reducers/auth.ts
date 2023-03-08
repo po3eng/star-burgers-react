@@ -181,7 +181,7 @@ export const authReducer = (state: TAuthState = initialState, action: any) => {
     }
 
     case "GET_RESET_SUCCES": {
-      updateTokensState(action.data);
+      // updateTokensState(action.data);
       return {
         ...state,
         resetRequest: false,
