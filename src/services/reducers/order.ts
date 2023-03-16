@@ -1,24 +1,18 @@
-import {
-  SET_ORDER_REQUEST,
-  SET_ORDER_FAILURE,
-  SET_ORDER_SUCCES,
-  CLEAR_ORDER,
-} from "../actions/order";
+import { SET_ORDER_REQUEST, SET_ORDER_FAILURE, SET_ORDER_SUCCES, CLEAR_ORDER } from "../constants/orders";
+import { TOrederActions } from "../actions/order";
 
 type TOrderState = {
   order: number | null;
   orderRequest: boolean;
   orderFailed: boolean;
 };
-const initialState = {
+const initialState: TOrderState = {
   order: null,
   orderRequest: false,
   orderFailed: false,
 };
-export const orderReducer = (
-  state: TOrderState = initialState,
-  action: any,
-) => {
+
+export const orderReducer = (state = initialState, action: TOrederActions): TOrderState => {
   switch (action.type) {
     case SET_ORDER_REQUEST: {
       return {

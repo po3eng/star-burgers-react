@@ -11,8 +11,7 @@ type TModal = {
 };
 const Modal: FC<TModal> = ({ children, header, handleCloseModal }) => {
   useEffect(() => {
-    const closeModalOnEscape = (e: KeyboardEvent) =>
-      e.key === "Escape" ? handleCloseModal() : null;
+    const closeModalOnEscape = (e: KeyboardEvent) => (e.key === "Escape" ? handleCloseModal() : null);
     document.body.addEventListener("keydown", closeModalOnEscape);
     return () => {
       document.body.removeEventListener("keydown", closeModalOnEscape);

@@ -1,12 +1,7 @@
-import {
-  EmailInput,
-  PasswordInput,
-  Button,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import calsses from "./register.module.css";
-import { registerUser } from "../../services/actions/auth";
+import { registerUserThunk } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm.js";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { FC, SyntheticEvent, useEffect } from "react";
@@ -18,8 +13,8 @@ const Register: FC = () => {
     name: "",
     password: "",
   });
-  const authSuccess = useAppSelector((store) => store.auth.authSucces);
-  
+  const authSuccess = useAppSelector(store => store.auth.authSucces);
+
   useEffect(() => {
     if (authSuccess) {
       navigate("/");
@@ -30,7 +25,7 @@ const Register: FC = () => {
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(registerUser(form));
+    dispatch(registerUserThunk(form));
   };
 
   return (

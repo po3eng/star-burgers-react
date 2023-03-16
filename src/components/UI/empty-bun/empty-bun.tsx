@@ -9,9 +9,7 @@ const EmptyBun: FC<TBunProps> = ({ type }) => {
       : `${styles.empty_text} ml-6 mt-2 constructor-element constructor-element_pos_bottom `;
   return (
     <div className={bun}>
-      <p className="text text_type_main-default text_color_inactive">
-        Выберите булку
-      </p>
+      <p className="text text_type_main-default text_color_inactive">Выберите булку</p>
     </div>
   );
 };

@@ -3,40 +3,35 @@ import {
   ADD_CONSTRUCTOR_INGREDIENT,
   DELETE_CONSTRUCTOR_INGREDIENT,
   ADD_CONSTRUCTOR_BUN,
-  MOVE_CONSTRUCTOR_INGREDIENT,
   CLEAR_CONSTRUCTOR,
-} from "../actions/constructor";
+  MOVE_CONSTRUCTOR_INGREDIENT,
+} from "../constants/constructor";
 
+import { TConstructorActions } from "../actions/constructor";
 
-
-type TState = {
+type TConstructorState = {
   constructorIngredients: Array<TIngredient>;
   bun: TIngredient | null;
 };
-const initialState: TState = {
+
+const initialState: TConstructorState = {
   constructorIngredients: [],
   bun: null,
 };
 
-
-export const constructorReducer = (state = initialState, action:any) => {
+export const constructorReducer = (state = initialState, action: TConstructorActions): TConstructorState => {
   switch (action.type) {
     case DELETE_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
-        constructorIngredients: state.constructorIngredients.filter(
-          (value: TIngredient) => value.id !== action.id,
-        ),
+        constructorIngredients: state.constructorIngredients.filter((value: TIngredient) => value.id !== action.id),
       };
     }
 
     case ADD_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
-        constructorIngredients: [
-          ...state.constructorIngredients,
-          action.ingredient,
-        ],
+        constructorIngredients: [...state.constructorIngredients, action.ingredient],
       };
     }
 
@@ -48,9 +43,7 @@ export const constructorReducer = (state = initialState, action:any) => {
     }
 
     case MOVE_CONSTRUCTOR_INGREDIENT: {
-      const cloneOrderIngredients: Array<TIngredient> = [
-        ...state.constructorIngredients,
-      ];
+      const cloneOrderIngredients: Array<TIngredient> = [...state.constructorIngredients];
       const swap = <T>(arr: Array<T>, a: number, b: number) => {
         arr[a] = arr.splice(b, 1, arr[a])[0];
       };

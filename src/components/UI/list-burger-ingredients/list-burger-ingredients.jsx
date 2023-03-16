@@ -5,11 +5,11 @@ import PropTypes from "prop-types";
 import { useMemo } from "react";
 
 const ListBurgerIngredients = ({ type, ingredients, title, onClick }) => {
-  const constructor = useSelector((store) => store.constr);
+  const constructor = useSelector(store => store.constr);
   const ingredientCounters = useMemo(() => {
     const { constructorIngredients, bun } = constructor;
     const countersSet = {};
-    constructorIngredients.forEach((ingredient) => {
+    constructorIngredients.forEach(ingredient => {
       if (!countersSet[ingredient._id]) {
         countersSet[ingredient._id] = 0;
       }
@@ -26,7 +26,7 @@ const ListBurgerIngredients = ({ type, ingredients, title, onClick }) => {
         {title}
       </p>
       <div className={` ${classes.wraper} pt-6 ml-4`}>
-        {ingredients.map((item) => (
+        {ingredients.map(item => (
           <BurgerIngredient
             ingredient={item}
             count={ingredientCounters[item._id]}

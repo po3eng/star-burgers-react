@@ -9,7 +9,7 @@ type TModelOverlay = {
 const ModalOverlay: FC<TModelOverlay> = ({ children, handleCloseModal }) => {
   return (
     <div className={classes.Modal} onClick={handleCloseModal}>
-      <div onClick={(e) => e.stopPropagation()}>{children}</div>
+      <div onClick={e => e.stopPropagation()}>{children}</div>
     </div>
   );
 };

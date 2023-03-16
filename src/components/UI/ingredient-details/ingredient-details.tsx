@@ -4,7 +4,7 @@ import { FC } from "react";
 
 export type TIngredient = {
   _id: string;
-  id?: string;
+  id?: string | number;
   name: string;
   type: string;
   proteins: number;
@@ -25,11 +25,7 @@ type TIngredientDetailsProps = {
 const IngredientDetails: FC<TIngredientDetailsProps> = ({ ingredient }) => {
   return (
     <div className={classes.content}>
-      <img
-        className={classes.image}
-        src={ingredient?.image}
-        alt={ingredient?.name}
-      />
+      <img className={classes.image} src={ingredient?.image} alt={ingredient?.name} />
       <p className="text text_type_main-medium pt-4">{ingredient?.name}</p>
       {ingredient && <ListNutrients ingredient={ingredient}></ListNutrients>}
     </div>

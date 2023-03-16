@@ -1,12 +1,8 @@
-import {
-  EmailInput,
-  PasswordInput,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./login-form.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { signIn } from "../../../services/actions/auth";
+import { signInThunk } from "../../../services/actions/auth";
 import useForm from "../../../hooks/useForm.js";
 import { FC, SyntheticEvent } from "react";
 import { useAppDispatch } from "../../../hooks/redux";
@@ -24,7 +20,7 @@ const LoginForm: FC = () => {
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(signIn(form));
+    dispatch(signInThunk(form));
 
     navigate(location.state?.from || "/");
   };

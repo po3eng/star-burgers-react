@@ -1,18 +1,13 @@
 import { useState, useEffect, FC, SyntheticEvent } from "react";
 import classes from "./profile.module.css";
-import {
-  EmailInput,
-  PasswordInput,
-  Input,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { TUser, updateUserData } from "../../../services/actions/auth";
+import { EmailInput, PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TUser, updateUserDataThunk } from "../../../services/actions/auth";
 import useForm from "../../../hooks/useForm.js";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 
 const Profile: FC = () => {
   const dispatch = useAppDispatch();
-  const user :TUser | null = useAppSelector((store) => store.auth.user);
+  const user: TUser | null = useAppSelector(store => store.auth.user);
   const [isActions, setIsActions] = useState(false);
   const [form, handleChangeForm, setForm] = useForm({
     email: "",
@@ -33,7 +28,7 @@ const Profile: FC = () => {
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(updateUserData(form));
+    dispatch(updateUserDataThunk(form));
     setIsActions(false);
   };
   const onAbort = (e: SyntheticEvent) => {
@@ -53,13 +48,7 @@ const Profile: FC = () => {
         size={"default"}
         extraClass="mb-2"
       />
-      <EmailInput
-        onChange={handleChange}
-        placeholder={"E-mail"}
-        value={form.email}
-        name={"email"}
-        extraClass="mb-2"
-      />
+      <EmailInput onChange={handleChange} placeholder={"E-mail"} value={form.email} name={"email"} extraClass="mb-2" />
       <PasswordInput
         onChange={handleChange}
         value={form.password}
@@ -70,12 +59,7 @@ const Profile: FC = () => {
 
       {isActions && (
         <div className={classes.actions}>
-          <Button
-            htmlType="reset"
-            type="secondary"
-            onClick={onAbort}
-            size="medium"
-          >
+          <Button htmlType="reset" type="secondary" onClick={onAbort} size="medium">
             Отмена
           </Button>
           <Button htmlType="submit" type="primary" size="medium">

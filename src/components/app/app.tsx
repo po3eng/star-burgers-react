@@ -5,19 +5,17 @@ import classes from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { getIngredients } from "../../services/actions/ingredients";
+import { getIngredientsThunk } from "../../services/actions/ingredients";
 import { BrowserRouter } from "react-router-dom";
 import BurgerRouter from "../burger-router/burger-router";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 const App: FC = () => {
-  const preloaderShow = useAppSelector(
-    (store) => store.preloader.preloaderShow,
-  );
+  const preloaderShow = useAppSelector(store => store.preloader.preloaderShow);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch(getIngredientsThunk());
   }, []);
 
   return (

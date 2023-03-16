@@ -7,7 +7,6 @@ import { fetchWithRefresh, request } from "./request";
 import { TUser } from "../services/actions/auth";
 import { TServerResponse } from "./request";
 
-
 type TUserResponse = TServerResponse<{ user: TUser }>;
 type TIngredientsResponse = TServerResponse<{ data: Array<TIngredient> }>;
 type TMessageResponse = TServerResponse<{ message: string }>;

@@ -1,5 +1,5 @@
 import { useMemo, FC } from "react";
-import { clearOrderNumber, setOrder } from "../../services/actions/order";
+import { clearOrderNumber, setOrderThunk } from "../../services/actions/order";
 
 import classes from "./burger.constructor.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,23 +14,15 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 const BurgerConstructor: FC = () => {
-  const order = useAppSelector((store) => store.order.order);
-  const { constructorIngredients, bun } = useAppSelector(
-    (store) => store.constr,
-  );
+  const order = useAppSelector(store => store.order.order);
+  const { constructorIngredients, bun } = useAppSelector(store => store.constr);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const totalOrder = useMemo(
-    () => [bun, ...constructorIngredients, bun],
-    [bun, constructorIngredients],
-  );
+  const totalOrder = useMemo(() => [bun, ...constructorIngredients, bun], [bun, constructorIngredients]);
 
   const totalPrice = useMemo(() => {
-    return totalOrder.reduce(
-      (accumulator, item) => accumulator + item?.price || 0,
-      0,
-    );
+    return totalOrder.reduce((accumulator, item) => accumulator + item.price || 0, 0);
   }, [totalOrder]);
 
   const sendOrder = () => {
@@ -39,7 +31,7 @@ const BurgerConstructor: FC = () => {
       navigate("/login", { replace: true });
     } else {
       if (totalOrder.length > 2 && bun) {
-        dispatch(setOrder(totalOrder));
+        dispatch(setOrderThunk(totalOrder));
       }
     }
   };
@@ -61,12 +53,7 @@ const BurgerConstructor: FC = () => {
         <Bun type="bottom" />
         <div className={`${classes.wraper} pt-10 pr-10`}>
           <Price size="medium" price={totalPrice} />
-          <Button
-            htmlType="button"
-            type="primary"
-            size="medium"
-            onClick={sendOrder}
-          >
+          <Button htmlType="button" type="primary" size="medium" onClick={sendOrder}>
             Оформить заказ
           </Button>
         </div>

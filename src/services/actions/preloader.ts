@@ -1,5 +1,13 @@
-export const SHOW_PRELOADER = "SHOW_PRELOADER";
-export const HIDE_PRELOADER = "HIDE_PRELOADER";
+import { SHOW_PRELOADER, HIDE_PRELOADER } from "../constants/preloader";
 
-export const showPreloader = () => ({ type: SHOW_PRELOADER });
-export const hidePreloader = () => ({ type: HIDE_PRELOADER });
+export interface IShowPreloader {
+  readonly type: typeof SHOW_PRELOADER;
+}
+export interface IHidePreloader {
+  readonly type: typeof HIDE_PRELOADER;
+}
+
+export type TPreloaderActions = IShowPreloader | IHidePreloader;
+
+export const showPreloader = (): IShowPreloader => ({ type: SHOW_PRELOADER });
+export const hidePreloader = (): IHidePreloader => ({ type: HIDE_PRELOADER });

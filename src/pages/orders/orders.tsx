@@ -2,14 +2,14 @@ import styles from "../not-found/not-found.module.css";
 import { getCookie } from "../../utils/cookies";
 import { FC, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { userData } from "../../services/actions/auth";
+import { userDataThunk } from "../../services/actions/auth";
 import { useAppDispatch } from "../../hooks/redux";
 
 const Orders: FC = () => {
   const dispatch = useAppDispatch();
   const token = getCookie("refreshToken");
   useEffect(() => {
-    token && dispatch(userData());
+    token && dispatch(userDataThunk());
   }, []);
 
   if (!token) {
@@ -20,9 +20,7 @@ const Orders: FC = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <h1 className="text text_type_main-large">Oops!</h1>
-        <p className="text text_type_main-medium">
-          Страница находится в разработке
-        </p>
+        <p className="text text_type_main-medium">Страница находится в разработке</p>
       </div>
     </div>
   );

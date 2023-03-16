@@ -1,10 +1,4 @@
-import {
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import HomePage from "../../pages/home-page/home-page";
 import Login from "../../pages/login/login";
@@ -29,33 +23,15 @@ const BurgerRouter = () => {
     <>
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/login"
-          element={<ProtectedRoute anonymous element={<Login />} />}
-        />
-        <Route
-          path="/register"
-          element={<ProtectedRoute anonymous element={<Register />} />}
-        />
-        <Route
-          path="/forgot-password"
-          element={<ProtectedRoute anonymous element={<ForgotPassword />} />}
-        />
-        <Route
-          path="/reset-password"
-          element={<ProtectedRoute anonymous element={<ResetPassword />} />}
-        />
-        <Route
-          path="/profile"
-          element={<ProtectedRoute  element={<ProfilePage />} />}
-        >
+        <Route path="/login" element={<ProtectedRoute anonymous element={<Login />} />} />
+        <Route path="/register" element={<ProtectedRoute anonymous element={<Register />} />} />
+        <Route path="/forgot-password" element={<ProtectedRoute anonymous element={<ForgotPassword />} />} />
+        <Route path="/reset-password" element={<ProtectedRoute anonymous element={<ResetPassword />} />} />
+        <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />}>
           <Route index path="form" element={<Profile />} />
           <Route path="*" element={<NotFound404 />} />
         </Route>
-        <Route
-          path="/logout"
-          element={<ProtectedRoute element={<Logout />} />}
-        />
+        <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>

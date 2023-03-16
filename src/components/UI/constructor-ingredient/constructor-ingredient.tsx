@@ -1,13 +1,7 @@
-import {
-  ConstructorElement,
-  DragIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./constructor-ingredient.module.css";
-import {
-  deleteIngredient,
-  moveConstructorIngredient,
-} from "../../../services/actions/constructor";
-import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
+import { deleteIngredient, moveConstructorIngredient } from "../../../services/actions/constructor";
+import { useDrag, useDrop } from "react-dnd";
 import { XYCoord } from "dnd-core";
 
 import { FC, useRef } from "react";
@@ -23,11 +17,7 @@ type TDragItem = {
   id: string;
   index: number;
 };
-const ConstructorIngredient: FC<TConstructorIngredientProps> = ({
-  ingredient,
-  index,
-  drag,
-}) => {
+const ConstructorIngredient: FC<TConstructorIngredientProps> = ({ ingredient, index, drag }) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const [, dropRef] = useDrop({
@@ -49,8 +39,7 @@ const ConstructorIngredient: FC<TConstructorIngredientProps> = ({
         return;
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
@@ -70,7 +59,7 @@ const ConstructorIngredient: FC<TConstructorIngredientProps> = ({
     item: () => {
       return { _id: ingredient._id, index };
     },
-    collect: (monitor) => ({
+    collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
   });
@@ -81,11 +70,7 @@ const ConstructorIngredient: FC<TConstructorIngredientProps> = ({
   };
 
   return (
-    <div
-      ref={ref}
-      style={{ opacity }}
-      className={`${classes.wraper} pt-2 pb-2`}
-    >
+    <div ref={ref} style={{ opacity }} className={`${classes.wraper} pt-2 pb-2`}>
       {drag && <DragIcon type="primary" />}
       <ConstructorElement
         text={ingredient.name}

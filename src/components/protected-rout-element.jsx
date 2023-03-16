@@ -2,6 +2,9 @@ import { Navigate, useLocation } from "react-router-dom";
 import { getCookie } from "../utils/cookies";
 import PropTypes from "prop-types";
 
+
+
+
 const ProtectedRoute = ({ element, anonymous = false }) => {
   const isLoggedIn = getCookie("refreshToken");
   const location = useLocation();
