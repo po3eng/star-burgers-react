@@ -13,8 +13,9 @@ import Modal from "../UI/modal/modal";
 
 import Logout from "../logout";
 import ProtectedRoute from "../protected-rout-element";
+import { FC } from "react";
 
-const BurgerRouter = () => {
+const BurgerRouter: FC = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
