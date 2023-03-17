@@ -13,7 +13,6 @@ type TConstructorState = {
   constructorIngredients: Array<TIngredient>;
   bun: TIngredient | null;
 };
-
 const initialState: TConstructorState = {
   constructorIngredients: [],
   bun: null,

@@ -1,7 +1,7 @@
 import api from "../../utils/api";
 import { showPreloader, hidePreloader } from "./preloader";
 import { TResetPassword } from "../../utils/api";
-import { AppDispatch } from "../..";
+import { AppDispatch, AppThunk } from "../..";
 import { TServerResponse } from "../../utils/request";
 import {
   GET_AUTH_REQUEST,
@@ -191,7 +191,7 @@ export const getRefreshTokenFailure = (): IGetRefreshTokenFailure => ({ type: GE
 
 export const clearUser = (): IClearUser => ({ type: CLEAR_USER });
 
-export const signInThunk = (form: TUserForm) => (dispatch: AppDispatch) => {
+export const signInThunk: AppThunk = (form: TUserForm) => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(getAuthRequest());
   api
@@ -207,7 +207,7 @@ export const signInThunk = (form: TUserForm) => (dispatch: AppDispatch) => {
     });
 };
 
-export const forgotPasswordThunk = (form: TNullPassword) => (dispatch: AppDispatch) => {
+export const forgotPasswordThunk: AppThunk = (form: TNullPassword) => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(getForgotRequest());
   return api
@@ -224,7 +224,7 @@ export const forgotPasswordThunk = (form: TNullPassword) => (dispatch: AppDispat
     });
 };
 
-export const resetPasswordThunk = (form: TResetPassword) => (dispatch: AppDispatch) => {
+export const resetPasswordThunk: AppThunk = (form: TResetPassword) => (dispatch: AppDispatch) => {
   dispatch(getResetRequest());
 
   return api
@@ -238,7 +238,7 @@ export const resetPasswordThunk = (form: TResetPassword) => (dispatch: AppDispat
     });
 };
 
-export const userDataThunk = () => (dispatch: AppDispatch) => {
+export const userDataThunk: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getUserRequest());
   api
     .getUserData()
@@ -250,7 +250,7 @@ export const userDataThunk = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const registerUserThunk = (form: TUser) => (dispatch: AppDispatch) => {
+export const registerUserThunk: AppThunk = (form: TUser) => (dispatch: AppDispatch) => {
   dispatch(getRegisterRequest());
   api
     .registrationUser(form)
@@ -262,7 +262,7 @@ export const registerUserThunk = (form: TUser) => (dispatch: AppDispatch) => {
     });
 };
 
-export const updateUserDataThunk = (form: TUser) => (dispatch: AppDispatch) => {
+export const updateUserDataThunk: AppThunk = (form: TUser) => (dispatch: AppDispatch) => {
   dispatch(getUpdateRequest());
   api
     .upadateUserData(form)
@@ -274,7 +274,7 @@ export const updateUserDataThunk = (form: TUser) => (dispatch: AppDispatch) => {
     });
 };
 
-export const logoutThunk = () => (dispatch: AppDispatch) => {
+export const logoutThunk: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getLogoutRequest());
   api
     .logout()

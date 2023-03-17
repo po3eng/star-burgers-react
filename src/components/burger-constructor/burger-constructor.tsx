@@ -22,7 +22,12 @@ const BurgerConstructor: FC = () => {
   const totalOrder = useMemo(() => [bun, ...constructorIngredients, bun], [bun, constructorIngredients]);
 
   const totalPrice = useMemo(() => {
-    return totalOrder.reduce((accumulator, item) => accumulator + item.price || 0, 0);
+    return totalOrder.reduce((accumulator, item) => {
+      if (!item) {
+        return accumulator;
+      }
+      return accumulator + item.price;
+    }, 0);
   }, [totalOrder]);
 
   const sendOrder = () => {

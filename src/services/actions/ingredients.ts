@@ -1,7 +1,7 @@
 import api from "../../utils/api";
 import { hidePreloader, showPreloader } from "./preloader";
 import { TIngredient } from "../../components/UI/ingredient-details/ingredient-details";
-import { AppDispatch } from "../..";
+import { AppDispatch, AppThunk } from "../..";
 
 import {
   GET_INGREDIENTS_SUCCESS,
@@ -38,7 +38,6 @@ export type TIngredientActions =
   | IClearCurrentIngredient
   | ISetCurrentIngredient;
 
-  
 export const getIngredientRequest = (): IGetIngredientRequest => ({ type: GET_INGREDIENTS_REQUEST });
 export const getIngredientFailure = (): IGetIngredientFailure => ({ type: GET_INGREDIENTS_FAILED });
 export const getIngredientSuccess = (ingredients: Array<TIngredient>): IGetIngredientSuccess => ({
@@ -52,7 +51,7 @@ export const setCurrentIngredient = (ingredient: TIngredient): ISetCurrentIngred
   ingredient,
 });
 
-export const getIngredientsThunk = () => (dispatch: AppDispatch) => {
+export const getIngredientsThunk: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(getIngredientRequest());
   api
