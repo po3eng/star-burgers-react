@@ -2,5 +2,4 @@ import { TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selec
 import { AppDispatch, AppThunk, RootState } from "..";
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
-
 export const useAppDispatch = () => dispatchHook<AppDispatch & AppThunk>();

@@ -57,7 +57,7 @@ const BurgerConstructor: FC = () => {
         <ListConstructorIngredients />
         <Bun type="bottom" />
         <div className={`${classes.wraper} pt-10 pr-10`}>
-          <Price size="medium" price={totalPrice} />
+          <Price size="medium" className="pr-10" price={totalPrice} />
           <Button htmlType="button" type="primary" size="medium" onClick={sendOrder}>
             Оформить заказ
           </Button>

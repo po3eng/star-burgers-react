@@ -1,0 +1,55 @@
+.ingredients_container {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    position: relative;
+}
+
+.item {
+    clip-path: circle(50%);
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    margin: -10px;
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%),
+        linear-gradient(0deg, #131316, #131316);
+    border: 2px solid;
+    border-image-source: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+
+}
+
+img {
+    padding: 0;
+    margin: 0;
+    width: 64px;
+    height: 64px;
+    clip-path: circle(50%);
+    object-fit: cover;
+    background: #131316;
+}
+
+
+
+
+.counter {
+    position: absolute;
+
+    clip-path: circle(50%);
+    text-align: center;
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    margin: -10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    background: #1313167e;
+
+}
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

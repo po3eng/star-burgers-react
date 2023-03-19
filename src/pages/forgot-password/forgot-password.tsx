@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { forgotPasswordThunk } from "../../services/actions/auth";
 import classes from "./forgot-password.module.css";
 import useForm from "../../hooks/useForm.js";
-import { SyntheticEvent, useEffect } from "react";
+import { FC, SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
-const ForgotPassword = () => {
+const ForgotPassword: FC = () => {
   const [form, onChangeForm] = useForm({ email: "" });
   const dispatch = useAppDispatch();
   const forgetSuccess: boolean = useAppSelector(store => store.auth.forgotSuccess);

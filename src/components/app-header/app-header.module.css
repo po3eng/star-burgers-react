@@ -10,12 +10,14 @@
 
 
 .nav {
+    padding-top: 16px;
     position: relative;
     text-align: center;
     width: 1280px;
 }
 
 .logo {
+    padding-top: 16px;
     position: absolute;
     text-align: center;
 }

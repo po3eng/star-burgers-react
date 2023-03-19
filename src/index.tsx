@@ -6,7 +6,7 @@ import { compose, createStore, applyMiddleware, Action, ActionCreator, Dispatch 
 
 import { Provider } from "react-redux";
 import { rootReducer } from "./services/reducers";
-import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
+import thunk, { ThunkAction } from "redux-thunk";
 import { TAuthActions } from "./services/actions/auth";
 import { TOrederActions } from "./services/actions/order";
 import { TIngredientActions } from "./services/actions/ingredients";

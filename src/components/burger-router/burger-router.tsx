@@ -14,6 +14,7 @@ import Modal from "../UI/modal/modal";
 import Logout from "../logout";
 import ProtectedRoute from "../protected-rout-element";
 import { FC } from "react";
+import Feed from "../../pages/feed/feed";
 
 const BurgerRouter: FC = () => {
   const location = useLocation();
@@ -34,6 +35,7 @@ const BurgerRouter: FC = () => {
         </Route>
         <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {background && (

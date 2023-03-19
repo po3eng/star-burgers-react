@@ -6,11 +6,11 @@ import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-dev
 
 const AppHeader: FC = () => {
   return (
-    <header className={`${classes.appHeader} pt-4`}>
+    <header className={`${classes.appHeader} `}>
       <nav className={classes.nav}>
         <div className={classes.nav_left}>
           <HeaderItem to="/" Element={BurgerIcon} text="Конструктор"></HeaderItem>
-          <HeaderItem to="/order-feed" Element={ListIcon} text="Лента заказов"></HeaderItem>
+          <HeaderItem to="/feed" Element={ListIcon} text="Лента заказов"></HeaderItem>
         </div>
         <div className={classes.nav_right}>
           <HeaderItem to="/profile" Element={ProfileIcon} text="Личный кабинет"></HeaderItem>
