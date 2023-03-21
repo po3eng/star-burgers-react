@@ -1,42 +1,34 @@
 import { FC, useMemo } from "react";
-import { useAppSelector } from "../../../hooks/redux";
 import classes from "./list-order-ingredients.module.css";
 import Price from "../price/price";
+import { TIngredient } from "../ingredient-details/ingredient-details";
 type TListOrderIngredientsProps = {
-  orderIngredients: string[];
+  orderIngredients: TIngredient[];
+  price?: number;
 };
-const ListOrderIngredients: FC<TListOrderIngredientsProps> = ({ orderIngredients }) => {
-  const VISIBLE_INGREDIENTS = 6;
-  const ingredients = useAppSelector(store => store.ingredients.ingredients);
-  const selectedIngredients = ingredients.filter(item_a => orderIngredients.some(item_b => item_a._id === item_b));
 
-  const countLast = selectedIngredients.length - VISIBLE_INGREDIENTS;
-  const totalPrice = useMemo(() => {
-    return selectedIngredients.reduce((accumulator, item) => {
-      if (!item) {
-        return accumulator;
-      }
-      return accumulator + item.price;
-    }, 0);
-  }, [selectedIngredients]);
+const ListOrderIngredients: FC<TListOrderIngredientsProps> = ({ orderIngredients, price }) => {
+  const VISIBLE_INGREDIENTS = 6;
+  const COUNT_LAST = orderIngredients.length - VISIBLE_INGREDIENTS;
+
   return (
     <div className={classes.container}>
       <div className={classes.ingredients_container}>
-        {selectedIngredients.map(
+        {orderIngredients.map(
           (ingredient, idx) =>
             idx < VISIBLE_INGREDIENTS && (
               <div key={ingredient._id} className={classes.item}>
-                <img src={ingredient.image_mobile} />
+                <img className={classes.img_ingredient} src={ingredient.image_mobile} />
               </div>
             ),
         )}
-        {countLast > 0 && (
+        {COUNT_LAST > 0 && (
           <div className={classes.counter}>
-            <p className="text text_type_digits-default pl-4">+{countLast}</p>
+            <p className="text text_type_digits-default pl-4">+{COUNT_LAST}</p>
           </div>
         )}
       </div>
-      <Price price={totalPrice} size="default" />
+      <Price price={price || 0} size="default" />
     </div>
   );
 };

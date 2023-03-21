@@ -199,12 +199,8 @@ export const signInThunk: AppThunk = (form: TUserForm) => (dispatch: AppDispatch
     .then(res => {
       res && res.success ? dispatch(getAuthSucces(res)) : dispatch(getAuthFailure());
     })
-    .catch(e => {
-      dispatch(getAuthFailure());
-    })
-    .finally(() => {
-      dispatch(hidePreloader());
-    });
+    .catch(e => dispatch(getAuthFailure()))
+    .finally(() => dispatch(hidePreloader()));
 };
 
 export const forgotPasswordThunk: AppThunk = (form: TNullPassword) => (dispatch: AppDispatch) => {
@@ -216,12 +212,8 @@ export const forgotPasswordThunk: AppThunk = (form: TNullPassword) => (dispatch:
       res && res.success ? dispatch(getForgotSucces()) : dispatch(getForgotFailure());
       return res;
     })
-    .catch(e => {
-      dispatch(getForgotFailure());
-    })
-    .finally(() => {
-      dispatch(hidePreloader());
-    });
+    .catch(e => dispatch(getForgotFailure()))
+    .finally(() => dispatch(hidePreloader()));
 };
 
 export const resetPasswordThunk: AppThunk = (form: TResetPassword) => (dispatch: AppDispatch) => {
@@ -233,9 +225,7 @@ export const resetPasswordThunk: AppThunk = (form: TResetPassword) => (dispatch:
       res && res.success ? dispatch(getResetSuccess()) : dispatch(getResetFailure());
       return res;
     })
-    .catch(e => {
-      dispatch(dispatch(getResetFailure()));
-    });
+    .catch(e => dispatch(dispatch(getResetFailure())));
 };
 
 export const userDataThunk: AppThunk = () => (dispatch: AppDispatch) => {
@@ -257,9 +247,7 @@ export const registerUserThunk: AppThunk = (form: TUser) => (dispatch: AppDispat
     .then(res => {
       res && res.success ? dispatch(getAuthSucces(res)) : dispatch(getRegisterRequest());
     })
-    .catch(e => {
-      dispatch(getRegisterFailure());
-    });
+    .catch(e => dispatch(getRegisterFailure()));
 };
 
 export const updateUserDataThunk: AppThunk = (form: TUser) => (dispatch: AppDispatch) => {
@@ -269,9 +257,7 @@ export const updateUserDataThunk: AppThunk = (form: TUser) => (dispatch: AppDisp
     .then(res => {
       res && res.success ? dispatch(getUpdateSucces(res.user)) : dispatch(getUpdateFailure());
     })
-    .catch(e => {
-      dispatch(getUpdateFailure());
-    });
+    .catch(e => dispatch(getUpdateFailure()));
 };
 
 export const logoutThunk: AppThunk = () => (dispatch: AppDispatch) => {
@@ -284,7 +270,5 @@ export const logoutThunk: AppThunk = () => (dispatch: AppDispatch) => {
         dispatch(clearUser());
       }
     })
-    .catch(e => {
-      dispatch(getLogoutFailure());
-    });
+    .catch(e => dispatch(getLogoutFailure()));
 };

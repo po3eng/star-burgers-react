@@ -6,8 +6,11 @@ import { fetchWithRefresh, request } from "./request";
 
 import { TUser } from "../services/actions/auth";
 import { TServerResponse } from "./request";
+import { TOrder } from "../components/UI/feed-item/feed-item";
 
 type TUserResponse = TServerResponse<{ user: TUser }>;
+type TOrderResponse = TServerResponse<{ orders: TOrder[] }>;
+
 type TIngredientsResponse = TServerResponse<{ data: Array<TIngredient> }>;
 type TMessageResponse = TServerResponse<{ message: string }>;
 
@@ -21,14 +24,14 @@ export type TResetPassword = {
 };
 type TLoginResponse = TServerResponse<{ user: TUser } & TTokens>;
 
-type TOrder = { name: string; order: { number: number } };
-type TOrderResponce = TServerResponse<TOrder>;
+type TSetOrder = { name: string; order: { number: number } };
+type TSetOrderResponce = TServerResponse<TSetOrder>;
 class API {
   getIngredients(): Promise<TIngredientsResponse> {
     return request(`${HOST}/api/ingredients`);
   }
 
-  setOrder(ingredients: Array<string>): Promise<TOrderResponce> {
+  setOrder(ingredients: Array<string>): Promise<TSetOrderResponce> {
     const payload = {
       method: "POST",
       headers: {
@@ -111,11 +114,15 @@ class API {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getLocalStorage("accessToken")}`,
+        Authorization: `Bearer ${getLocalStorage("accessTOrderResponseToken")}`,
       },
     };
 
     return fetchWithRefresh(`${HOST}/api/auth/user`, payload);
+  }
+
+  getOrderData(order: number): Promise<TOrderResponse> {
+    return request(`${HOST}/api/orders/${order} `);
   }
 
   upadateUserData(form: Omit<TUser, "token">): Promise<TUserResponse> {

@@ -1,28 +1,22 @@
 import { useState, useCallback, useEffect, useRef, FC } from "react";
 import classes from "./burger-ingredients.module.css";
 import ListBurgerIngredients from "../UI/list-burger-ingredients/list-burger-ingredients";
-import IngredientDetails, { TIngredient } from "../UI/ingredient-details/ingredient-details";
-import Modal from "../UI/modal/modal";
-import { clearCurrentIngredient } from "../../services/actions/ingredients";
+import { TIngredient } from "../UI/ingredient-details/ingredient-details";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { InView } from "react-intersection-observer";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppSelector } from "../../hooks/redux";
 
 const BurgerIngredients: FC = () => {
   const location = useLocation();
 
-  const { ingredients, currentIngredient } = useAppSelector(store => store.ingredients);
+  const { ingredients } = useAppSelector(store => store.ingredients);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
 
   const [current, setCurrent] = useState("bun");
-  const hideInfoIngredient = useCallback(() => {
-    dispatch(clearCurrentIngredient());
-  }, [dispatch]);
 
   const showInfoIngredient = useCallback(
     (ingredient: TIngredient) => {
@@ -74,12 +68,6 @@ const BurgerIngredients: FC = () => {
 
   return (
     <>
-      {currentIngredient && (
-        <Modal header="Детали ингредиента" handleCloseModal={hideInfoIngredient}>
-          <IngredientDetails />
-        </Modal>
-      )}
-
       <p className="text text_type_main-large mt-10 mb-5">Собери бургер</p>
       <section className={classes.tabs}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>

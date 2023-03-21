@@ -14,12 +14,10 @@ import {
 export interface IGetIngredientRequest {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
 }
-
 export interface IGetIngredientSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
   readonly ingredients: Array<TIngredient>;
 }
-
 export interface IGetIngredientFailure {
   readonly type: typeof GET_INGREDIENTS_FAILED;
 }
@@ -63,10 +61,6 @@ export const getIngredientsThunk: AppThunk = () => (dispatch: AppDispatch) => {
         dispatch(getIngredientFailure());
       }
     })
-    .catch(e => {
-      dispatch(getIngredientFailure());
-    })
-    .finally(() => {
-      dispatch(hidePreloader());
-    });
+    .catch(() => dispatch(getIngredientFailure()))
+    .finally(() => dispatch(hidePreloader()));
 };

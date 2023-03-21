@@ -7,6 +7,7 @@ import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
 import IngredientPage from "../../pages/ingredients/ingredients";
+import Order from "../../pages/order/order";
 import { NotFound404 } from "../../pages/not-found/not-found";
 import Profile from "../UI/profile/profile";
 import Modal from "../UI/modal/modal";
@@ -15,12 +16,20 @@ import Logout from "../logout";
 import ProtectedRoute from "../protected-rout-element";
 import { FC } from "react";
 import Feed from "../../pages/feed/feed";
+import { useAppDispatch } from "../../hooks/redux";
+import { clearCurrentOrder } from "../../services/actions/order";
 
 const BurgerRouter: FC = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const onClose = () => navigate("/");
+  const onCloseOrderDetail = () => {
+    navigate("/feed");
+    dispatch(clearCurrentOrder());
+  };
+
   return (
     <>
       <Routes location={background || location}>
@@ -35,7 +44,9 @@ const BurgerRouter: FC = () => {
         </Route>
         <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path="/order/:id" element={<Order />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/feed/:id" element={<Order />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {background && (
@@ -45,6 +56,14 @@ const BurgerRouter: FC = () => {
             element={
               <Modal header="Детали ингредиента" handleCloseModal={onClose}>
                 <IngredientPage />
+              </Modal>
+            }
+          />
+          <Route
+            path="feed/:id"
+            element={
+              <Modal handleCloseModal={onCloseOrderDetail}>
+                <Order />
               </Modal>
             }
           />

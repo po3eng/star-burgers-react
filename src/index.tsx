@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { rootReducer } from "./services/reducers";
 import thunk, { ThunkAction } from "redux-thunk";
 import { TAuthActions } from "./services/actions/auth";
-import { TOrederActions } from "./services/actions/order";
+import { TOrderActions } from "./services/actions/order";
 import { TIngredientActions } from "./services/actions/ingredients";
 import { TPreloaderActions } from "./services/actions/preloader";
 import { TConstructorActions } from "./services/actions/constructor";
@@ -27,14 +27,12 @@ const store = createStore(rootReducer, enhancer);
 export type RootState = ReturnType<typeof store.getState>;
 export type TApplicationActions =
   | TAuthActions
-  | TOrederActions
+  | TOrderActions
   | TIngredientActions
   | TPreloaderActions
   | TConstructorActions;
 
-// export type AppDispatch = typeof store.dispatch;
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
-
 export type AppDispatch = Dispatch<TApplicationActions>;
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
