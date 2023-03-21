@@ -24,7 +24,7 @@
   height: 90vh;
   flex-direction: row;
   align-items: start;
-  justify-content: start;
+  justify-content: center;
 }
 
 .col2 {

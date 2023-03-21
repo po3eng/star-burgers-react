@@ -8,6 +8,9 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
 import IngredientPage from "../../pages/ingredients/ingredients";
 import Order from "../../pages/order/order";
+
+import Orders from "../../pages/orders/orders";
+
 import { NotFound404 } from "../../pages/not-found/not-found";
 import Profile from "../UI/profile/profile";
 import Modal from "../UI/modal/modal";
@@ -25,8 +28,8 @@ const BurgerRouter: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const onClose = () => navigate("/");
-  const onCloseOrderDetail = () => {
-    navigate("/feed");
+  const onCloseOrderDetail = (type: string) => {
+    navigate(`/${type}`);
     dispatch(clearCurrentOrder());
   };
 
@@ -40,11 +43,12 @@ const BurgerRouter: FC = () => {
         <Route path="/reset-password" element={<ProtectedRoute anonymous element={<ResetPassword />} />} />
         <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />}>
           <Route index path="form" element={<Profile />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="orders/:id" element={<ProtectedRoute element={<Order />} />} />
           <Route path="*" element={<NotFound404 />} />
         </Route>
         <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
-        <Route path="/order/:id" element={<Order />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/feed/:id" element={<Order />} />
         <Route path="*" element={<NotFound404 />} />
@@ -62,7 +66,15 @@ const BurgerRouter: FC = () => {
           <Route
             path="feed/:id"
             element={
-              <Modal handleCloseModal={onCloseOrderDetail}>
+              <Modal handleCloseModal={() => onCloseOrderDetail("feed")}>
+                <Order />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal handleCloseModal={() => onCloseOrderDetail("profile/orders")}>
                 <Order />
               </Modal>
             }

@@ -8,11 +8,13 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { TIngredient } from "../../components/UI/ingredient-details/ingredient-details";
 import Price from "../../components/UI/price/price";
 import OrderItem from "../../components/UI/order-item/order-item";
+
 const Order: FC = () => {
   const dispatch = useAppDispatch();
   const currentOrder = useAppSelector(store => store.order.currentOrder);
   const ingredients = useAppSelector(store => store.ingredients.ingredients);
   const orderNumber = useParams();
+
   useEffect(() => {
     dispatch(getOrderThunk(orderNumber.id));
   }, []);
@@ -54,11 +56,9 @@ const Order: FC = () => {
 
   useEffect(() => {
     if (currentOrder) {
-
       const orderIgredients = ingredients.filter(item_a =>
         currentOrder.ingredients.some(item_b => item_a._id === item_b),
       );
-
       setFilteredIngredients(orderIgredients);
       setTotalPrice(getTotalPrice(orderIgredients));
     }
@@ -66,29 +66,30 @@ const Order: FC = () => {
 
   return (
     currentOrder && (
-      <div className={classes.container}>
-        <div className={classes.order_number}>
-          <p className="text text_type_digits-default">{`#${currentOrder.number}`}</p>
-        </div>
-        <p className="text text_type_main-medium pt-10">{currentOrder.name}</p>
-        <div className="pt-3">
-          <Status status={currentOrder.status}></Status>
-        </div>
-        <div className={classes.ingredients}>
-          <p className="text text_type_main-medium">Состав:</p>
-          <div className={classes.ingredients_container}>
-            {filteredIngredients.map(ingredient => (
-              <OrderItem ingredient={ingredient} count={ingredientCounters[ingredient._id]} />
-            ))}
+      <div className={classes.warpper}>
+        <div className={classes.container}>
+          <div className={classes.order_number}>
+            <p className="text text_type_digits-default">{`#${currentOrder.number}`}</p>
           </div>
-        </div>
-
-        <div className={classes.price}>
-          <FormattedDate
-            className=" text text_type_main-default  text_color_inactive"
-            date={new Date(currentOrder.createdAt)}
-          />
-          <Price price={totalPrice} size="default" />
+          <p className="text text_type_main-medium pt-10">{currentOrder.name}</p>
+          <div className="pt-3">
+            <Status status={currentOrder.status}></Status>
+          </div>
+          <div className={classes.ingredients}>
+            <p className="text text_type_main-medium">Состав:</p>
+            <div className={classes.ingredients_container}>
+              {filteredIngredients.map(ingredient => (
+                <OrderItem ingredient={ingredient} key={ingredient._id} count={ingredientCounters[ingredient._id]} />
+              ))}
+            </div>
+          </div>
+          <div className={classes.price}>
+            <FormattedDate
+              className=" text text_type_main-default text_color_inactive"
+              date={new Date(currentOrder.createdAt)}
+            />
+            <Price price={totalPrice} size="default" />
+          </div>
         </div>
       </div>
     )

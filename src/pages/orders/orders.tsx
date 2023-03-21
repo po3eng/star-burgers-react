@@ -1,27 +1,10 @@
-import styles from "../not-found/not-found.module.css";
-import { getCookie } from "../../utils/cookies";
-import { FC, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { userDataThunk } from "../../services/actions/auth";
-import { useAppDispatch } from "../../hooks/redux";
-
+import { FC } from "react";
+import FeedItems from "../../components/feed-items/feed-items";
+import classes from "./orders.module.css";
 const Orders: FC = () => {
-  const dispatch = useAppDispatch();
-  const token = getCookie("refreshToken");
-  useEffect(() => {
-    token && dispatch(userDataThunk());
-  }, []);
-
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className="text text_type_main-large">Oops!</h1>
-        <p className="text text_type_main-medium">Страница находится в разработке</p>
-      </div>
+    <div className={classes.container}>
+      <FeedItems type="profile/orders" />
     </div>
   );
 };

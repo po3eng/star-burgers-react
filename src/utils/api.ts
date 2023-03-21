@@ -114,7 +114,7 @@ class API {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getLocalStorage("accessTOrderResponseToken")}`,
+        Authorization: `Bearer ${getLocalStorage("accessToken")}`,
       },
     };
 

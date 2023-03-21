@@ -19,18 +19,20 @@
 
 .ingredients {
     padding-top: 60px;
-
     display: flex;
     flex-direction: column;
 }
 
 .ingredients_container {
+    padding-top: 24px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 24px;
     overflow-y: auto;
     overflow-x: hidden;
     height: 366px;
+}
 
+.warpper {
+    display: flex;
+    align-self: center;
 }
