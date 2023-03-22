@@ -7,9 +7,11 @@ import { getLocalStorage } from "../../utils/local-storage";
 const Orders: FC = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(store => store.wsOrders.orders);
-  useEffect((): any => {
+  useEffect(() => {
     dispatch(wsOrdersConnectionStart(`?token=${getLocalStorage("accessToken")}`));
-    return () => dispatch(wsOrdersConnectionClose());
+    return () => {
+      dispatch(wsOrdersConnectionClose());
+    };
   }, [dispatch]);
   return <div className={classes.container}>{orders && <FeedItems orders={orders} type="profile/orders" />}</div>;
 };

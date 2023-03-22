@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 
 const Profile: FC = () => {
   const dispatch = useAppDispatch();
-  const user: TUser | null = useAppSelector(store => store.auth.user);
+  const user = useAppSelector(store => store.auth.user);
   const [isActions, setIsActions] = useState(false);
   const [form, handleChangeForm, setForm] = useForm({
     email: "",

@@ -10,9 +10,11 @@ const Feed: FC = () => {
   const orders = useAppSelector(store => store.wsFeed.orders);
 
   const dispatch = useAppDispatch();
-  useEffect((): any => {
+  useEffect(() => {
     dispatch(wsConnectionStart());
-    return () => dispatch(wsConnectionClose());
+    return () => {
+      dispatch(wsConnectionClose());
+    };
   }, []);
 
   return (

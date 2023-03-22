@@ -44,9 +44,9 @@ const BurgerRouter: FC = () => {
         <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />}>
           <Route index path="form" element={<Profile />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="orders/:id" element={<ProtectedRoute element={<Order />} />} />
           <Route path="*" element={<NotFound404 />} />
         </Route>
+        <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Order />} />} />
         <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route path="/feed" element={<Feed />} />
