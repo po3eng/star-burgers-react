@@ -1,8 +1,17 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import classes from "./feed.module.css";
 import FeedItems from "../../components/feed-items/feed-items";
 import OrdersBoard from "../../components/orders-board/orders-board";
+
+import { useAppDispatch } from "../../hooks/redux";
+import { wsConnectionClose, wsConnectionStart } from "../../services/actions/feed-web-socket";
 const Feed: FC = () => {
+  const dispatch = useAppDispatch();
+  // FIXME:
+  useEffect((): any => {
+    dispatch(wsConnectionStart());
+    return () => dispatch(wsConnectionClose());
+  }, []);
   return (
     <div className={classes.container}>
       <div className={`${classes.col2}`}>
