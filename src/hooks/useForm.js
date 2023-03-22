@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-const useForm = (inputValues) => {
+const useForm = inputValues => {
   const [values, setValue] = useState(inputValues);
-  const onChange = (event) => {
+  const onChange = event => {
     const { value, name } = event.target;
     setValue({ ...values, [name]: value });
   };

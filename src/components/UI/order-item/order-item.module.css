@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+
+.item {
+    clip-path: circle(50%);
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%),
+        linear-gradient(0deg, #131316, #131316);
+    border: 2px solid;
+    border-image-source: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+
+}
+
+.img_ingredient {
+    padding: 0;
+    margin: 0;
+    width: 64px;
+    height: 64px;
+    clip-path: circle(50%);
+    object-fit: cover;
+    background: #131316;
+}
+
+.price {
+    padding-left: 16px;
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}

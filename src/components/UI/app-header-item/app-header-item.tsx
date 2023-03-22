@@ -16,13 +16,7 @@ const HeaderItem: FC<THeaderProps> = ({ Element, text, to, textClass }) => {
     <Link to={to}>
       <div className={`${classes.appHeaderItemButton}`}>
         {Element && <Element type={match ? "primary" : "secondary"}></Element>}
-        <p
-          className={`${
-            textClass || "text text_type_main-default"
-          }  ${classActive}`}
-        >
-          {text}
-        </p>
+        <p className={`${textClass || "text text_type_main-default"}  ${classActive}`}>{text}</p>
       </div>
     </Link>
   );

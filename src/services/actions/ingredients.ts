@@ -1,49 +1,66 @@
 import api from "../../utils/api";
 import { hidePreloader, showPreloader } from "./preloader";
 import { TIngredient } from "../../components/UI/ingredient-details/ingredient-details";
-export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
-export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
-export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
+import { AppDispatch, AppThunk } from "../..";
 
-export const SET_CURRENT_INGREDIENT = "SET_DETAIL_INGREDIENT";
-export const CLEAR_CURRENT_INGREDIENT = "CLEAR_CURRENT_INGREDIENT";
+import {
+  GET_INGREDIENTS_SUCCESS,
+  CLEAR_CURRENT_INGREDIENT,
+  GET_INGREDIENTS_FAILED,
+  GET_INGREDIENTS_REQUEST,
+  SET_CURRENT_INGREDIENT,
+} from "../constants/ingredients";
 
-export const getIngredients = () => (dispatch: any) => {
+export interface IGetIngredientRequest {
+  readonly type: typeof GET_INGREDIENTS_REQUEST;
+}
+export interface IGetIngredientSuccess {
+  readonly type: typeof GET_INGREDIENTS_SUCCESS;
+  readonly ingredients: Array<TIngredient>;
+}
+export interface IGetIngredientFailure {
+  readonly type: typeof GET_INGREDIENTS_FAILED;
+}
+export interface IClearCurrentIngredient {
+  readonly type: typeof CLEAR_CURRENT_INGREDIENT;
+}
+export interface ISetCurrentIngredient {
+  readonly type: typeof SET_CURRENT_INGREDIENT;
+  readonly ingredient: TIngredient;
+}
+
+export type TIngredientActions =
+  | IGetIngredientRequest
+  | IGetIngredientSuccess
+  | IGetIngredientFailure
+  | IClearCurrentIngredient
+  | ISetCurrentIngredient;
+
+export const getIngredientRequest = (): IGetIngredientRequest => ({ type: GET_INGREDIENTS_REQUEST });
+export const getIngredientFailure = (): IGetIngredientFailure => ({ type: GET_INGREDIENTS_FAILED });
+export const getIngredientSuccess = (ingredients: Array<TIngredient>): IGetIngredientSuccess => ({
+  type: GET_INGREDIENTS_SUCCESS,
+  ingredients,
+});
+
+export const clearCurrentIngredient = (): IClearCurrentIngredient => ({ type: CLEAR_CURRENT_INGREDIENT });
+export const setCurrentIngredient = (ingredient: TIngredient): ISetCurrentIngredient => ({
+  type: SET_CURRENT_INGREDIENT,
+  ingredient,
+});
+
+export const getIngredientsThunk: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
-  dispatch({
-    type: GET_INGREDIENTS_REQUEST,
-  });
+  dispatch(getIngredientRequest());
   api
     .getIngredients()
-    .then((res) => {
+    .then(res => {
       if (res && res.success) {
-        dispatch(setIngredient(res.data));
+        dispatch(getIngredientSuccess(res.data));
       } else {
-        dispatch({
-          type: GET_INGREDIENTS_FAILED,
-        });
+        dispatch(getIngredientFailure());
       }
     })
-    .catch((e) => {
-      dispatch({
-        type: GET_INGREDIENTS_FAILED,
-      });
-    })
-    .finally(() => {
-      dispatch(hidePreloader());
-    });
-};
-
-export const setIngredient = (data: Array<TIngredient>) => {
-  return {
-    type: GET_INGREDIENTS_SUCCESS,
-    ingredients: data,
-  };
-};
-
-export const setCurrentIngredient = (ingredient: TIngredient) => {
-  return {
-    type: SET_CURRENT_INGREDIENT,
-    ingredient,
-  };
+    .catch(() => dispatch(getIngredientFailure()))
+    .finally(() => dispatch(hidePreloader()));
 };

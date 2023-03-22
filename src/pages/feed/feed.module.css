@@ -1,0 +1,10 @@
+.container {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    gap: 64px;
+}
+
+.col2 {
+    flex: 50%;
+}

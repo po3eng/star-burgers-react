@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import EmptyBun from "../empty-bun/empty-bun";
 
@@ -13,11 +12,11 @@ export type TBunProps = {
 };
 
 const Bun: FC<TBunProps> = ({ type }) => {
-  const bun = useAppSelector((store) => store.constr.bun);
+  const bun = useAppSelector(store => store.constr.bun);
   const dispatch = useAppDispatch();
   const [{}, drop] = useDrop({
     accept: "bun",
-    collect: (monitor) => ({
+    collect: monitor => ({
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {

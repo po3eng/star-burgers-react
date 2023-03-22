@@ -1,11 +1,7 @@
-import {
-  PasswordInput,
-  Button,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./reset-password.module.css";
 import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
-import { resetPassword } from "../../services/actions/auth";
+import { resetPasswordThunk } from "../../services/actions/auth";
 import useForm from "../../hooks/useForm.js";
 import { FC, SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
@@ -16,8 +12,8 @@ const ResetPassword: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const resetSuccces = useAppSelector((store) => store.auth.resetSuccess);
+
+  const resetSuccces = useAppSelector(store => store.auth.resetSuccess);
   useEffect(() => {
     if (resetSuccces) {
       navigate("/login", { replace: true });
@@ -30,7 +26,7 @@ const ResetPassword: FC = () => {
   }
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(resetPassword(form));
+    dispatch(resetPasswordThunk(form));
   };
 
   return (

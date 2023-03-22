@@ -8,9 +8,7 @@ export const NotFound404: FC = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <h1 className="text text_type_main-large">Oops! 404 Error</h1>
-        <p className="text text_type_main-medium">
-          Запрашиваемая вами страница не существует
-        </p>
+        <p className="text text_type_main-medium">Запрашиваемая вами страница не существует</p>
         <br />
         <br />
         <p className="text text_type_main-small">

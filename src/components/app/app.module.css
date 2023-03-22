@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 .app {
@@ -24,8 +23,8 @@
   display: flex;
   height: 90vh;
   flex-direction: row;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .col2 {

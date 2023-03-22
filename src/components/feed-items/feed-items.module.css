@@ -1,0 +1,8 @@
+.scrollSection {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}

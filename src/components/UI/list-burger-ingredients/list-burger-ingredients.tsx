@@ -1,15 +1,23 @@
-import { useSelector } from "react-redux";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import classes from "./list-burger-ingredients.module.css";
-import PropTypes from "prop-types";
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
+import { useAppSelector } from "../../../hooks/redux";
+import { TIngredient } from "../ingredient-details/ingredient-details";
 
-const ListBurgerIngredients = ({ type, ingredients, title, onClick }) => {
-  const constructor = useSelector((store) => store.constr);
+export type TListBurgerIngredients = {
+  type: string;
+  ingredients: TIngredient[];
+  title: string;
+  onClick: (item: TIngredient) => void;
+};
+
+const ListBurgerIngredients: FC<TListBurgerIngredients> = ({ type, ingredients, title, onClick }) => {
+  const constructor = useAppSelector(store => store.constr);
   const ingredientCounters = useMemo(() => {
     const { constructorIngredients, bun } = constructor;
-    const countersSet = {};
-    constructorIngredients.forEach((ingredient) => {
+
+    const countersSet: { [x: string]: number } = {};
+    constructorIngredients.forEach(ingredient => {
       if (!countersSet[ingredient._id]) {
         countersSet[ingredient._id] = 0;
       }
@@ -26,7 +34,7 @@ const ListBurgerIngredients = ({ type, ingredients, title, onClick }) => {
         {title}
       </p>
       <div className={` ${classes.wraper} pt-6 ml-4`}>
-        {ingredients.map((item) => (
+        {ingredients.map(item => (
           <BurgerIngredient
             ingredient={item}
             count={ingredientCounters[item._id]}
@@ -39,13 +47,6 @@ const ListBurgerIngredients = ({ type, ingredients, title, onClick }) => {
       </div>
     </div>
   );
-};
-
-ListBurgerIngredients.propTypes = {
-  type: PropTypes.string.isRequired,
-  ingredients: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
 };
 
 export default ListBurgerIngredients;

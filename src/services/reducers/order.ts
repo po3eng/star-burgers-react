@@ -3,22 +3,36 @@ import {
   SET_ORDER_FAILURE,
   SET_ORDER_SUCCES,
   CLEAR_ORDER,
-} from "../actions/order";
+  CLEAR_CURRENT_ORDER,
+  SET_CURRENT_ORDER,
+  GET_ORDER_FAILURE,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCES,
+} from "../constants/orders";
+import { TOrderActions } from "../actions/order";
+import { TOrder } from "../../components/UI/feed-item/feed-item";
 
 type TOrderState = {
   order: number | null;
   orderRequest: boolean;
   orderFailed: boolean;
+  getOrderRequest: boolean;
+  getOrderFailed: boolean;
+  getOrderSuccess: boolean;
+  currentOrder: TOrder | null;
 };
-const initialState = {
+
+const initialState: TOrderState = {
   order: null,
   orderRequest: false,
   orderFailed: false,
+  getOrderRequest: false,
+  getOrderFailed: false,
+  getOrderSuccess: false,
+  currentOrder: null,
 };
-export const orderReducer = (
-  state: TOrderState = initialState,
-  action: any,
-) => {
+
+export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
   switch (action.type) {
     case SET_ORDER_REQUEST: {
       return {
@@ -47,6 +61,47 @@ export const orderReducer = (
       return {
         ...state,
         order: null,
+      };
+    }
+
+    case SET_CURRENT_ORDER: {
+      return {
+        ...state,
+        currentOrder: action.currentOrder,
+      };
+    }
+    
+    case GET_ORDER_SUCCES: {
+      return {
+        ...state,
+        currentOrder: action.currentOrder,
+        getOrderRequest: false,
+        getOrderSuccess: true,
+        getOrderFailed: false,
+      };
+    }
+
+    case GET_ORDER_REQUEST: {
+      return {
+        ...state,
+        getOrderRequest: true,
+        getOrderSuccess: false,
+        getOrderFailed: false,
+      };
+    }
+    case GET_ORDER_FAILURE: {
+      return {
+        ...state,
+        getOrderRequest: false,
+        getOrderSuccess: false,
+        getOrderFailed: true,
+      };
+    }
+
+    case CLEAR_CURRENT_ORDER: {
+      return {
+        ...state,
+        currentOrder: null,
       };
     }
 

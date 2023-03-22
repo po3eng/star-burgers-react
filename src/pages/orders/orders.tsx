@@ -1,31 +1,19 @@
-import styles from "../not-found/not-found.module.css";
-import { getCookie } from "../../utils/cookies";
 import { FC, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { userData } from "../../services/actions/auth";
-import { useAppDispatch } from "../../hooks/redux";
-
+import FeedItems from "../../components/feed-items/feed-items";
+import classes from "./orders.module.css";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { wsOrdersConnectionStart, wsOrdersConnectionClose } from "../../services/actions/orders-web-socket";
+import { getLocalStorage } from "../../utils/local-storage";
 const Orders: FC = () => {
   const dispatch = useAppDispatch();
-  const token = getCookie("refreshToken");
+  const orders = useAppSelector(store => store.wsOrders.orders);
   useEffect(() => {
-    token && dispatch(userData());
-  }, []);
-
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className="text text_type_main-large">Oops!</h1>
-        <p className="text text_type_main-medium">
-          Страница находится в разработке
-        </p>
-      </div>
-    </div>
-  );
+    dispatch(wsOrdersConnectionStart(`?token=${getLocalStorage("accessToken")}`));
+    return () => {
+      dispatch(wsOrdersConnectionClose());
+    };
+  }, [dispatch]);
+  return <div className={classes.container}>{orders && <FeedItems orders={orders} type="profile/orders" />}</div>;
 };
 
 export default Orders;

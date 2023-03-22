@@ -2,7 +2,7 @@ import { HOST } from "./constants";
 import { setCookie } from "./cookies";
 
 const checkResponse = <T>(res: Response): Promise<T> => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+  return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 };
 
 export type TServerResponse<T> = {
@@ -14,10 +14,7 @@ export const request = async <T>(url: string, options?: RequestInit) => {
   return await checkResponse<T>(res);
 };
 
-export const fetchWithRefresh = async <T>(
-  url: RequestInfo,
-  options: RequestInit,
-) => {
+export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse<T>(res);
@@ -25,8 +22,7 @@ export const fetchWithRefresh = async <T>(
     if ((err as { message: string }).message === "jwt expired") {
       const refreshData = await refreshToken();
       if (options.headers) {
-        (options.headers as { [key: string]: string }).authorization =
-          refreshData.accessToken;
+        (options.headers as { [key: string]: string }).authorization = refreshData.accessToken;
       }
       const res = await fetch(url, options);
       return await checkResponse<T>(res);
@@ -51,8 +47,8 @@ export const refreshToken = (): Promise<TRefreshResponse> => {
       token: localStorage.getItem("accessToken"),
     }),
   })
-    .then((res) => checkResponse<TRefreshResponse>(res))
-    .then((refreshData) => {
+    .then(res => checkResponse<TRefreshResponse>(res))
+    .then(refreshData => {
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
