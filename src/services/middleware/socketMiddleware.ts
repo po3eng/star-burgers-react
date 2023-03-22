@@ -11,35 +11,33 @@ export const socketMiddleware = (wsActions: TWSActions, wsUrl: string): Middlewa
     let socket: WebSocket | null = null;
 
     return next => (action: any) => {
-      console.log(action);
       const { dispatch, getState } = store;
-      const { type } = action;
+      const { type, payload } = action;
       const { wsClose, wsClosed, wsError, wsGetMessage, wsStart, wsSuccess } = wsActions;
 
       if (type === wsStart) {
-        socket = new WebSocket(wsUrl);
+        const params = payload ?? "";
+        socket = new WebSocket(wsUrl + params);
       }
+
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = event => {
-          console.log("open");
           dispatch({ type: wsSuccess });
         };
 
         // функция, которая вызывается при ошибке соединения
         socket.onerror = event => {
-          console.log("error");
           dispatch({ type: wsError });
         };
 
         // функция, которая вызывается при получения события от сервера
         socket.onmessage = event => {
           const { data } = event;
-          dispatch({ type: wsGetMessage, data });
+          dispatch({ type: wsGetMessage, data: JSON.parse(data) });
         };
         // функция, которая вызывается при закрытии соединения
         socket.onclose = event => {
-          console.log("onclose");
           dispatch({ type: wsClosed });
         };
 
@@ -47,7 +45,6 @@ export const socketMiddleware = (wsActions: TWSActions, wsUrl: string): Middlewa
           socket.close();
         }
       }
-
       next(action);
     };
   }) as Middleware;

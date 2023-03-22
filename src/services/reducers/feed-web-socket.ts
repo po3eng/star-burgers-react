@@ -2,6 +2,7 @@ import {
   WS_FEED_CONNECTION_CLOSE,
   WS_FEED_CONNECTION_ERROR,
   WS_FEED_CONNECTION_SUCCESS,
+  WS_FEED_GET_MESSAGE,
 } from "../constants/feed-web-socket";
 import { TWsFeedActions } from "../actions/feed-web-socket";
 import { TOrder } from "../../components/UI/feed-item/feed-item";
@@ -50,6 +51,13 @@ export const wsFeedReducer = (state = initialState, action: TWsFeedActions): TWs
         wsSuccess: false,
       };
 
+    case WS_FEED_GET_MESSAGE:
+      return {
+        ...state,
+        orders: action.data.orders,
+        total: action.data.total,
+        totalToday: action.data.totalToday,
+      };
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import {
   WS_ORDERS_CONNECTION_CLOSE,
   WS_ORDERS_CONNECTION_ERROR,
   WS_ORDERS_CONNECTION_SUCCESS,
+  WS_ORDERS_GET_MESSAGE,
 } from "../constants/orders-web-socket";
 import { TOrder } from "../../components/UI/feed-item/feed-item";
 import { TWsOredrsActions } from "../actions/orders-web-socket";
@@ -48,6 +49,13 @@ export const wsOrderReducer = (state = initialState, action: TWsOredrsActions): 
         wsConnected: false,
         wsError: false,
         wsSuccess: false,
+      };
+    case WS_ORDERS_GET_MESSAGE:
+      return {
+        ...state,
+        orders: action.data.orders,
+        total: action.data.total,
+        totalToday: action.data.totalToday,
       };
 
     default:

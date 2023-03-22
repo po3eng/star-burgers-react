@@ -3,7 +3,7 @@ import classes from "./list-orders-board.module.css";
 
 type ListOrderBoardProps = {
   type: "done" | "pending" | "created";
-  orders: string[];
+  orders: string[] | number[];
 };
 
 const ListOrderBoard: FC<ListOrderBoardProps> = ({ type, orders }) => {

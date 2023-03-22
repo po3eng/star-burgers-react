@@ -28,7 +28,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(
   applyMiddleware(thunk),
   applyMiddleware(socketMiddleware(feedActions, "wss://norma.nomoreparties.space/orders/all")),
-  applyMiddleware(socketMiddleware(ordersActions, "wss://norma.nomoreparties.space/orders")),
+  applyMiddleware(socketMiddleware(ordersActions, `wss://norma.nomoreparties.space/orders`)),
 );
 const store = createStore(rootReducer, enhancer);
 export type RootState = ReturnType<typeof store.getState>;
