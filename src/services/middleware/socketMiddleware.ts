@@ -7,6 +7,7 @@ import { ordersActions } from "../constants/orders-web-socket";
 type TWSActions = typeof feedActions | typeof ordersActions;
 
 export const socketMiddleware = (wsActions: TWSActions, wsUrl: string): Middleware => {
+
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
