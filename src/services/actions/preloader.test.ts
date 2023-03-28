@@ -9,6 +9,7 @@ describe("Action creators of preloader", () => {
     };
     expect(actions.showPreloader()).toEqual(expectedAction);
   });
+  
   it("Hide preloader", () => {
     // Эталонный экшен
     const expectedAction = {
