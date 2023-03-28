@@ -42,7 +42,7 @@ export type TNullPassword = {
   token?: string;
 };
 
-type TLoginResponse = TServerResponse<{
+export type TLoginResponse = TServerResponse<{
   accessToken: string;
   refreshToken: string;
   user: TUser;
@@ -161,11 +161,11 @@ export const getUserSucces = (user: TUser): IGetUserSuccess => ({ type: GET_USER
 export const getUserFailure = (): IGetUserFailure => ({ type: GET_USER_FAILURE });
 
 export const getRegisterRequest = (): IGetRegisterRequest => ({ type: GET_REGISTER_REQUEST });
-export const getRegisterSucces = (): IGetRegisterSuccess => ({ type: GET_REGISTER_SUCCESS });
+export const getRegisterSuccess = (): IGetRegisterSuccess => ({ type: GET_REGISTER_SUCCESS });
 export const getRegisterFailure = (): IGetRegisterFailure => ({ type: GET_REGISTER_FAILURE });
 
 export const getUpdateRequest = (): IGetUpdateRequest => ({ type: GET_UPDATE_REQUEST });
-export const getUpdateSucces = (user: TUser): IGetUpdateSuccess => ({ type: GET_UPDATE_SUCCESS, user });
+export const getUpdateSuccess = (user: TUser): IGetUpdateSuccess => ({ type: GET_UPDATE_SUCCESS, user });
 export const getUpdateFailure = (): IGetUpdateFailure => ({ type: GET_UPDATE_FAILURE });
 
 export const getAuthRequest = (): IGetAuthRequest => ({ type: GET_AUTH_REQUEST });
@@ -179,7 +179,7 @@ export const getForgotSucces = (): IGetForgotSuccess => ({ type: GET_FORGOT_SUCC
 export const getForgotFailure = (): IGetForgotFailure => ({ type: GET_FORGOT_FAILURE });
 
 export const getLogoutRequest = (): IGetLogoutRequest => ({ type: GET_LOGOUT_REQUEST });
-export const getLogoutSucces = (): IGetLogoutSuccess => ({ type: GET_LOGOUT_SUCCESS });
+export const getLogoutSuccess = (): IGetLogoutSuccess => ({ type: GET_LOGOUT_SUCCESS });
 export const getLogoutFailure = (): IGetLogoutFailure => ({ type: GET_LOGOUT_FAILURE });
 
 export const getResetRequest = (): IGetResetRequest => ({ type: GET_RESET_REQUEST });
@@ -194,7 +194,7 @@ export const clearUser = (): IClearUser => ({ type: CLEAR_USER });
 export const signInThunk: AppThunk = (form: TUserForm) => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(getAuthRequest());
-  api
+  return api
     .login(form)
     .then(res => {
       res && res.success ? dispatch(getAuthSucces(res)) : dispatch(getAuthFailure());
@@ -210,7 +210,6 @@ export const forgotPasswordThunk: AppThunk = (form: TNullPassword) => (dispatch:
     .forgotPassword(form)
     .then(res => {
       res && res.success ? dispatch(getForgotSucces()) : dispatch(getForgotFailure());
-      return res;
     })
     .catch(e => dispatch(getForgotFailure()))
     .finally(() => dispatch(hidePreloader()));
@@ -218,19 +217,17 @@ export const forgotPasswordThunk: AppThunk = (form: TNullPassword) => (dispatch:
 
 export const resetPasswordThunk: AppThunk = (form: TResetPassword) => (dispatch: AppDispatch) => {
   dispatch(getResetRequest());
-
   return api
     .resetPassword(form)
     .then(res => {
       res && res.success ? dispatch(getResetSuccess()) : dispatch(getResetFailure());
-      return res;
     })
     .catch(e => dispatch(dispatch(getResetFailure())));
 };
 
 export const userDataThunk: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getUserRequest());
-  api
+  return api
     .getUserData()
     .then(res => {
       res && res.success ? dispatch(getUserSucces(res.user)) : dispatch(getLogoutFailure());
@@ -242,7 +239,7 @@ export const userDataThunk: AppThunk = () => (dispatch: AppDispatch) => {
 
 export const registerUserThunk: AppThunk = (form: TUser) => (dispatch: AppDispatch) => {
   dispatch(getRegisterRequest());
-  api
+  return api
     .registrationUser(form)
     .then(res => {
       res && res.success ? dispatch(getAuthSucces(res)) : dispatch(getRegisterRequest());
@@ -252,21 +249,21 @@ export const registerUserThunk: AppThunk = (form: TUser) => (dispatch: AppDispat
 
 export const updateUserDataThunk: AppThunk = (form: TUser) => (dispatch: AppDispatch) => {
   dispatch(getUpdateRequest());
-  api
+  return api
     .upadateUserData(form)
     .then(res => {
-      res && res.success ? dispatch(getUpdateSucces(res.user)) : dispatch(getUpdateFailure());
+      res && res.success ? dispatch(getUpdateSuccess(res.user)) : dispatch(getUpdateFailure());
     })
     .catch(e => dispatch(getUpdateFailure()));
 };
 
 export const logoutThunk: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getLogoutRequest());
-  api
+  return api
     .logout()
     .then(res => {
       if (res && res.success) {
-        dispatch(getLogoutSucces());
+        dispatch(getLogoutSuccess());
         dispatch(clearUser());
       }
     })

@@ -72,8 +72,6 @@ export const getOrderSuccess = (currentOrder: TOrder): IGetOrderSuccess => ({
   currentOrder: currentOrder,
 });
 
-
-
 export const getOrderRequest = (): IGetOrderRequest => ({ type: GET_ORDER_REQUEST });
 export const getOrderFailure = (): IGetOrderFailure => ({ type: GET_ORDER_FAILURE });
 export const clearCurrentOrder = (): IClearCurrentOrder => ({ type: CLEAR_CURRENT_ORDER, currentOrder: null });
@@ -86,13 +84,12 @@ export const setCurrentOrder = (currentOrder: TOrder): ISetCurrentOrder => ({
 export const setOrderThunk: AppThunk = (orderIngredients: Array<TIngredient>) => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(setOrderRequest());
-  api
+  return api
     .setOrder(orderIngredients.map(item => item._id))
     .then(res => {
       if (res && res.success) {
         dispatch(setOrderSuccess(res.order.number));
       }
-      return res;
     })
     .then(() => dispatch(clearConstructor()))
     .catch(() => dispatch(setOrderFailure()))
@@ -102,7 +99,7 @@ export const setOrderThunk: AppThunk = (orderIngredients: Array<TIngredient>) =>
 export const getOrderThunk: AppThunk = (order: number) => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(getOrderRequest());
-  api
+  return api
     .getOrderData(order)
     .then(res => {
       if (res && res.success) {

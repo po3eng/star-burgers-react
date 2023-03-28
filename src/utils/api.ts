@@ -122,7 +122,7 @@ class API {
   }
 
   getOrderData(order: number): Promise<TOrderResponse> {
-    return request(`${HOST}/api/orders/${order} `);
+    return request(`${HOST}/api/orders/${order}`);
   }
 
   upadateUserData(form: Omit<TUser, "token">): Promise<TUserResponse> {

@@ -52,7 +52,7 @@ export const setCurrentIngredient = (ingredient: TIngredient): ISetCurrentIngred
 export const getIngredientsThunk: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(getIngredientRequest());
-  api
+  return api
     .getIngredients()
     .then(res => {
       if (res && res.success) {
