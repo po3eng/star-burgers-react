@@ -18,7 +18,7 @@ const ListConstructorIngredients: FC = () => {
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {
-      dispatch(addIngredient(ingredient as TIngredient));
+      dispatch(addIngredient({ ...(ingredient as TIngredient), id: Math.floor(Math.random() * 100000) + 1 }));
     },
   });
 
@@ -26,7 +26,7 @@ const ListConstructorIngredients: FC = () => {
     <div ref={drop} className={`${classes.scrollWraper} custom-scroll`}>
       {constructorIngredients.length > 0 ? (
         constructorIngredients.map((ingredient, idx) => (
-          <Ingredient drag ingredient={ingredient} key={ingredient.id} index={idx}  />
+          <Ingredient drag ingredient={ingredient} key={ingredient.id} index={idx} />
         ))
       ) : (
         <EmptyIngredient></EmptyIngredient>
