@@ -103,6 +103,7 @@ describe("constructor reducer", () => {
       }),
     ).toEqual({ ...state, constructorIngredients: [bun] });
 
+    
     expect(
       constructorReducer(undefined, {
         type: types.DELETE_CONSTRUCTOR_INGREDIENT,
@@ -110,16 +111,27 @@ describe("constructor reducer", () => {
       }),
     ).toEqual(state);
   });
-  // TODO: замокать
 
-  // it("should return state with MOVE_CONSTRUCTOR_INGREDIENT ", () => {
+  it("should return state with MOVE_CONSTRUCTOR_INGREDIENT ", () => {
+    const initialState = {
+      constructorIngredients: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      bun: null,
+    };
 
-  //   expect(
-  //     constructorReducer(undefined, {
-  //       type: types.MOVE_CONSTRUCTOR_INGREDIENT,
-  //       dragIndex,
-  //       hoverIndex,
-  //     }),
-  //   ).toEqual(state);
-  // });
+    const mutatedState = {
+      constructorIngredients: [{ id: 1 }, { id: 3 }, { id: 2 }],
+      bun: null,
+    };
+
+    const dragIndex = 1;
+    const hoverIndex = 2;
+
+    expect(
+      constructorReducer(initialState, {
+        type: types.MOVE_CONSTRUCTOR_INGREDIENT,
+        dragIndex,
+        hoverIndex,
+      }),
+    ).toEqual(mutatedState);
+  });
 });
