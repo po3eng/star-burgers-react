@@ -1,5 +1,5 @@
-import * as actions from "./preloader";
-import * as types from "../constants/preloader";
+import * as actions from "../services/actions/preloader";
+import * as types from "../services/constants/preloader";
 
 describe("Action creators of preloader", () => {
   it("Show preloader", () => {
@@ -9,7 +9,7 @@ describe("Action creators of preloader", () => {
     };
     expect(actions.showPreloader()).toEqual(expectedAction);
   });
-  
+
   it("Hide preloader", () => {
     // Эталонный экшен
     const expectedAction = {

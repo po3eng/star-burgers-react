@@ -30,7 +30,7 @@ import {
   CLEAR_USER,
 } from "../constants/auth";
 import { TAuthActions } from "../actions/auth";
-type TAuthState = {
+export type TAuthState = {
   user: TUser | null;
   authRequest: boolean;
   authSucces: boolean;
@@ -215,7 +215,6 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
     case CLEAR_USER: {
       removeLocalStorage("accessToken");
       removeCookie("refreshToken");
-      console.log("logout");
       return { ...state, user: null };
     }
 

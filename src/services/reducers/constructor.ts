@@ -30,7 +30,10 @@ export const constructorReducer = (state = initialState, action: TConstructorAct
     case ADD_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
-        constructorIngredients: [...state.constructorIngredients, action.ingredient],
+        constructorIngredients: [
+          ...state.constructorIngredients,
+          { ...action.ingredient, id: Math.floor(Math.random() * 100000) + 1 },
+        ],
       };
     }
 

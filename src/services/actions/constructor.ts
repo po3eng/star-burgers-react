@@ -41,7 +41,7 @@ export const addBunToConstructor = (ingredient: TIngredient): IAddBunToConstruct
 });
 export const addIngredient = (ingredient: TIngredient): IAddIngredient => ({
   type: ADD_CONSTRUCTOR_INGREDIENT,
-  ingredient: { ...ingredient, id: Math.floor(Math.random() * 100000) + 1 },
+  ingredient: { ...ingredient },
 });
 export const deleteIngredient = (ingredient: TIngredient) => ({
   type: DELETE_CONSTRUCTOR_INGREDIENT,
