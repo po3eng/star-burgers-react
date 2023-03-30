@@ -16,7 +16,7 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(getIngredientsThunk());
-  }, []);
+  });
 
   return (
     <>

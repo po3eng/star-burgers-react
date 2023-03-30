@@ -12,7 +12,7 @@ type BurgerIngredientProps = {
 };
 
 const BurgerIngredient: FC<BurgerIngredientProps> = ({ ingredient, onClick, count }) => {
-  const [{}, drag] = useDrag({
+  const [, drag] = useDrag({
     type: ingredient.type,
     item: { ...ingredient },
     collect: monitor => ({
@@ -29,7 +29,7 @@ const BurgerIngredient: FC<BurgerIngredientProps> = ({ ingredient, onClick, coun
       }}>
       <div className={`${classes.counterWraper} row`}>
         {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
-        <img className={classes.image} src={ingredient.image} alt={ingredient.name} />
+        <img  className={classes.image} src={ingredient.image} alt={ingredient.name} />
       </div>
       <div className="row p-1">
         <Price size="default" price={ingredient.price} />

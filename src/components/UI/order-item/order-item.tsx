@@ -12,7 +12,7 @@ const OrderItem: FC<TOrderItemProps> = ({ ingredient, count }) => {
   return (
     <div className={classes.container}>
       <div className={classes.item}>
-        <img className={classes.img_ingredient} src={ingredient.image_mobile} />
+        <img alt={ingredient.name} className={classes.img_ingredient} src={ingredient.image_mobile} />
       </div>
       <div className={classes.name}>
         <p className="text text_type_main-default pl-4">{ingredient.name}</p>

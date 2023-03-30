@@ -19,7 +19,7 @@ const Register: FC = () => {
     if (authSuccess) {
       navigate("/");
     }
-  }, [authSuccess]);
+  }, [authSuccess,navigate]);
 
   const dispatch = useAppDispatch();
 

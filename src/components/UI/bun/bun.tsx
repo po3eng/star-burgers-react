@@ -14,7 +14,7 @@ export type TBunProps = {
 const Bun: FC<TBunProps> = ({ type }) => {
   const bun = useAppSelector(store => store.constr.bun);
   const dispatch = useAppDispatch();
-  const [{}, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: "bun",
     collect: monitor => ({
       isHover: monitor.isOver(),

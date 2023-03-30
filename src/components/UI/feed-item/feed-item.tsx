@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useMemo } from "react";
 import classes from "./feed-item.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import ListOrderIngredients from "../list-order-ingredients/list-order-ingredients";
@@ -48,7 +48,7 @@ const FeedItem: FC<TFeedItemProps> = ({ type, order }) => {
     navigate(`/${type}/${order.number}`, {
       state: { background: location },
     });
-  }, [navigate, order]);
+  }, [navigate, order,location,type]);
 
   return (
     <div className={classes.card} onClick={showInfoIngredient}>

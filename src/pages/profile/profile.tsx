@@ -12,13 +12,13 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     navigate("/profile/form");
-  }, []);
+  });
 
   const token = getCookie("refreshToken");
 
   useEffect(() => {
     token && dispatch(userDataThunk());
-  }, []);
+  });
 
   const textClass = "text text_type_main-medium";
   return (

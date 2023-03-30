@@ -15,7 +15,7 @@ const Feed: FC = () => {
     return () => {
       dispatch(wsConnectionClose());
     };
-  }, []);
+  });
 
   return (
     <div className={classes.container}>

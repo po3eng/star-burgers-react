@@ -18,7 +18,7 @@ const ResetPassword: FC = () => {
     if (resetSuccces) {
       navigate("/login", { replace: true });
     }
-  }, [resetSuccces]);
+  }, [resetSuccces,navigate]);
 
   const isForgot = location.state?.isForgot;
   if (!isForgot) {

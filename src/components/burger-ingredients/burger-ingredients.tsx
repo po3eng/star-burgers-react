@@ -24,7 +24,7 @@ const BurgerIngredients: FC = () => {
         state: { background: location },
       });
     },
-    [navigate],
+    [navigate,location],
   );
 
   const getIngredients = useCallback(

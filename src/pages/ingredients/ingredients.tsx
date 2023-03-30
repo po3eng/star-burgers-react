@@ -13,7 +13,7 @@ const IngredientPage: FC = () => {
     if (ingredients.length) {
       setIngredient(ingredients.find(item => item._id === id));
     }
-  }, [ingredients]);
+  }, [ingredients,id]);
   return (
     <div className={classes.container}>
       <IngredientDetails ingredient={ingredient} />

@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import classes from "./list-order-ingredients.module.css";
 import Price from "../price/price";
 import { TIngredient } from "../ingredient-details/ingredient-details";
@@ -18,7 +18,7 @@ const ListOrderIngredients: FC<TListOrderIngredientsProps> = ({ orderIngredients
           (ingredient, idx) =>
             idx < VISIBLE_INGREDIENTS && (
               <div key={ingredient._id} className={classes.item}>
-                <img className={classes.img_ingredient} src={ingredient.image_mobile} />
+                <img  alt={ingredient.name} className={classes.img_ingredient} src={ingredient.image_mobile} />
               </div>
             ),
         )}

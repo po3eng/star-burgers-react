@@ -17,7 +17,7 @@ const Order: FC = () => {
 
   useEffect(() => {
     dispatch(getOrderThunk(orderNumber.id));
-  }, []);
+  });
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [filteredIngredients, setFilteredIngredients] = useState<TIngredient[]>([]);
@@ -52,7 +52,7 @@ const Order: FC = () => {
       });
     }
     return countersSet;
-  }, [currentOrder]);
+  }, [currentOrder, ingredients]);
 
   useEffect(() => {
     if (currentOrder) {
@@ -62,7 +62,7 @@ const Order: FC = () => {
       setFilteredIngredients(orderIgredients);
       setTotalPrice(getTotalPrice(orderIgredients));
     }
-  }, [currentOrder, ingredients]);
+  }, [currentOrder, ingredients, getTotalPrice]);
 
   return (
     currentOrder && (

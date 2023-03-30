@@ -19,7 +19,7 @@ const ForgotPassword: FC = () => {
     if (forgetSuccess) {
       navigate("/reset-password", { state: { isForgot: true } });
     }
-  }, [forgetSuccess]);
+  }, [forgetSuccess,navigate]);
 
   return (
     <form className={classes.container} onSubmit={onSubmit}>
