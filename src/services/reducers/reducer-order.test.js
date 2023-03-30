@@ -1,6 +1,5 @@
-import * as actions from "../services/actions/order";
-import * as types from "../services/constants/orders";
-import { orderReducer } from "../services/reducers/order";
+import * as types from "../constants/orders";
+import { orderReducer } from "./order";
 
 const currentOrder = {
   _id: "641483d8936b17001be6ba1c",
@@ -12,30 +11,7 @@ const currentOrder = {
   number: 44586,
 };
 
-describe("Action creators of order", () => {
-  it("Set current order", () => {
-    const expectedAction = {
-      type: types.SET_CURRENT_ORDER,
-      currentOrder,
-    };
-    expect(actions.setCurrentOrder(currentOrder)).toEqual(expectedAction);
-  });
 
-  it("Clear current order", () => {
-    const expectedAction = {
-      type: types.CLEAR_CURRENT_ORDER,
-      currentOrder: null,
-    };
-    expect(actions.clearCurrentOrder()).toEqual(expectedAction);
-  });
-  it("Get order success", () => {
-    const expectedAction = {
-      type: types.GET_ORDER_SUCCES,
-      currentOrder,
-    };
-    expect(actions.getOrderSuccess(currentOrder)).toEqual(expectedAction);
-  });
-});
 
 describe("oreder reducer", () => {
   const state = {

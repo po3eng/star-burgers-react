@@ -23,5 +23,5 @@
   "include": [
     "src",
     "declarations"
-, "src/__tests__/auth.test.js"  ]
+, "src/__tests__/ac-auth.test.js"  ]
 }
