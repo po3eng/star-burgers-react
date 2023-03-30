@@ -78,6 +78,7 @@ export const wsFeedReducer = (state = initialState, action: TWsFeedActions): TWs
         wsSuccess: false,
         wsStart: false,
         wsClosed: true,
+        wsClose: false,
       };
 
     case WS_FEED_GET_MESSAGE:
