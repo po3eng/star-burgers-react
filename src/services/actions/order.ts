@@ -9,7 +9,7 @@ import {
   SET_ORDER_REQUEST,
   SET_ORDER_FAILURE,
   CLEAR_ORDER,
-  SET_ORDER_SUCCES,
+  SET_ORDER_SUCCESS,
   SET_CURRENT_ORDER,
   CLEAR_CURRENT_ORDER,
   GET_ORDER_FAILURE,
@@ -17,7 +17,7 @@ import {
   GET_ORDER_SUCCES,
 } from "../constants/orders";
 export interface ISetOrderSuccess {
-  readonly type: typeof SET_ORDER_SUCCES;
+  readonly type: typeof SET_ORDER_SUCCESS;
   readonly order: number;
 }
 export interface ISetOrderRequest {
@@ -62,7 +62,7 @@ export type TOrderActions =
   | IGetOrderSuccess
   | IGetOrderRequest;
 
-export const setOrderSuccess = (order: number): ISetOrderSuccess => ({ type: SET_ORDER_SUCCES, order: order });
+export const setOrderSuccess = (order: number): ISetOrderSuccess => ({ type: SET_ORDER_SUCCESS, order: order });
 export const setOrderRequest = (): ISetOrderRequest => ({ type: SET_ORDER_REQUEST });
 export const setOrderFailure = (): ISetOrderFailure => ({ type: SET_ORDER_FAILURE });
 export const clearOrderNumber = (): IClearOrderNumber => ({ type: CLEAR_ORDER, order: null });

@@ -1,5 +1,6 @@
 import * as actions from "../services/actions/order";
 import * as types from "../services/constants/orders";
+import { orderReducer } from "../services/reducers/order";
 
 const currentOrder = {
   _id: "641483d8936b17001be6ba1c",
@@ -17,7 +18,6 @@ describe("Action creators of order", () => {
       type: types.SET_CURRENT_ORDER,
       currentOrder,
     };
-
     expect(actions.setCurrentOrder(currentOrder)).toEqual(expectedAction);
   });
 
@@ -34,5 +34,97 @@ describe("Action creators of order", () => {
       currentOrder,
     };
     expect(actions.getOrderSuccess(currentOrder)).toEqual(expectedAction);
+  });
+});
+
+describe("oreder reducer", () => {
+  const state = {
+    order: null,
+    orderRequest: false,
+    orderFailed: false,
+    orderSuccess: false,
+    getOrderRequest: false,
+    getOrderFailed: false,
+    getOrderSuccess: false,
+    currentOrder: null,
+  };
+
+  it("should return this initial state", () => {
+    expect(orderReducer(undefined, {})).toEqual(state);
+  });
+
+  it("should return state with GET_ORDER_REQUEST ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.GET_ORDER_REQUEST,
+      }),
+    ).toEqual({ ...state, getOrderRequest: true });
+  });
+
+  it("should return state with GET_ORDER_FAILURE ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.GET_ORDER_FAILURE,
+      }),
+    ).toEqual({ ...state, getOrderFailed: true });
+  });
+
+  it("should return state with GET_ORDER_SUCCES ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.GET_ORDER_SUCCES,
+        currentOrder,
+      }),
+    ).toEqual({ ...state, getOrderSuccess: true, currentOrder });
+  });
+
+  it("should return state with CLEAR_CURRENT_ORDER ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.CLEAR_CURRENT_ORDER,
+      }),
+    ).toEqual({ ...state, currentOrder: null });
+  });
+
+  it("should return state with CLEAR_ORDER ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.CLEAR_ORDER,
+      }),
+    ).toEqual({ ...state, order: null });
+  });
+
+  it("should return state with SET_CURRENT_ORDER ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.SET_CURRENT_ORDER,
+        currentOrder,
+      }),
+    ).toEqual({ ...state, currentOrder });
+  });
+
+  it("should return state with SET_ORDER_REQUEST ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.SET_ORDER_REQUEST,
+      }),
+    ).toEqual({ ...state, orderRequest: true });
+  });
+
+  it("should return state with SET_ORDER_SUCCESS", () => {
+    const orderNuber = 999;
+    expect(
+      orderReducer(undefined, {
+        type: types.SET_ORDER_SUCCESS,
+        order: orderNuber,
+      }),
+    ).toEqual({ ...state, orderSuccess: true, order: orderNuber });
+  });
+  it("should return state with SET_ORDER_FAILURE ", () => {
+    expect(
+      orderReducer(undefined, {
+        type: types.SET_ORDER_FAILURE,
+      }),
+    ).toEqual({ ...state, orderFailed: true });
   });
 });
