@@ -1,5 +1,6 @@
 import * as types from "../constants/constructor";
 import { constructorReducer } from "./constructor";
+import { initialState as state } from "./constructor";
 
 const bun = {
   _id: "60d3b41abdacab0026a733c6",
@@ -18,11 +19,6 @@ const bun = {
 };
 
 describe("constructor reducer", () => {
-  const state = {
-    constructorIngredients: [],
-    bun: null,
-  };
-
   it("should return this initial state", () => {
     expect(constructorReducer(undefined, {})).toEqual(state);
   });

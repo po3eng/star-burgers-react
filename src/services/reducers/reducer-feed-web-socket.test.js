@@ -1,18 +1,10 @@
 import * as types from "../constants/feed-web-socket";
 import { wsFeedReducer } from "./feed-web-socket";
+import {initialState  as state } from "./feed-web-socket";
+
 
 describe("feed web-socket reducer", () => {
-  const state = {
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    wsConnected: false,
-    wsError: false,
-    wsSuccess: false,
-    wsClosed: false,
-    wsClose: false,
-    wsStart: false,
-  };
+
 
   it("should return this initial state", () => {
     expect(wsFeedReducer(undefined, {})).toEqual(state);

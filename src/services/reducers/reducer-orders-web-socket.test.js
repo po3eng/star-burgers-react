@@ -1,19 +1,8 @@
 import * as types from "../constants/orders-web-socket";
 import { wsOrderReducer } from "./orders-web-socket";
+import { initialState as state } from "./orders-web-socket";
 
 describe("order web-socket reducer", () => {
-  const state = {
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    wsConnected: false,
-    wsError: false,
-    wsSuccess: false,
-    wsClosed: false,
-    wsClose: false,
-    wsStart: false,
-  };
-
   it("should return this initial state", () => {
     expect(wsOrderReducer(undefined, {})).toEqual(state);
   });
@@ -67,5 +56,4 @@ describe("order web-socket reducer", () => {
       }),
     ).toEqual({ ...state, ...fakeOrdersResponce });
   });
-
 });

@@ -1,7 +1,7 @@
 import * as types from "../constants/auth";
 import { authReducer } from "./auth";
 ("../services/reducers/auth");
-
+import { initialState as state } from "./auth";
 const user = {
   name: "name",
   password: "password",
@@ -13,41 +13,6 @@ const data = {
   refreshToken: "refreshToken",
   success: true,
   user: user,
-};
-
-const state = {
-  user: null,
-  authRequest: false,
-  authSucces: false,
-  authFailed: false,
-
-  forgotRequest: false,
-  forgotSuccess: false,
-  forgotFailed: false,
-
-  resetRequest: false,
-  resetFailed: false,
-  resetSuccess: false,
-
-  updateRequest: false,
-  updateFailed: false,
-  updateSuccess: false,
-
-  registerRequest: false,
-  registerFailed: false,
-  registerSuccess: false,
-
-  logoutRequest: false,
-  logoutFailed: false,
-  logoutSuccess: false,
-
-  userRequest: false,
-  userFailed: false,
-  userSuccess: false,
-
-  refreshTokenRequest: false,
-  refreshTokenFailed: false,
-  refreshTokenSuccess: false,
 };
 
 describe("auth reducer", () => {

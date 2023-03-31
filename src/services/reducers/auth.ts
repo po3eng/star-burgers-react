@@ -65,7 +65,7 @@ export type TAuthState = {
   refreshTokenSuccess: boolean;
 };
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   user: null,
   authRequest: false,
   authSucces: false,

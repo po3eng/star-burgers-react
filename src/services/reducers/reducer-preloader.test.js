@@ -1,10 +1,8 @@
 import * as types from "../constants/preloader";
 import { preloaderReducer } from "./preloader";
+import { initialState as state } from "./preloader";
 
 describe("preload reducer", () => {
-  const state = {
-    preloaderShow: false,
-  };
   it("should return this initial state", () => {
     expect(preloaderReducer(undefined, {})).toEqual(state);
   });

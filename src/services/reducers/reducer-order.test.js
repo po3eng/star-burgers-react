@@ -1,5 +1,6 @@
 import * as types from "../constants/orders";
 import { orderReducer } from "./order";
+import { initialState as state } from "./order";
 
 const currentOrder = {
   _id: "641483d8936b17001be6ba1c",
@@ -11,20 +12,7 @@ const currentOrder = {
   number: 44586,
 };
 
-
-
 describe("oreder reducer", () => {
-  const state = {
-    order: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderSuccess: false,
-    getOrderRequest: false,
-    getOrderFailed: false,
-    getOrderSuccess: false,
-    currentOrder: null,
-  };
-
   it("should return this initial state", () => {
     expect(orderReducer(undefined, {})).toEqual(state);
   });

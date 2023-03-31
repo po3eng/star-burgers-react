@@ -21,7 +21,7 @@ type TWsOrdersState = {
   wsClose: boolean;
 };
 
-const initialState: TWsOrdersState = {
+export const initialState: TWsOrdersState = {
   orders: [],
   total: 0,
   totalToday: 0,

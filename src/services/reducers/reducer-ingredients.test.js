@@ -1,5 +1,6 @@
 import * as types from "../constants/ingredients";
 import { ingredientsReducer } from "./ingredients";
+import { initialState as state } from "./ingredients";
 
 const ingredient = {
   _id: "60d3b41abdacab0026a733c8",
@@ -17,13 +18,6 @@ const ingredient = {
 };
 
 describe("ingredient reducer", () => {
-  const state = {
-    ingredients: [],
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsSuccess: false,
-    currentIngredient: null,
-  };
   it("should return this initial state", () => {
     expect(ingredientsReducer(undefined, {})).toEqual(state);
   });

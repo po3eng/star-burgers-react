@@ -21,7 +21,7 @@ type TWsFeedState = {
   wsClose: boolean;
 };
 
-const initialState: TWsFeedState = {
+export const initialState: TWsFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
