@@ -2,7 +2,7 @@ import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-de
 import { Link, useNavigate } from "react-router-dom";
 import calsses from "./register.module.css";
 import { registerUserThunk } from "../../services/actions/auth";
-import useForm from "../../hooks/useForm.js";
+import useForm from "../../hooks/useForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { FC, SyntheticEvent, useEffect } from "react";
 
@@ -19,7 +19,7 @@ const Register: FC = () => {
     if (authSuccess) {
       navigate("/");
     }
-  }, [authSuccess,navigate]);
+  }, [authSuccess, navigate]);
 
   const dispatch = useAppDispatch();
 

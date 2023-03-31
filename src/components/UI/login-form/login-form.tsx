@@ -3,7 +3,7 @@ import classes from "./login-form.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { signInThunk } from "../../../services/actions/auth";
-import useForm from "../../../hooks/useForm.js";
+import useForm from "../../../hooks/useForm";
 import { FC, SyntheticEvent } from "react";
 import { useAppDispatch } from "../../../hooks/redux";
 

@@ -2,7 +2,7 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPasswordThunk } from "../../services/actions/auth";
 import classes from "./forgot-password.module.css";
-import useForm from "../../hooks/useForm.js";
+import useForm from "../../hooks/useForm";
 import { FC, SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 

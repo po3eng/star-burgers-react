@@ -2,7 +2,7 @@ import { PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burg
 import classes from "./reset-password.module.css";
 import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { resetPasswordThunk } from "../../services/actions/auth";
-import useForm from "../../hooks/useForm.js";
+import useForm from "../../hooks/useForm";
 import { FC, SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
