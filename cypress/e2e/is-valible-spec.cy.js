@@ -1,54 +1,58 @@
 import "@4tw/cypress-drag-drop";
-
+import {
+  DROP_BUN_SELECTOR,
+  DROP_INGREDIENTS_SELECTOR,
+  EMAIL_SELECTOR,
+  INGREDIENT_NAME_SELECTOR,
+  INGREDIENT_SELECTOR,
+  INPUT_SELECTOR,
+  MODAL_CLOSE_SELECTOR,
+  MODAL_DETAILS_SELECTOR,
+  MODAL_NAME_SELECTOR,
+  ORDER_BUTTON_SELECTOR,
+  ORDER_NUMBER_SELECTOR,
+  PASSWORD_SELECTOR,
+  SECTION_BUNS_SELECTOR,
+  SECTION_MAIN_SELECTOR,
+  SECTION_SAUSE_SELECTOR,
+  SUBMIT_SELECTOR,
+} from "./selectors";
 const user = {
   email: "i@rm17.ru",
   password: "123456",
 };
-const url = "http://localhost:3000";
+
 describe("service is available", () => {
   before(function () {
-    cy.visit(url);
+    cy.visit("/");
   });
 
   it("add bun to new order", () => {
-    cy.visit(`${url}/login`);
-    // cy.get("a[href='/profile']").click();
-    cy.get(".input_type_email").find(`input`).type(user.email);
-    cy.get(".input_type_password").find(`input`).type(user.password);
-    cy.get("button[type='submit']").click();
+    cy.visit(`/login`);
+    cy.get(EMAIL_SELECTOR).find(INPUT_SELECTOR).type(user.email);
+    cy.get(PASSWORD_SELECTOR).find(INPUT_SELECTOR).type(user.password);
+    cy.get(SUBMIT_SELECTOR).click();
 
     // // cy.visit(url);
-    cy.get(`section[class^="burger-ingredients_buns_section"]`)
-      .find(`div[class^="burger-ingredient_card__"]`)
-      .first()
-      .drag('div[class^="burger-constructor_bun"]');
+    cy.get(SECTION_BUNS_SELECTOR).find(INGREDIENT_SELECTOR).first().drag(DROP_BUN_SELECTOR);
+    cy.get(SECTION_SAUSE_SELECTOR).find(INGREDIENT_SELECTOR).first().drag(DROP_INGREDIENTS_SELECTOR);
+    cy.get(SECTION_MAIN_SELECTOR).find(INGREDIENT_SELECTOR).first().drag(DROP_INGREDIENTS_SELECTOR);
 
-    cy.get(`section[class^="burger-ingredients_sauce_section"]`)
-      .find(`div[class^="burger-ingredient_card__"]`)
-      .first()
-      .drag('div[class^="burger-constructor_main"]');
-
-    cy.get(`section[class^="burger-ingredients_main_section"]`)
-      .find(`div[class^="burger-ingredient_card__"]`)
-      .first()
-      .drag('div[class^="burger-constructor_main"]');
-
-    cy.get("button").should("contain", "Оформить заказ").click();
-    cy.get("p[class^='order-details_order_number__']", { timeout: 30000 }).should("be.visible");
-    cy.get(`div[class^="modal_close_"]`).click();
+    cy.get(ORDER_BUTTON_SELECTOR).should("contain", "Оформить заказ").click();
+    cy.get(ORDER_NUMBER_SELECTOR, { timeout: 30000 }).should("be.visible");
+    cy.get(MODAL_CLOSE_SELECTOR).click();
   });
+
   it("show ingredient modal dialog", () => {
-    cy.visit(url);
-    cy.get(`section[class^="burger-ingredients_buns_section"]`)
-      .find(`div[class^="burger-ingredient_card__"]`)
+    cy.visit("/");
+    cy.get(SECTION_BUNS_SELECTOR)
+      .find(INGREDIENT_SELECTOR)
       .first()
       .then(element => {
-        const nameIngredient = element.find("p[class^='burger-ingredient_caption__']").text();
+        const nameIngredient = element.find(INGREDIENT_NAME_SELECTOR).text();
         element.trigger("click");
-        cy.get("div[class^='ingredient-details_content__']")
-          .find("p[class^='text text_type_main-medium']")
-          .should("have.text", nameIngredient);
+        cy.get(MODAL_DETAILS_SELECTOR).find(MODAL_NAME_SELECTOR).should("have.text", nameIngredient);
       });
-    cy.get(`div[class^="modal_close_"]`, { timeout: 50000 }).click();
+    cy.get(MODAL_CLOSE_SELECTOR, { timeout: 50000 }).click();
   });
 });

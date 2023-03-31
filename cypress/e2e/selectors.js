@@ -1,0 +1,16 @@
+export const INGREDIENT_SELECTOR = "div[class^='burger-ingredient_card__']";
+export const EMAIL_SELECTOR = ".input_type_email";
+export const PASSWORD_SELECTOR = ".input_type_password";
+export const SUBMIT_SELECTOR = "button[type='submit']";
+export const SECTION_BUNS_SELECTOR = "section[class^='burger-ingredients_buns_section']";
+export const SECTION_SAUSE_SELECTOR = "section[class^='burger-ingredients_sauce_section']";
+export const SECTION_MAIN_SELECTOR = "section[class^='burger-ingredients_main_section']";
+export const DROP_BUN_SELECTOR = "div[class^='burger-constructor_bun']";
+export const DROP_INGREDIENTS_SELECTOR = "div[class^='burger-constructor_main']";
+export const ORDER_NUMBER_SELECTOR = "p[class^='order-details_order_number__']";
+export const MODAL_CLOSE_SELECTOR = "div[class^='modal_close_']";
+export const INGREDIENT_NAME_SELECTOR = "p[class^='burger-ingredient_caption__']";
+export const MODAL_DETAILS_SELECTOR = "div[class^='ingredient-details_content__']";
+export const MODAL_NAME_SELECTOR = "p[class^='text text_type_main-medium']";
+export const ORDER_BUTTON_SELECTOR = "button";
+export const INPUT_SELECTOR = "input";
