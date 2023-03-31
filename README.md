@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+Опубликованно по адресу [https://po3eng.github.io/star-burgers-react](https://po3eng.github.io/star-burgers-react)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
