@@ -42,9 +42,8 @@ const BurgerRouter: FC = () => {
         <Route path="/forgot-password" element={<ProtectedRoute anonymous element={<ForgotPassword />} />} />
         <Route path="/reset-password" element={<ProtectedRoute anonymous element={<ResetPassword />} />} />
         <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />}>
-          <Route index path="form" element={<Profile />} />
+          <Route path="form" element={<Profile />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="*" element={<NotFound404 />} />
         </Route>
         <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Order />} />} />
         <Route path="/logout" element={<ProtectedRoute element={<Logout />} />} />

@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import classes from "./profile.module.css";
 import { getCookie } from "../../utils/cookies";
 import { userDataThunk } from "../../services/actions/auth";
@@ -9,10 +9,11 @@ import { useAppDispatch } from "../../hooks/redux";
 const ProfilePage: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
+  const location = useLocation();
+  
   useEffect(() => {
-    navigate("/profile/form");
-  }, []);
+    location.pathname == "/profile" && navigate("/profile/form");
+  }, [location]);
 
   const token = getCookie("refreshToken");
 
