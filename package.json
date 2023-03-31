@@ -25,12 +25,19 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "./node_modules/.bin/cypress  open "
   },
   "eslintConfig": {
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": 0
+    },
     "extends": [
       "react-app"
     ]
@@ -48,8 +55,10 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.3",
     "@testing-library/react": "^14.0.0",
     "@types/redux-mock-store": "^1.0.3",
+    "cypress": "^12.9.0",
     "fetch-mock": "^9.11.0",
     "node-fetch": "^3.3.1",
     "react-test-renderer": "^18.2.0",

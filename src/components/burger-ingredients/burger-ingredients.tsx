@@ -24,7 +24,7 @@ const BurgerIngredients: FC = () => {
         state: { background: location },
       });
     },
-    [navigate,location],
+    [navigate, location],
   );
 
   const getIngredients = useCallback(
@@ -80,8 +80,8 @@ const BurgerIngredients: FC = () => {
           Начинки
         </Tab>
       </section>
-      <section className={`${classes.scrollSection} custom-scroll`}>
-        <section ref={bunRef}>
+      <section className={`${classes.ingredients_section} custom-scroll`}>
+        <section ref={bunRef} className="burger-ingredients_buns_section">
           <InView threshold={0.8} onChange={e => view(e, "bun")}>
             <ListBurgerIngredients
               type="bun"
@@ -91,7 +91,7 @@ const BurgerIngredients: FC = () => {
             />
           </InView>
         </section>
-        <section ref={sauceRef}>
+        <section ref={sauceRef} className="burger-ingredients_sauce_section">
           <InView threshold={0.8} onChange={e => view(e, "sauce")}>
             <ListBurgerIngredients
               type="sauce"
@@ -101,7 +101,7 @@ const BurgerIngredients: FC = () => {
             />
           </InView>
         </section>
-        <section ref={mainRef}>
+        <section ref={mainRef} className="burger-ingredients_main_section">
           <InView threshold={0.2} onChange={e => view(e, "main")}>
             <ListBurgerIngredients
               type="main"

@@ -17,7 +17,7 @@ const Order: FC = () => {
 
   useEffect(() => {
     dispatch(getOrderThunk(orderNumber.id));
-  });
+  }, []);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [filteredIngredients, setFilteredIngredients] = useState<TIngredient[]>([]);

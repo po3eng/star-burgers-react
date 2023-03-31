@@ -23,13 +23,13 @@ const BurgerIngredient: FC<BurgerIngredientProps> = ({ ingredient, onClick, coun
   return (
     <div
       ref={drag}
-      className={classes.wrap}
+      className={classes.card}
       onClick={() => {
         onClick(ingredient);
       }}>
       <div className={`${classes.counterWraper} row`}>
         {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
-        <img  className={classes.image} src={ingredient.image} alt={ingredient.name} />
+        <img className={classes.image} src={ingredient.image} alt={ingredient.name} />
       </div>
       <div className="row p-1">
         <Price size="default" price={ingredient.price} />

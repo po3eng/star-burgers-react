@@ -26,7 +26,7 @@ const Bun: FC<TBunProps> = ({ type }) => {
 
   const position = type === "top" ? "(верх)" : "(низ)";
   return (
-    <div ref={drop}>
+    <div ref={drop} className="burger-constructor_bun">
       {bun && bun._id ? (
         <ConstructorElement
           type={type}

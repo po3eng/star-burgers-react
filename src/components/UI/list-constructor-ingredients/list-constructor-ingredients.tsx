@@ -23,7 +23,7 @@ const ListConstructorIngredients: FC = () => {
   });
 
   return (
-    <div ref={drop} className={`${classes.scrollWraper} custom-scroll`}>
+    <div ref={drop} className={`burger-constructor_main ${classes.scrollWraper} custom-scroll`}>
       {constructorIngredients.length > 0 ? (
         constructorIngredients.map((ingredient, idx) => (
           <Ingredient drag ingredient={ingredient} key={ingredient.id} index={idx} />
