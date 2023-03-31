@@ -12,7 +12,7 @@ const ProfilePage: FC = () => {
   const location = useLocation();
   
   useEffect(() => {
-    location.pathname == "/profile" && navigate("/profile/form");
+    location.pathname === "/profile" && navigate("/profile/form");
   }, [location]);
 
   const token = getCookie("refreshToken");
