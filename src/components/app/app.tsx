@@ -6,7 +6,7 @@ import AppHeader from "../app-header/app-header";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { getIngredientsThunk } from "../../services/actions/ingredients";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import BurgerRouter from "../burger-router/burger-router";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
@@ -21,7 +21,7 @@ const App: FC = () => {
   return (
     <>
       {preloaderShow && <Preloader />}
-      <BrowserRouter>
+      <HashRouter>
         <div className={classes.app}>
           <AppHeader />
           <main className={classes.content}>
@@ -30,7 +30,7 @@ const App: FC = () => {
             </DndProvider>
           </main>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };

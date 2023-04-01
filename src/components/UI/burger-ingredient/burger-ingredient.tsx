@@ -12,7 +12,7 @@ type BurgerIngredientProps = {
 };
 
 const BurgerIngredient: FC<BurgerIngredientProps> = ({ ingredient, onClick, count }) => {
-  const [{}, drag] = useDrag({
+  const [, drag] = useDrag({
     type: ingredient.type,
     item: { ...ingredient },
     collect: monitor => ({
@@ -23,7 +23,7 @@ const BurgerIngredient: FC<BurgerIngredientProps> = ({ ingredient, onClick, coun
   return (
     <div
       ref={drag}
-      className={classes.wrap}
+      className={classes.card}
       onClick={() => {
         onClick(ingredient);
       }}>

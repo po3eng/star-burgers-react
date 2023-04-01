@@ -52,7 +52,7 @@ const Order: FC = () => {
       });
     }
     return countersSet;
-  }, [currentOrder]);
+  }, [currentOrder, ingredients]);
 
   useEffect(() => {
     if (currentOrder) {
@@ -62,7 +62,7 @@ const Order: FC = () => {
       setFilteredIngredients(orderIgredients);
       setTotalPrice(getTotalPrice(orderIgredients));
     }
-  }, [currentOrder, ingredients]);
+  }, [currentOrder, ingredients, getTotalPrice]);
 
   return (
     currentOrder && (

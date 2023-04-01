@@ -1,8 +1,8 @@
 import { useState, useEffect, FC, SyntheticEvent } from "react";
 import classes from "./profile.module.css";
 import { EmailInput, PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TUser, updateUserDataThunk } from "../../../services/actions/auth";
-import useForm from "../../../hooks/useForm.js";
+import { updateUserDataThunk } from "../../../services/actions/auth";
+import useForm from "../../../hooks/useForm";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 
 const Profile: FC = () => {
@@ -19,7 +19,7 @@ const Profile: FC = () => {
     if (user && user.email && user.name) {
       setForm({ ...user, password: "" });
     }
-  }, [user]);
+  }, [user, setForm]);
 
   const handleChange = (e: SyntheticEvent) => {
     setIsActions(true);

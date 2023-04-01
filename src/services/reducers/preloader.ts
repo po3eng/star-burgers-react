@@ -5,7 +5,7 @@ type TPreloaderState = {
   preloaderShow: boolean;
 };
 
-const initialState: TPreloaderState = {
+export const initialState: TPreloaderState = {
   preloaderShow: false,
 };
 

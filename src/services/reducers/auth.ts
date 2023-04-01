@@ -13,10 +13,10 @@ import {
   GET_LOGOUT_SUCCESS,
   GET_REFRESH_TOKEN_FAILURE,
   GET_REFRESH_TOKEN_REQUEST,
+  GET_REFRESH_TOKEN_SUCCESS,
   GET_REGISTER_FAILURE,
   GET_REGISTER_REQUEST,
   GET_REGISTER_SUCCESS,
-  GET_REFRESH_TOKEN_SUCCESS,
   GET_RESET_FAILURE,
   GET_RESET_REQUEST,
   GET_RESET_SUCCESS,
@@ -30,7 +30,7 @@ import {
   CLEAR_USER,
 } from "../constants/auth";
 import { TAuthActions } from "../actions/auth";
-type TAuthState = {
+export type TAuthState = {
   user: TUser | null;
   authRequest: boolean;
   authSucces: boolean;
@@ -58,12 +58,14 @@ type TAuthState = {
 
   userRequest: boolean;
   userFailed: boolean;
+  userSuccess: boolean;
 
   refreshTokenRequest: boolean;
   refreshTokenFailed: boolean;
+  refreshTokenSuccess: boolean;
 };
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   user: null,
   authRequest: false,
   authSucces: false,
@@ -91,9 +93,11 @@ const initialState: TAuthState = {
 
   userRequest: false,
   userFailed: false,
+  userSuccess: false,
 
   refreshTokenRequest: false,
   refreshTokenFailed: false,
+  refreshTokenSuccess: false,
 };
 
 const updateTokensState = ({ accessToken, refreshToken }: TTokens) => {
@@ -180,6 +184,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
         ...state,
         userFailed: false,
         userRequest: false,
+        userSuccess: true,
         user: action.user,
       };
     }
@@ -189,6 +194,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
         ...state,
         refreshTokenFailed: false,
         refreshTokenRequest: true,
+        refreshTokenSuccess: false,
       };
     }
 
@@ -197,6 +203,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
         ...state,
         refreshTokenFailed: false,
         refreshTokenRequest: false,
+        refreshTokenSuccess: true,
       };
     }
 
@@ -204,18 +211,9 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
       return { ...state, refreshTokenFailed: true, refreshTokenRequest: false };
     }
 
-    case GET_USER_REQUEST: {
-      return {
-        ...state,
-        refreshTokenFailed: false,
-        refreshTokenRequest: true,
-      };
-    }
-
     case CLEAR_USER: {
       removeLocalStorage("accessToken");
       removeCookie("refreshToken");
-      console.log("logout");
       return { ...state, user: null };
     }
 
@@ -273,25 +271,25 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
     case GET_LOGOUT_REQUEST: {
       return {
         ...state,
-        updateRequest: true,
-        updateFailed: false,
-        updateSuccess: false,
+        logoutRequest: true,
+        logoutFailed: false,
+        logoutSuccess: false,
       };
     }
 
     case GET_LOGOUT_SUCCESS: {
       return {
         ...state,
-        updateRequest: false,
-        updateSuccess: true,
+        logoutRequest: false,
+        logoutSuccess: true,
       };
     }
 
     case GET_LOGOUT_FAILURE: {
       return {
         ...state,
-        updateRequest: false,
-        updateFailed: true,
+        logoutRequest: false,
+        logoutFailed: true,
       };
     }
 

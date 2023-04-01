@@ -9,7 +9,7 @@ import {
   SET_ORDER_REQUEST,
   SET_ORDER_FAILURE,
   CLEAR_ORDER,
-  SET_ORDER_SUCCES,
+  SET_ORDER_SUCCESS,
   SET_CURRENT_ORDER,
   CLEAR_CURRENT_ORDER,
   GET_ORDER_FAILURE,
@@ -17,7 +17,7 @@ import {
   GET_ORDER_SUCCES,
 } from "../constants/orders";
 export interface ISetOrderSuccess {
-  readonly type: typeof SET_ORDER_SUCCES;
+  readonly type: typeof SET_ORDER_SUCCESS;
   readonly order: number;
 }
 export interface ISetOrderRequest {
@@ -62,7 +62,7 @@ export type TOrderActions =
   | IGetOrderSuccess
   | IGetOrderRequest;
 
-export const setOrderSuccess = (order: number): ISetOrderSuccess => ({ type: SET_ORDER_SUCCES, order: order });
+export const setOrderSuccess = (order: number): ISetOrderSuccess => ({ type: SET_ORDER_SUCCESS, order: order });
 export const setOrderRequest = (): ISetOrderRequest => ({ type: SET_ORDER_REQUEST });
 export const setOrderFailure = (): ISetOrderFailure => ({ type: SET_ORDER_FAILURE });
 export const clearOrderNumber = (): IClearOrderNumber => ({ type: CLEAR_ORDER, order: null });
@@ -71,8 +71,6 @@ export const getOrderSuccess = (currentOrder: TOrder): IGetOrderSuccess => ({
   type: GET_ORDER_SUCCES,
   currentOrder: currentOrder,
 });
-
-
 
 export const getOrderRequest = (): IGetOrderRequest => ({ type: GET_ORDER_REQUEST });
 export const getOrderFailure = (): IGetOrderFailure => ({ type: GET_ORDER_FAILURE });
@@ -86,13 +84,12 @@ export const setCurrentOrder = (currentOrder: TOrder): ISetCurrentOrder => ({
 export const setOrderThunk: AppThunk = (orderIngredients: Array<TIngredient>) => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(setOrderRequest());
-  api
+  return api
     .setOrder(orderIngredients.map(item => item._id))
     .then(res => {
       if (res && res.success) {
         dispatch(setOrderSuccess(res.order.number));
       }
-      return res;
     })
     .then(() => dispatch(clearConstructor()))
     .catch(() => dispatch(setOrderFailure()))
@@ -102,7 +99,7 @@ export const setOrderThunk: AppThunk = (orderIngredients: Array<TIngredient>) =>
 export const getOrderThunk: AppThunk = (order: number) => (dispatch: AppDispatch) => {
   dispatch(showPreloader());
   dispatch(getOrderRequest());
-  api
+  return api
     .getOrderData(order)
     .then(res => {
       if (res && res.success) {

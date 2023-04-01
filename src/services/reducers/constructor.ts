@@ -13,7 +13,7 @@ type TConstructorState = {
   constructorIngredients: Array<TIngredient>;
   bun: TIngredient | null;
 };
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   constructorIngredients: [],
   bun: null,
 };
@@ -30,7 +30,7 @@ export const constructorReducer = (state = initialState, action: TConstructorAct
     case ADD_CONSTRUCTOR_INGREDIENT: {
       return {
         ...state,
-        constructorIngredients: [...state.constructorIngredients, action.ingredient],
+        constructorIngredients: [...state.constructorIngredients, { ...action.ingredient }],
       };
     }
 

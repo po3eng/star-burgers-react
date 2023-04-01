@@ -1,7 +1,7 @@
 import {
   SET_ORDER_REQUEST,
   SET_ORDER_FAILURE,
-  SET_ORDER_SUCCES,
+  SET_ORDER_SUCCESS,
   CLEAR_ORDER,
   CLEAR_CURRENT_ORDER,
   SET_CURRENT_ORDER,
@@ -16,16 +16,18 @@ type TOrderState = {
   order: number | null;
   orderRequest: boolean;
   orderFailed: boolean;
+  orderSuccess: boolean;
   getOrderRequest: boolean;
   getOrderFailed: boolean;
   getOrderSuccess: boolean;
   currentOrder: TOrder | null;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   order: null,
   orderRequest: false,
   orderFailed: false,
+  orderSuccess: false,
   getOrderRequest: false,
   getOrderFailed: false,
   getOrderSuccess: false,
@@ -49,11 +51,12 @@ export const orderReducer = (state = initialState, action: TOrderActions): TOrde
         orderFailed: true,
       };
     }
-    case SET_ORDER_SUCCES: {
+    case SET_ORDER_SUCCESS: {
       return {
         ...state,
         order: action.order,
-        orderRequest: true,
+        orderRequest: false,
+        orderSuccess: true,
         orderFailed: false,
       };
     }
@@ -70,7 +73,7 @@ export const orderReducer = (state = initialState, action: TOrderActions): TOrde
         currentOrder: action.currentOrder,
       };
     }
-    
+
     case GET_ORDER_SUCCES: {
       return {
         ...state,
